@@ -169,7 +169,7 @@ export default function Home() {
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
-                href="#collections"
+                href="/shop"
                 className="rounded-full bg-[#d7b56d] px-7 py-4 text-center text-xs font-semibold uppercase tracking-[0.12em] text-[#090807] transition hover:bg-[#ead69f]"
               >
                 Explore Collection
