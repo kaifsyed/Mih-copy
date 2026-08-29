@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getProducts, getCategories } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { whatsappLink } from "@/lib/whatsapp";
+import { HeroCarousel } from "@/components/home/hero-carousel";
 import {
   ArrowRightIcon,
   WhatsappIcon,
@@ -34,43 +35,8 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col">
-      {/* Hero */}
-      <section className="noir-deep relative overflow-hidden border-b border-gold/12">
-        <div className="container-luxe relative grid min-h-[68vh] items-center gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
-          <div>
-            <p className="eyebrow">MIH GEMS · For the love of gemstones</p>
-            <h1 className="mt-6 font-serif text-5xl leading-[1.05] text-ivory sm:text-6xl lg:text-7xl">
-              Discover the beauty of
-              <span className="block text-gold">genuine gems.</span>
-            </h1>
-            <p className="mt-7 max-w-xl text-base leading-relaxed text-muted">
-              Natural coloured gemstones, sterling silver jewellery and bespoke
-              creations — hand-selected with an eye for colour, character and
-              craftsmanship, and offered by personal enquiry.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/shop" className="btn btn-gold">
-                Shop Collection
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
-              <Link href="/custom-jewellery" className="btn btn-ghost">
-                Custom Jewellery
-              </Link>
-            </div>
-          </div>
-
-          {/* Cinematic gemstone motif (pure CSS — no fabricated imagery) */}
-          <div className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block">
-            <div className="absolute inset-0 glow-gold" />
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden border border-gold/20 bg-charcoal">
-              <div className="h-48 w-48 rotate-45 border border-gold/50 bg-gradient-to-br from-silver/30 via-gold/15 to-noir-deep" />
-              <span className="absolute bottom-8 left-0 right-0 text-center font-serif text-2xl tracking-[0.15em] text-ivory/70">
-                MIH GEMS
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero — premium multi-slide carousel */}
+      <HeroCarousel />
 
       {/* Trust badges */}
       <section className="border-b border-outline/12 bg-charcoal/40">
