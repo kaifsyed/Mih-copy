@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useWishlist, type WishlistItem } from "@/lib/wishlist";
+import { useHydrated } from "@/lib/use-hydrated";
 import { HeartIcon } from "@/components/ui/icons";
 
 type WishlistButtonProps = {
@@ -18,9 +18,8 @@ export default function WishlistButton({
 }: WishlistButtonProps) {
   const { isInWishlist, toggle } = useWishlist();
   // Avoid a hydration mismatch: localStorage-derived state only after mount.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const active = mounted && isInWishlist(product.slug);
+  const hydrated = useHydrated();
+  const active = hydrated && isInWishlist(product.slug);
 
   if (variant === "icon") {
     return (

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { useCart } from "@/lib/cart";
+import { useHydrated } from "@/lib/use-hydrated";
 import { BagIcon, CheckIcon } from "@/components/ui/icons";
 
 type AddToCartButtonProps = {
@@ -21,10 +21,9 @@ export default function AddToCartButton({
   className = "",
 }: AddToCartButtonProps) {
   const { isInCart, add } = useCart();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const hydrated = useHydrated();
 
-  const inCart = mounted && isInCart(product.slug);
+  const inCart = hydrated && isInCart(product.slug);
 
   if (inCart) {
     return (

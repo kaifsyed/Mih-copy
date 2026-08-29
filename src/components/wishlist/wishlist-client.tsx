@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useWishlist } from "@/lib/wishlist";
+import { useHydrated } from "@/lib/use-hydrated";
 import { formatPrice, isEnquiryOnly } from "@/lib/pricing";
 import { gemstoneGradient } from "@/lib/gemstone";
 import { whatsappLink, cartEnquiryMessage } from "@/lib/whatsapp";
@@ -15,10 +15,9 @@ import { HeartIcon, TrashIcon, WhatsappIcon } from "@/components/ui/icons";
 
 export default function WishlistClient() {
   const { items, remove } = useWishlist();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const hydrated = useHydrated();
 
-  if (!mounted) {
+  if (!hydrated) {
     return <div className="min-h-[40vh]" aria-hidden />;
   }
 

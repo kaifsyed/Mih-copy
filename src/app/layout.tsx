@@ -62,10 +62,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <ClerkProvider>
+          {/* Keyboard/screen-reader skip link — first focusable element. */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-noir"
+          >
+            Skip to content
+          </a>
           {/* SiteHeader/SiteFooter hide themselves on chromeless routes (admin,
               auth, and the self-contained homepage) — see chrome.ts. */}
           <SiteHeader />
-          <div className="flex flex-1 flex-col">{children}</div>
+          <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+            {children}
+          </div>
           <SiteFooter />
         </ClerkProvider>
       </body>

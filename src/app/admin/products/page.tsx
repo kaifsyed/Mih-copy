@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import Link from "next/link";
 import { normalizeProducts } from "@/lib/products";
 import type { PricingType, Product } from "@/lib/products";
 import { formatPrice, validatePricing } from "@/lib/pricing";
@@ -69,8 +68,6 @@ export default function AdminProductsPage() {
   const [message, setMessage] = useState("");
 
   async function loadProducts() {
-    setLoading(true);
-
     try {
       const response = await fetch("/api/admin/products", {
         cache: "no-store",
@@ -96,8 +93,36 @@ export default function AdminProductsPage() {
     }
   }
 
+  // Initial load. The fetch runs inside the effect so state is only updated in
+  // the async continuation (after await) — never synchronously in the effect
+  // body, which the React Compiler flags. Refetches after a save/delete reuse
+  // loadProducts() below.
   useEffect(() => {
-    loadProducts();
+    let active = true;
+    (async () => {
+      try {
+        const response = await fetch("/api/admin/products", {
+          cache: "no-store",
+        });
+        if (!response.ok) {
+          throw new Error(await readError(response, "Could not load products."));
+        }
+        const data = normalizeProducts(await response.json());
+        if (active) setProducts(data);
+      } catch (error) {
+        console.error(error);
+        if (active) {
+          setMessage(
+            error instanceof Error ? error.message : "Could not load products.",
+          );
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
   }, []);
 
   function updateForm(field: keyof typeof emptyForm, value: string) {

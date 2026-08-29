@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
+import { useHydrated } from "@/lib/use-hydrated";
 import { formatPrice, isEnquiryOnly } from "@/lib/pricing";
 import { gemstoneGradient } from "@/lib/gemstone";
 import { whatsappLink, cartEnquiryMessage } from "@/lib/whatsapp";
@@ -19,10 +19,9 @@ import {
 
 export default function CartClient() {
   const { items, count, setQty, remove, clear } = useCart();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const hydrated = useHydrated();
 
-  if (!mounted) {
+  if (!hydrated) {
     // Avoid hydration mismatch while localStorage is read on the client.
     return <div className="min-h-[40vh]" aria-hidden />;
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Product } from "@/lib/products";
 import { sortPriceValue } from "@/lib/pricing";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -122,10 +122,15 @@ export default function ShopClient({
     return list;
   }, [products, query, category, availability, priceMin, priceMax, sort]);
 
-  // Reset pagination whenever the result set changes.
-  useEffect(() => {
+  // Reset pagination whenever the result set changes. Comparing the previous
+  // value in state (the React "adjust state during render" pattern) avoids a
+  // setState-in-effect while staying compatible with the React Compiler.
+  const filterSig = `${query}|${category}|${availability}|${priceMin}|${priceMax}|${sort}`;
+  const [prevSig, setPrevSig] = useState(filterSig);
+  if (prevSig !== filterSig) {
+    setPrevSig(filterSig);
     setVisible(PAGE_SIZE);
-  }, [query, category, availability, priceMin, priceMax, sort]);
+  }
 
   const shown = filtered.slice(0, visible);
   const hasActiveFilters =

@@ -1,10 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import type { Product } from "@/lib/products";
 
 const STORAGE_KEY = "mih-gems-wishlist";
 const UPDATE_EVENT = "mih-gems-wishlist-updated";
+
+// Cached snapshot so useSyncExternalStore receives a referentially stable value
+// while the stored string is unchanged (a fresh array each read would loop).
+const EMPTY: WishlistItem[] = [];
+let cachedRaw: string | null = null;
+let cachedItems: WishlistItem[] = EMPTY;
 
 export type WishlistItem = Pick<
   Product,
@@ -26,19 +32,21 @@ export type WishlistItem = Pick<
 
 function readWishlist(): WishlistItem[] {
   if (typeof window === "undefined") {
-    return [];
+    return EMPTY;
   }
+
+  const raw = window.localStorage.getItem(STORAGE_KEY);
+  if (raw === cachedRaw) return cachedItems;
+  cachedRaw = raw;
 
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    cachedItems = Array.isArray(parsed) ? parsed : EMPTY;
   } catch (error) {
     console.error("Failed to read wishlist:", error);
-    return [];
+    cachedItems = EMPTY;
   }
+  return cachedItems;
 }
 
 function writeWishlist(items: WishlistItem[]) {
@@ -52,28 +60,29 @@ function writeWishlist(items: WishlistItem[]) {
   window.dispatchEvent(new Event(UPDATE_EVENT));
 }
 
+function subscribe(callback: () => void) {
+  window.addEventListener(UPDATE_EVENT, callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    window.removeEventListener(UPDATE_EVENT, callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
+function getServerSnapshot(): WishlistItem[] {
+  return EMPTY;
+}
+
 /**
  * Wishlist is intentionally browser-storage only, for both guests
  * and signed-in customers. It does not sync across devices.
  */
 export function useWishlist() {
-  const [items, setItems] = useState<WishlistItem[]>([]);
-
-  useEffect(() => {
-    setItems(readWishlist());
-
-    function handleUpdate() {
-      setItems(readWishlist());
-    }
-
-    window.addEventListener(UPDATE_EVENT, handleUpdate);
-    window.addEventListener("storage", handleUpdate);
-
-    return () => {
-      window.removeEventListener(UPDATE_EVENT, handleUpdate);
-      window.removeEventListener("storage", handleUpdate);
-    };
-  }, []);
+  const items = useSyncExternalStore(
+    subscribe,
+    readWishlist,
+    getServerSnapshot,
+  );
 
   const isInWishlist = useCallback(
     (slug: string) => items.some((item) => item.slug === slug),

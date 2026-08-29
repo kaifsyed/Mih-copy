@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { SignOutButton } from "@clerk/nextjs";
@@ -57,9 +58,9 @@ export default async function AdminLayout({
                 Sign out
               </button>
             </SignOutButton>
-            <a href="/" className="btn btn-ghost btn-sm">
+            <Link href="/" className="btn btn-ghost btn-sm">
               Back to website
-            </a>
+            </Link>
           </div>
         </div>
       </main>

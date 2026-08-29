@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/icons";
 import { useWishlist } from "@/lib/wishlist";
 import { useCart } from "@/lib/cart";
+import { useHydrated } from "@/lib/use-hydrated";
 import { whatsappLink } from "@/lib/whatsapp";
 import { isActivePath, isChromeless, PRIMARY_NAV } from "@/components/layout/chrome";
 
@@ -34,18 +35,20 @@ export function SiteHeader() {
   const { items: wishlistItems } = useWishlist();
   const { count: cartCount } = useCart();
 
-  const [mounted, setMounted] = useState(false);
+  const hydrated = useHydrated();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
 
-  useEffect(() => setMounted(true), []);
-
-  // Close overlays on navigation.
-  useEffect(() => {
-    setMenuOpen(false);
-    setSearchOpen(false);
-  }, [pathname]);
+  // Close overlays on navigation. Comparing the previous pathname in state (the
+  // React "adjust state during render" pattern) avoids a setState-in-effect and
+  // stays compatible with the React Compiler.
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    if (menuOpen) setMenuOpen(false);
+    if (searchOpen) setSearchOpen(false);
+  }
 
   // Lock body scroll while an overlay is open + Escape to close.
   useEffect(() => {
@@ -66,8 +69,8 @@ export function SiteHeader() {
 
   if (isChromeless(pathname)) return null;
 
-  const wishlistCount = mounted ? wishlistItems.length : 0;
-  const cartBadge = mounted ? cartCount : 0;
+  const wishlistCount = hydrated ? wishlistItems.length : 0;
+  const cartBadge = hydrated ? cartCount : 0;
 
   function submitSearch(e: React.FormEvent) {
     e.preventDefault();
