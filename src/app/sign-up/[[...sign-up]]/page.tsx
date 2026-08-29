@@ -1,9 +1,13 @@
 import { SignUp } from "@clerk/nextjs";
+import { AuthShell, authAppearance } from "@/components/auth/auth-shell";
 
 export default function SignUpPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <SignUp />
-    </div>
+    <AuthShell
+      heading="Create Account"
+      subheading="Join MIH GEMS to save pieces and enquire faster"
+    >
+      <SignUp appearance={authAppearance} />
+    </AuthShell>
   );
 }

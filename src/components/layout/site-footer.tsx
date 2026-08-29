@@ -3,9 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/brand/logo";
-import { WhatsappIcon, ArrowRightIcon } from "@/components/ui/icons";
+import {
+  WhatsappIcon,
+  ArrowRightIcon,
+  InstagramIcon,
+  FacebookIcon,
+} from "@/components/ui/icons";
 import { whatsappLink } from "@/lib/whatsapp";
+import { SOCIAL_LINKS } from "@/lib/site";
 import { isChromeless, PRIMARY_NAV } from "@/components/layout/chrome";
+
+const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+} as const;
 
 const CUSTOMER_LINKS = [
   { href: "/wishlist", label: "Wishlist" },
@@ -40,6 +51,25 @@ export function SiteFooter() {
             <WhatsappIcon className="h-4 w-4" />
             Enquire on WhatsApp
           </a>
+
+          {/* Social profiles */}
+          <div className="flex items-center gap-3 pt-1">
+            {SOCIAL_LINKS.map((social) => {
+              const Icon = SOCIAL_ICONS[social.key];
+              return (
+                <a
+                  key={social.key}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="inline-flex h-10 w-10 items-center justify-center border border-gold/25 text-muted transition-colors hover:border-gold/60 hover:text-gold"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              );
+            })}
+          </div>
         </div>
 
         {/* Explore */}

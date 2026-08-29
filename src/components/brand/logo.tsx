@@ -10,24 +10,26 @@ type LogoProps = {
 };
 
 /**
- * Official MIH GEMS logo (public/logo.png). The asset is a silver "MH"
- * monogram + gold diamond on a near-black field, so it sits seamlessly on the
- * noir surface.
+ * Official MIH GEMS logo (public/logo-header.png). The asset is the horizontal
+ * silver "MH" monogram + gold diamond lockup with the "MIH GEMS · Gems &
+ * Jewellery" wordmark, exported with a TRANSPARENT background so it sits
+ * cleanly on the noir surface (the older public/logo.png had a baked-in black
+ * background that showed as a dark box on lighter panels).
  */
 export function Logo({
   className = "",
-  imgClassName = "h-11 w-auto md:h-14",
+  imgClassName = "h-12 w-auto md:h-16",
   priority = false,
   href = "/",
 }: LogoProps) {
   const img = (
     <Image
-      src="/logo.png"
+      src="/logo-header.png"
       alt="MIH GEMS — Gems & Jewellery"
-      width={300}
-      height={200}
+      width={1821}
+      height={864}
       priority={priority}
-      sizes="(max-width: 768px) 130px, 180px"
+      sizes="(max-width: 768px) 200px, 320px"
       className={`w-auto object-contain ${imgClassName}`}
     />
   );

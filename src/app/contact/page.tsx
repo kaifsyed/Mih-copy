@@ -12,7 +12,15 @@ import {
   ArrowRightIcon,
   SparkleIcon,
   DiamondIcon,
+  InstagramIcon,
+  FacebookIcon,
 } from "@/components/ui/icons";
+import { SOCIAL_LINKS } from "@/lib/site";
+
+const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+} as const;
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -116,6 +124,30 @@ export default function ContactPage() {
                 </li>
               ) : null}
             </ul>
+
+            {/* Social profiles */}
+            <div className="mt-7 border-t border-outline/12 pt-6">
+              <span className="block text-[0.62rem] uppercase tracking-[0.18em] text-muted">
+                Follow us
+              </span>
+              <div className="mt-3 flex items-center gap-3">
+                {SOCIAL_LINKS.map((social) => {
+                  const Icon = SOCIAL_ICONS[social.key];
+                  return (
+                    <a
+                      key={social.key}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="inline-flex h-10 w-10 items-center justify-center border border-gold/30 text-ivory transition-colors hover:border-gold/60 hover:text-gold"
+                    >
+                      <Icon className="h-5 w-5" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {CONTACT.address || CONTACT.hours ? (

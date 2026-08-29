@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Logo } from "@/components/brand/logo";
 import { whatsappLink } from "@/lib/whatsapp";
 import { ChevronRightIcon, WhatsappIcon } from "@/components/ui/icons";
 
@@ -14,42 +14,46 @@ type Slide = {
   title: string;
   accent: string;
   copy: string;
+  image: string;
   primary: Cta;
   secondary?: Cta;
-  motif: string;
 };
 
 const INTERVAL = 6500;
 
+// Slides pair the supplied MIH GEMS photography (public/hero-*.png) with copy.
+// Each image has its subject on the right, so the legibility scrim + text sit
+// on the left. No fabricated prices, product data or business claims.
 const SLIDES: Slide[] = [
   {
     key: "signature",
-    eyebrow: "MIH GEMS · Signature Gemstones",
+    eyebrow: "MIH GEMS · Signature Collection",
     title: "Discover the beauty of",
     accent: "genuine gems.",
-    copy: "Natural, hand-selected coloured gemstones — chosen for colour, character and craftsmanship, and offered by personal enquiry.",
+    copy: "Natural, hand-selected coloured gemstones and fine jewellery — chosen for colour, character and craftsmanship, and offered by personal enquiry.",
+    image: "/hero-1.png",
     primary: { label: "Shop Collection", href: "/shop" },
     secondary: { label: "Custom Jewellery", href: "/custom-jewellery" },
-    motif: "from-silver/30 via-gold/15 to-noir-deep",
   },
   {
     key: "birthstones",
-    eyebrow: "Personal Gems",
+    eyebrow: "Personal Gems & Birthstones",
     title: "Find the stone that is",
     accent: "truly yours.",
     copy: "From sapphires to emeralds, explore natural gemstones and personal birthstones — enquire for availability, certification and pricing.",
+    image: "/hero-2.png",
     primary: { label: "Explore Gemstones", href: "/shop" },
     secondary: { label: "Enquire on WhatsApp", href: whatsappLink(), whatsapp: true },
-    motif: "from-gold/25 via-metallic/15 to-noir-deep",
   },
   {
     key: "custom",
     eyebrow: "Jewellery, your way",
     title: "Start with a stone.",
     accent: "Finish with something yours.",
-    copy: "Have a gemstone already, or a particular design in mind? We'll help shape it into a piece that feels personal.",
+    copy: "Have a gemstone already, or a particular design in mind? We'll help shape it into a bespoke piece that feels personal.",
+    image: "/hero-3.png",
     primary: { label: "Discuss a Custom Piece", href: "/custom-jewellery" },
-    motif: "from-champagne/20 via-gold/10 to-noir-deep",
+    secondary: { label: "View the Collection", href: "/shop" },
   },
   {
     key: "wholesale",
@@ -57,23 +61,29 @@ const SLIDES: Slide[] = [
     title: "Sourcing gemstones",
     accent: "at scale.",
     copy: "For retailers and jewellers — enquire about wholesale gemstone sourcing tailored to your requirements.",
+    image: "/hero-4.png",
     primary: { label: "Wholesale Enquiries", href: "/wholesale" },
-    motif: "from-silver/25 via-outline/15 to-noir-deep",
+    secondary: { label: "About MIH GEMS", href: "/about" },
   },
 ];
 
+
 function CtaLink({ cta, gold }: { cta: Cta; gold: boolean }) {
-  const className = `btn ${gold ? "btn-gold" : "btn-ghost"}`;
   if (cta.whatsapp) {
     return (
-      <a href={cta.href} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">
+      <a
+        href={cta.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-whatsapp"
+      >
         <WhatsappIcon className="h-4 w-4" />
         {cta.label}
       </a>
     );
   }
   return (
-    <Link href={cta.href} className={className}>
+    <Link href={cta.href} className={`btn ${gold ? "btn-gold" : "btn-ghost"}`}>
       {cta.label}
       {gold ? <ChevronRightIcon className="h-4 w-4" /> : null}
     </Link>
@@ -86,8 +96,6 @@ export function HeroCarousel() {
   const count = SLIDES.length;
 
   // Autoplay, honouring prefers-reduced-motion and pausing on interaction.
-  // setState runs in the timer callback (not synchronously in the effect body),
-  // so this stays compatible with the React Compiler.
   useEffect(() => {
     if (paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -100,7 +108,7 @@ export function HeroCarousel() {
 
   return (
     <section
-      className="noir-deep relative overflow-hidden border-b border-gold/12"
+      className="relative overflow-hidden border-b border-gold/12 bg-noir-deep"
       aria-roledescription="carousel"
       aria-label="MIH GEMS featured highlights"
       onMouseEnter={() => setPaused(true)}
@@ -108,7 +116,10 @@ export function HeroCarousel() {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative min-h-[72vh] lg:min-h-[80vh]">
+      {/* Fixed min-heights + centred content with generous padding guarantee
+          the eyebrow, heading, copy and CTAs always sit inside the hero and
+          never clip into the following section at any breakpoint. */}
+      <div className="relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[44rem]">
         {SLIDES.map((slide, i) => {
           const active = i === index;
           return (
@@ -120,38 +131,43 @@ export function HeroCarousel() {
               aria-hidden={!active}
               className={`absolute inset-0 transition-opacity duration-[900ms] ease-out motion-reduce:transition-none ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
             >
-              <div className="container-luxe relative grid h-full min-h-[72vh] items-center gap-12 py-20 lg:min-h-[80vh] lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
-                <div className={`transition-all duration-700 motion-reduce:transition-none ${active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}>
+              {/* Background photography — subject sits on the right */}
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover object-right"
+              />
+              {/* Legibility scrims — darken the left where copy sits */}
+              <div className="absolute inset-0 bg-gradient-to-r from-noir-deep via-noir-deep/85 to-noir-deep/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-noir-deep/85 via-transparent to-noir-deep/40" />
+
+              {/* Content */}
+              <div className="container-luxe relative flex h-full min-h-[34rem] flex-col justify-center py-16 sm:min-h-[36rem] sm:py-20 lg:min-h-[44rem] lg:py-28">
+                <div
+                  className={`max-w-xl transition-all duration-700 motion-reduce:transition-none ${active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
+                >
                   <p className="eyebrow">{slide.eyebrow}</p>
-                  <h1 className="mt-6 font-serif text-5xl leading-[1.05] text-ivory sm:text-6xl lg:text-7xl">
+                  <h1 className="mt-5 font-serif text-4xl leading-[1.08] text-ivory sm:text-5xl lg:text-6xl">
                     {slide.title}
                     <span className="block text-gold">{slide.accent}</span>
                   </h1>
-                  <p className="mt-7 max-w-xl text-base leading-relaxed text-muted">
+                  <p className="mt-6 max-w-lg text-sm leading-relaxed text-ivory/80 sm:text-base">
                     {slide.copy}
                   </p>
-                  <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
                     <CtaLink cta={slide.primary} gold />
                     {slide.secondary ? (
                       <CtaLink cta={slide.secondary} gold={false} />
                     ) : null}
                   </div>
                 </div>
-
-                <div className="relative mx-auto hidden aspect-[4/5] w-full max-w-md lg:block">
-                  <div className="absolute inset-0 glow-gold" />
-                  <div className="relative flex h-full w-full items-center justify-center overflow-hidden border border-gold/20 bg-charcoal">
-                    <div className={`h-48 w-48 rotate-45 border border-gold/50 bg-gradient-to-br ${slide.motif}`} />
-                    <span className="absolute inset-x-0 bottom-8 flex justify-center">
-                      <Logo href={null} imgClassName="h-12 w-auto opacity-80" />
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
           );
         })}
-
         {/* Prev / next controls */}
         <button
           type="button"
@@ -184,7 +200,7 @@ export function HeroCarousel() {
               aria-selected={i === index}
               aria-label={`Show slide ${i + 1}: ${slide.eyebrow}`}
               onClick={() => setIndex(i)}
-              className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-gold" : "w-2 bg-ivory/30 hover:bg-ivory/60"}`}
+              className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-gold" : "w-2 bg-ivory/40 hover:bg-ivory/70"}`}
             />
           ))}
         </div>
@@ -192,3 +208,4 @@ export function HeroCarousel() {
     </section>
   );
 }
+

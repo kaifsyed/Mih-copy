@@ -1,9 +1,13 @@
 import { SignIn } from "@clerk/nextjs";
+import { AuthShell, authAppearance } from "@/components/auth/auth-shell";
 
 export default function SignInPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <SignIn />
-    </div>
+    <AuthShell
+      heading="Welcome Back"
+      subheading="Sign in to your MIH GEMS account"
+    >
+      <SignIn appearance={authAppearance} />
+    </AuthShell>
   );
 }
