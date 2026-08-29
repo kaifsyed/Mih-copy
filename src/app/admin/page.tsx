@@ -1,11 +1,18 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { isAdmin } from "@/lib/admin";
 
 export default async function AdminPage() {
   const { userId } = await auth();
 
   if (!userId) {
     redirect("/sign-in?redirect_url=/admin");
+  }
+
+  // Defense in depth: the layout already gates /admin, but this page must not
+  // rely on a parent to be safe on its own.
+  if (!isAdmin(userId)) {
+    redirect("/");
   }
 
   return (
@@ -41,7 +48,7 @@ export default async function AdminPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2">
           <a
             href="/admin/products"
             className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
@@ -54,17 +61,6 @@ export default async function AdminPage() {
           </a>
 
           <a
-            href="/admin/categories"
-            className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
-          >
-            <p className="text-3xl">◈</p>
-            <h2 className="mt-5 text-lg">Categories</h2>
-            <p className="mt-2 text-sm text-[#81786d]">
-              Organise your collections
-            </p>
-          </a>
-
-          <a
             href="/admin/enquiries"
             className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
           >
@@ -72,17 +68,6 @@ export default async function AdminPage() {
             <h2 className="mt-5 text-lg">Enquiries</h2>
             <p className="mt-2 text-sm text-[#81786d]">
               Manage customer enquiries
-            </p>
-          </a>
-
-          <a
-            href="/admin/customers"
-            className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
-          >
-            <p className="text-3xl">👤</p>
-            <h2 className="mt-5 text-lg">Customers</h2>
-            <p className="mt-2 text-sm text-[#81786d]">
-              View registered customers
             </p>
           </a>
         </div>

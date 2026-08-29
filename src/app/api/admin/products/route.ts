@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { validatePricing } from "@/lib/pricing";
+import { validateProductImage } from "@/lib/product-image";
 
 export const runtime = "nodejs";
 
@@ -100,6 +101,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: pricing.error }, { status: 400 });
     }
 
+    // Validate the upload BEFORE creating the row, so a rejected image cannot
+    // leave a half-created product behind.
+    const imageCheck = await validateProductImage(image);
+
+    if (!imageCheck.ok) {
+      return NextResponse.json(
+        { error: imageCheck.error },
+        { status: 400 }
+      );
+    }
+
+    const validatedImage = imageCheck.image;
+
     const slug = createSlug(name);
 
     const { data: product, error: productError } =
@@ -135,28 +149,15 @@ export async function POST(request: Request) {
       );
     }
 
-    if (
-      image instanceof File &&
-      image.size > 0
-    ) {
-      const extension =
-        image.name
-          .split(".")
-          .pop()
-          ?.toLowerCase() || "jpg";
-
+    if (validatedImage) {
       const filePath =
-        `products/${product.id}/main.${extension}`;
-
-      const buffer = Buffer.from(
-        await image.arrayBuffer()
-      );
+        `products/${product.id}/main.${validatedImage.extension}`;
 
       const { error: uploadError } =
         await supabaseAdmin.storage
           .from("Product-images")
-          .upload(filePath, buffer, {
-            contentType: image.type,
+          .upload(filePath, validatedImage.buffer, {
+            contentType: validatedImage.contentType,
             upsert: true,
           });
 

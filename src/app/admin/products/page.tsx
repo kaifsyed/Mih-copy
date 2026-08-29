@@ -2,21 +2,21 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { normalizeProducts } from "@/lib/products";
+import type { PricingType, Product } from "@/lib/products";
+import { formatPrice, validatePricing } from "@/lib/pricing";
 
-type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  category: string;
-  detail: string | null;
-  carat: string | null;
-  status: "Available" | "Enquire";
-  description: string | null;
-  color: "blue" | "red" | "green" | null;
-  image_url: string | null;
-  created_at: string;
-};
+/**
+ * Admin product management.
+ *
+ * Every write goes through /api/admin/products, never through the browser
+ * Supabase client. That is not a style preference: the publishable key is
+ * shipped to every visitor, and `products` is now RLS-protected with a
+ * SELECT-only public policy (supabase/migrations/0002_products_rls.sql), so
+ * browser writes are rejected by the database. The API routes authenticate with
+ * Clerk, authorize against ADMIN_USER_IDS, validate the image, and only then use
+ * the service-role key server-side.
+ */
 
 const emptyForm = {
   name: "",
@@ -26,15 +26,35 @@ const emptyForm = {
   status: "Enquire" as "Available" | "Enquire",
   description: "",
   color: "blue" as "blue" | "red" | "green",
+  // Pricing must be part of this form. The API validates pricing on every
+  // PATCH, so a form that omitted these fields would reset each product to
+  // "negotiable" and wipe its price on every save.
+  pricing_type: "negotiable" as PricingType,
+  price: "",
+  price_min: "",
+  price_max: "",
 };
 
-function createSlug(name: string) {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+/** Reads an { error } message off a failed API response, without trusting it. */
+async function readError(
+  response: Response,
+  fallback: string
+): Promise<string> {
+  try {
+    const body: unknown = await response.json();
+
+    if (body && typeof body === "object" && "error" in body) {
+      const value = (body as { error: unknown }).error;
+
+      if (typeof value === "string" && value.trim()) {
+        return value;
+      }
+    }
+  } catch {
+    // No JSON body — fall through to the generic message.
+  }
+
+  return fallback;
 }
 
 export default function AdminProductsPage() {
@@ -51,20 +71,29 @@ export default function AdminProductsPage() {
   async function loadProducts() {
     setLoading(true);
 
-    const { data, error } = await supabase
-      .from("products")
-      .select("*")
-      .order("created_at", { ascending: false });
+    try {
+      const response = await fetch("/api/admin/products", {
+        cache: "no-store",
+      });
 
-    if (error) {
+      if (!response.ok) {
+        throw new Error(
+          await readError(response, "Could not load products.")
+        );
+      }
+
+      setProducts(normalizeProducts(await response.json()));
+    } catch (error) {
       console.error(error);
-      setMessage("Could not load products.");
-      setLoading(false);
-      return;
-    }
 
-    setProducts(data ?? []);
-    setLoading(false);
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Could not load products."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -110,6 +139,12 @@ export default function AdminProductsPage() {
       status: product.status,
       description: product.description ?? "",
       color: product.color ?? "blue",
+      pricing_type: product.pricing_type ?? "negotiable",
+      price: product.price === null ? "" : String(product.price),
+      price_min:
+        product.price_min === null ? "" : String(product.price_min),
+      price_max:
+        product.price_max === null ? "" : String(product.price_max),
     });
 
     setSelectedImage(null);
@@ -118,26 +153,31 @@ export default function AdminProductsPage() {
     setShowForm(true);
   }
 
-  async function uploadImage(file: File, productId: string) {
-    const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const filePath = `${productId}-${Date.now()}.${extension}`;
+  /**
+   * Builds the multipart payload the admin API expects. The image is sent as a
+   * file part and validated server-side (MIME allowlist, 5 MB cap, magic-byte
+   * check) — the browser never talks to Storage directly.
+   */
+  function buildFormData() {
+    const data = new FormData();
 
-    const { error: uploadError } = await supabase.storage
-      .from("Product-images")
-      .upload(filePath, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+    data.set("name", form.name.trim());
+    data.set("category", form.category.trim());
+    data.set("detail", form.detail.trim());
+    data.set("carat", form.carat.trim());
+    data.set("status", form.status);
+    data.set("description", form.description.trim());
+    data.set("color", form.color);
+    data.set("pricing_type", form.pricing_type);
+    data.set("price", form.price.trim());
+    data.set("price_min", form.price_min.trim());
+    data.set("price_max", form.price_max.trim());
 
-    if (uploadError) {
-      throw uploadError;
+    if (selectedImage) {
+      data.set("image", selectedImage);
     }
 
-    const { data } = supabase.storage
-      .from("Product-images")
-      .getPublicUrl(filePath);
-
-    return data.publicUrl;
+    return data;
   }
 
   async function handleSaveProduct(event: FormEvent<HTMLFormElement>) {
@@ -148,78 +188,45 @@ export default function AdminProductsPage() {
       return;
     }
 
+    // Same validator the API uses, so pricing mistakes are caught before an
+    // image is uploaded rather than after.
+    const pricing = validatePricing({
+      pricing_type: form.pricing_type,
+      price: form.price,
+      price_min: form.price_min,
+      price_max: form.price_max,
+    });
+
+    if (!pricing.ok) {
+      setMessage(pricing.error);
+      return;
+    }
+
     setSaving(true);
     setMessage("");
 
     try {
-      if (editingProduct) {
-        let imageUrl = editingProduct.image_url;
-
-        if (selectedImage) {
-          imageUrl = await uploadImage(selectedImage, editingProduct.id);
-        }
-
-        const { error } = await supabase
-          .from("products")
-          .update({
-            name: form.name.trim(),
-            slug: createSlug(form.name),
-            category: form.category.trim(),
-            detail: form.detail.trim() || null,
-            carat: form.carat.trim() || null,
-            status: form.status,
-            description: form.description.trim() || null,
-            color: form.color,
-            image_url: imageUrl,
+      const response = editingProduct
+        ? await fetch(`/api/admin/products/${editingProduct.id}`, {
+            method: "PATCH",
+            body: buildFormData(),
           })
-          .eq("id", editingProduct.id);
+        : await fetch("/api/admin/products", {
+            method: "POST",
+            body: buildFormData(),
+          });
 
-        if (error) {
-          throw error;
-        }
-
-        setMessage("Product updated successfully.");
-      } else {
-        const slug = createSlug(form.name);
-
-        const { data: newProduct, error } = await supabase
-          .from("products")
-          .insert({
-            slug,
-            name: form.name.trim(),
-            category: form.category.trim(),
-            detail: form.detail.trim() || null,
-            carat: form.carat.trim() || null,
-            status: form.status,
-            description: form.description.trim() || null,
-            color: form.color,
-          })
-          .select()
-          .single();
-
-        if (error) {
-          throw error;
-        }
-
-        let imageUrl: string | null = null;
-
-        if (selectedImage && newProduct) {
-          imageUrl = await uploadImage(selectedImage, newProduct.id);
-
-          const { error: imageUpdateError } = await supabase
-            .from("products")
-            .update({
-              image_url: imageUrl,
-            })
-            .eq("id", newProduct.id);
-
-          if (imageUpdateError) {
-            throw imageUpdateError;
-          }
-        }
-
-        setMessage("Product added successfully.");
+      if (!response.ok) {
+        throw new Error(
+          await readError(response, "Could not save the product.")
+        );
       }
+
+      setMessage(
+        editingProduct
+          ? "Product updated successfully."
+          : "Product added successfully."
+      );
 
       setForm(emptyForm);
       setEditingProduct(null);
@@ -250,14 +257,16 @@ export default function AdminProductsPage() {
       return;
     }
 
-    const { error } = await supabase
-      .from("products")
-      .delete()
-      .eq("id", id);
+    // The API deletes the Storage image first and only then the row, so a
+    // failure here leaves the product intact rather than orphaning files.
+    const response = await fetch(`/api/admin/products/${id}`, {
+      method: "DELETE",
+    });
 
-    if (error) {
-      console.error(error);
-      setMessage(error.message);
+    if (!response.ok) {
+      setMessage(
+        await readError(response, "Could not delete the product.")
+      );
       return;
     }
 
@@ -355,6 +364,16 @@ export default function AdminProductsPage() {
                   className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
                   required
                 />
+
+                {editingProduct && (
+                  <span className="mt-2 block text-xs text-[#6f675d]">
+                    The public web address stays{" "}
+                    <span className="text-[#8f8678]">
+                      /shop/{editingProduct.slug}
+                    </span>{" "}
+                    so existing links keep working.
+                  </span>
+                )}
               </label>
 
               <label className="block">
@@ -444,6 +463,97 @@ export default function AdminProductsPage() {
                 </select>
               </label>
 
+              <label className="block">
+                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                  Pricing Mode
+                </span>
+
+                <select
+                  value={form.pricing_type}
+                  onChange={(event) =>
+                    updateForm(
+                      "pricing_type",
+                      event.target.value as PricingType
+                    )
+                  }
+                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                >
+                  <option value="negotiable">
+                    Price on Enquiry / Negotiable
+                  </option>
+                  <option value="fixed">Fixed Price</option>
+                  <option value="range">Price Range</option>
+                </select>
+
+                <span className="mt-2 block text-xs text-[#6f675d]">
+                  Leave on Price on Enquiry unless you have a real figure to
+                  publish.
+                </span>
+              </label>
+
+              {form.pricing_type === "fixed" && (
+                <label className="block">
+                  <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                    Fixed Price (₹) *
+                  </span>
+
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    inputMode="numeric"
+                    value={form.price}
+                    onChange={(event) =>
+                      updateForm("price", event.target.value)
+                    }
+                    placeholder="Amount in ₹"
+                    className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  />
+                </label>
+              )}
+
+              {form.pricing_type === "range" && (
+                <>
+                  <label className="block">
+                    <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                      Minimum Price (₹) *
+                    </span>
+
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      inputMode="numeric"
+                      value={form.price_min}
+                      onChange={(event) =>
+                        updateForm("price_min", event.target.value)
+                      }
+                      placeholder="From"
+                      className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                      Maximum Price (₹) *
+                    </span>
+
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      inputMode="numeric"
+                      value={form.price_max}
+                      onChange={(event) =>
+                        updateForm("price_max", event.target.value)
+                      }
+                      placeholder="To"
+                      className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                    />
+                  </label>
+                </>
+              )}
+
               <label className="block sm:col-span-2">
                 <span className="text-xs uppercase tracking-wider text-[#81786d]">
                   Product Image
@@ -457,6 +567,10 @@ export default function AdminProductsPage() {
                   }
                   className="mt-2 block w-full text-sm text-[#a59b8d] file:mr-4 file:rounded-full file:border-0 file:bg-[#d7b56d] file:px-5 file:py-2 file:text-xs file:font-semibold file:text-[#0b0a09]"
                 />
+
+                <span className="mt-2 block text-xs text-[#6f675d]">
+                  JPEG, PNG or WebP, up to 5 MB.
+                </span>
 
                 {imagePreview && (
                   <div className="mt-5">
@@ -521,10 +635,11 @@ export default function AdminProductsPage() {
         )}
 
         <div className="mt-12 overflow-hidden rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d]">
-          <div className="hidden grid-cols-[2fr_1.2fr_1fr_1fr_auto] gap-6 border-b border-[#c9a45c]/10 px-6 py-4 text-xs uppercase tracking-wider text-[#81786d] md:grid">
+          <div className="hidden grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] gap-6 border-b border-[#c9a45c]/10 px-6 py-4 text-xs uppercase tracking-wider text-[#81786d] md:grid">
             <span>Product</span>
             <span>Category</span>
             <span>Carat</span>
+            <span>Price</span>
             <span>Status</span>
             <span>Actions</span>
           </div>
@@ -547,7 +662,7 @@ export default function AdminProductsPage() {
             products.map((product) => (
               <div
                 key={product.id}
-                className="grid gap-5 border-b border-[#c9a45c]/10 px-6 py-6 last:border-b-0 md:grid-cols-[2fr_1.2fr_1fr_1fr_auto] md:items-center md:gap-6"
+                className="grid gap-5 border-b border-[#c9a45c]/10 px-6 py-6 last:border-b-0 md:grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] md:items-center md:gap-6"
               >
                 <div className="flex items-center gap-4">
                   {product.image_url ? (
@@ -579,6 +694,10 @@ export default function AdminProductsPage() {
 
                 <p className="text-sm text-[#a59b8d]">
                   {product.carat || "—"}
+                </p>
+
+                <p className="text-sm text-[#a59b8d]">
+                  {formatPrice(product)}
                 </p>
 
                 <span

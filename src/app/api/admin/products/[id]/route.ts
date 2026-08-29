@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { validatePricing } from "@/lib/pricing";
+import { validateProductImage } from "@/lib/product-image";
 
 export const runtime = "nodejs";
 
@@ -74,6 +75,17 @@ export async function PATCH(
       return NextResponse.json({ error: pricing.error }, { status: 400 });
     }
 
+    const imageCheck = await validateProductImage(image);
+
+    if (!imageCheck.ok) {
+      return NextResponse.json(
+        { error: imageCheck.error },
+        { status: 400 }
+      );
+    }
+
+    const validatedImage = imageCheck.image;
+
     const updateData: Record<string, string | number | null> = {
       name,
       category: category || null,
@@ -85,28 +97,18 @@ export async function PATCH(
       ...pricing.value,
     };
 
-    const hasNewImage =
-      image instanceof File && image.size > 0;
-
     let newImagePath: string | null = null;
     let newImageUrl: string | null = null;
 
-    if (hasNewImage) {
-      const extension =
-        image.name.split(".").pop()?.toLowerCase() || "jpg";
-
+    if (validatedImage) {
       newImagePath =
-        `products/${id}/main.${extension}`;
-
-      const buffer = Buffer.from(
-        await image.arrayBuffer()
-      );
+        `products/${id}/main.${validatedImage.extension}`;
 
       const { error: uploadError } =
         await supabaseAdmin.storage
           .from("Product-images")
-          .upload(newImagePath, buffer, {
-            contentType: image.type,
+          .upload(newImagePath, validatedImage.buffer, {
+            contentType: validatedImage.contentType,
             upsert: true,
           });
 

@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { products } from "@/lib/products";
+// TODO(Phase 4): replace with getProducts() from "@/lib/products".
+import { legacyProducts as products } from "@/lib/legacy-products";
 
 const whatsappNumber = "919663140305";
 

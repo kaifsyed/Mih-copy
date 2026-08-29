@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { products } from "@/lib/products";
+// TODO(Phase 4): replace with getProductBySlug() from "@/lib/products".
+import { legacyProducts as products } from "@/lib/legacy-products";
 
 type ProductPageProps = {
   params: Promise<{

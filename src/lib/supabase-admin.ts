@@ -1,8 +1,11 @@
+import "server-only";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Server-only Supabase client using the service-role key. NEVER import this
- * from client components — it bypasses RLS.
+ * Server-only Supabase client using the service-role key. It bypasses RLS, so
+ * it must never reach the browser — the `server-only` import above turns any
+ * accidental import from a client component into a build-time error rather than
+ * a leaked credential.
  *
  * The client is created lazily on first use so that importing this module
  * (which Next.js does while collecting page data during `next build`) never
