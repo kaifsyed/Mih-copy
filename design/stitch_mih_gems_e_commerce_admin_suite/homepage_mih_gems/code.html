@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MIH GEMS - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-secondary-container": "#342800",
+                      "surface-variant": "#34352e",
+                      "on-primary-fixed": "#1c1b1b",
+                      "tertiary-container": "#0a0a0a",
+                      "tertiary-fixed": "#e5e2e1",
+                      "on-primary": "#313030",
+                      "error-container": "#93000a",
+                      "surface": "#13140d",
+                      "on-surface-variant": "#c4c7c7",
+                      "primary": "#c9c6c5",
+                      "outline": "#8e9192",
+                      "on-secondary": "#3c2f00",
+                      "surface-container-high": "#292b23",
+                      "on-surface": "#e4e3d7",
+                      "primary-fixed": "#e5e2e1",
+                      "on-tertiary-container": "#7a7979",
+                      "on-primary-fixed-variant": "#474646",
+                      "primary-container": "#0a0a0a",
+                      "inverse-surface": "#e4e3d7",
+                      "secondary-fixed": "#ffe088",
+                      "on-error": "#690005",
+                      "on-background": "#e4e3d7",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-bright": "#393a32",
+                      "surface-container-low": "#1b1c15",
+                      "secondary-container": "#af8d11",
+                      "tertiary": "#c8c6c5",
+                      "secondary": "#e9c349",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c9c6c5",
+                      "background": "#13140d",
+                      "surface-container-lowest": "#0d0f08",
+                      "outline-variant": "#444748",
+                      "surface-dim": "#13140d",
+                      "inverse-on-surface": "#303129",
+                      "secondary-fixed-dim": "#e9c349",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "inverse-primary": "#5f5e5e",
+                      "on-primary-container": "#7b7979",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "on-tertiary": "#313030",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "surface-container-highest": "#34352e",
+                      "surface-container": "#1f2019"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "80px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "margin-mobile": "20px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "label-md": [
+                              "Montserrat"
+                      ],
+                      "label-sm": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .gold-gradient-text {
+            background: linear-gradient(to right, #e9c349, #fff, #e9c349);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(233, 195, 73, 0.1);
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-secondary/30 flat no shadows text-secondary dark:text-secondary flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<img alt="MIH GEMS Logo" class="h-12 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNv1E6pV8MLOxFs92JWOunvBVcz7ENEeYOH-cdrdoxLgf_dQYwYFDo2DAH3RCVp_fGvjX-_PJQnSiRQLE3LRDhVBlmRQ3CZoKTYoqG44YKgaWm_vcF-ZB1ry4oGBj2_fCUzCKawilUn-F6szyBFUSnsy2dUXaf83V3BqEa2zSdQnRFBV0xZCXZHFEJklN_fbCDv4p8xUvgraGcexxU5poLplsRXIJZfegk7adUYatSpUi37vVYweRoa6_vUwXjvSg-pg"/>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-secondary border-b-2 border-secondary pb-1 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">HOME</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">SHOP</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">GEMSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">SILVER RINGS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">BIRTHSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">CUSTOM JEWELLERY</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined hover:text-secondary-fixed transition-all cursor-pointer">search</span>
+<span class="material-symbols-outlined hover:text-secondary-fixed transition-all cursor-pointer">favorite</span>
+<span class="material-symbols-outlined hover:text-secondary-fixed transition-all cursor-pointer">shopping_cart</span>
+<span class="material-symbols-outlined hover:text-secondary-fixed transition-all cursor-pointer">person</span>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-[80vh] flex items-center justify-center overflow-hidden glow-effect">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" data-alt="A cinematic, ultra-high-resolution macro shot of a stunning blue sapphire ring resting on dark velvet. The lighting is dramatic and moody, simulating a spotlight effect with deep black shadows and a soft golden rim light. The mood is luxurious, mysterious, and highly premium, capturing the sparkle and depth of the gemstone against the dark noir background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPF2D-RCksPoeHT_UTwEfMyIfZclV6kWFDEE-11wQrs3GHoPf4lVLCY9WS0zH-EkOjjLOuT61reaLDdhV7Jl59FLgVkwW3q7t8YSdt2vP5Y5wRym8npdV_OgCDK0IUayxwQFqB8CzsQUVM62GAVYtp0u9lkSvjw2Kq_1YZ0CP_ur7tmNRYe5YT5AmcAzll_QSxUbqdos9mUtXpiXd9hkRTdDT4KzsWK6YuGV-LEdVZeYVgtrgNp-gz')"></div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-6 max-w-4xl">
+<p class="text-secondary font-label-md tracking-widest uppercase text-label-md">Discover the Beauty of</p>
+<h1 class="text-headline-lg-mobile md:text-display-lg font-display-lg gold-gradient-text uppercase">GENUINE GEMS</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-2xl">Premium gemstones, silver jewellery and custom creations from MIH GEMS.</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-8">
+<button class="bg-secondary text-primary-container px-8 py-3 rounded-DEFAULT font-label-md text-label-md hover:bg-[#B8860B] transition-colors shadow-[0_0_15px_rgba(233,195,73,0.3)]">SHOP COLLECTION</button>
+<button class="border border-secondary text-secondary px-8 py-3 rounded-DEFAULT font-label-md text-label-md hover:bg-secondary/10 transition-colors">CUSTOM JEWELLERY</button>
+</div>
+</div>
+</header>
+<!-- Why Choose Us -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest border-y border-secondary/10">
+<div class="max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-4xl">verified</span>
+<p class="text-label-sm font-label-sm text-on-surface uppercase">100% GENUINE<br/>GEMSTONES</p>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-4xl">diamond</span>
+<p class="text-label-sm font-label-sm text-on-surface uppercase">PREMIUM<br/>QUALITY</p>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-4xl">storefront</span>
+<p class="text-label-sm font-label-sm text-on-surface uppercase">RETAIL &amp;<br/>WHOLESALE</p>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-4xl">design_services</span>
+<p class="text-label-sm font-label-sm text-on-surface uppercase">CUSTOM<br/>MADE</p>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-4xl">local_shipping</span>
+<p class="text-label-sm font-label-sm text-on-surface uppercase">WORLDWIDE<br/>SHIPPING</p>
+</div>
+</div>
+</section>
+<!-- Shop by Category -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<h2 class="text-headline-md font-headline-md text-center mb-16 text-secondary uppercase tracking-widest">SHOP BY CATEGORY</h2>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+<div class="group cursor-pointer flex flex-col items-center">
+<div class="w-full aspect-square bg-surface-container-high rounded-lg mb-4 overflow-hidden border border-secondary/20 group-hover:border-secondary transition-colors relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A collection of loose, faceted gemstones in vibrant hues of deep red ruby, vivid green emerald, and royal blue sapphire, beautifully arranged on a dark, textured slate surface. The cinematic spotlighting enhances the internal reflections and brilliance of the stones, creating a luxurious and high-end noir visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF6D7MGLCr46hEVC7Tyronjmrlkx5BBVv3Nxboz8VZmGnHVClxTcBiVvSO3TWFBFpPkDQXr5qwW-hLBUFIUzn-x09HmnHgi41ofkyNeUMfZCUCM38okg_J_Np0PznUBhhlXiO3R1fXc74GhuyB1C6YbB7ejywz35AR_3szqEoyTSKTPINK-Pn1RYgGzR3AfhfOLjPlBxqneNT2djnkpXZI62Qysc4HHG5Rhri6P58XMAK97XMKSN97"/>
+</div>
+<h3 class="text-label-md font-label-md text-on-surface group-hover:text-secondary transition-colors uppercase">GEMSTONES</h3>
+</div>
+<div class="group cursor-pointer flex flex-col items-center">
+<div class="w-full aspect-square bg-surface-container-high rounded-lg mb-4 overflow-hidden border border-secondary/20 group-hover:border-secondary transition-colors relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="An elegant, handcrafted silver ring featuring an intricately set oval sapphire surrounded by tiny diamonds, resting against a dark, reflective obsidian background. The soft, moody golden rim light highlights the polished silver bands and the deep blue of the center stone, conveying a premium and artisanal jewelry aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnm_2d_dCCYbpDn9Om-j4oBcCs44_ARONVXMfx6yyMMJgIUZ8Eam2josALtw81C-tfRItfNQASxkt14wWvbjv15zPZVRW0xZ9SVWImgebWXT3Zm1twBCFAE_jFuPQ00q4EujFHSZcak2P3o4i9WcWl06sfezt5yT-q-ZTXIQoRB1ldI99ZDvUwPz0S2TmfjXqBGvaCrrY1rjvr95w7NhRHwAOTNp-JOG8KNT6fyag9tBg-sp-ebI7m"/>
+</div>
+<h3 class="text-label-md font-label-md text-on-surface group-hover:text-secondary transition-colors uppercase">SILVER RINGS</h3>
+</div>
+<div class="group cursor-pointer flex flex-col items-center">
+<div class="w-full aspect-square bg-surface-container-high rounded-lg mb-4 overflow-hidden border border-secondary/20 group-hover:border-secondary transition-colors relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A curated arrangement of raw and polished birthstones, including amethyst, citrine, and peridot, displayed on a minimalist dark velvet tray. The scene is lit with a dramatic, cinematic glow that creates sharp contrasts and deep shadows, emphasizing the natural beauty and metaphysical allure of the rare minerals." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASFN6SkTjA9FAZW9u0hYeMJY6YgXPkUd4PTo3Mv1yjMeSXp4tt5595H_NsJdjVqASsXqT_gF2fNNl84y-3ZLj9RmAWZ4S8b-42ht0l6XP4K32ZJelDYqyMBs7meIUtEQoatXoloxGz_UuVUnsAy4SOZ9Iy5e07t_S2Ulp7BZiK4JILvhe4ptJvMGBxPC_0VJfFp4ic2lrQ185gdGXbxFuOUatOLW5B8MwTqlJjs2mfEzzUCPCXqEwF"/>
+</div>
+<h3 class="text-label-md font-label-md text-on-surface group-hover:text-secondary transition-colors uppercase">BIRTHSTONES</h3>
+</div>
+<div class="group cursor-pointer flex flex-col items-center">
+<div class="w-full aspect-square bg-surface-container-high rounded-lg mb-4 overflow-hidden border border-secondary/20 group-hover:border-secondary transition-colors relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A master jeweler's workbench in a moody, low-light setting, showing an unfinished custom gold pendant with a sparkling emerald being carefully set. Tools, gold dust, and a magnifying loupe are scattered artfully around, illuminated by a warm, focused desk lamp. The scene evokes bespoke craftsmanship and high-end bespoke luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADeyW0Kht3s0z4bR92Y9H5oN3dVup_F7nO3sZf0xXb6MGzU13OjkDp18uXJkCU3Q6gWmzjFVL1etx9KtoQEAFdkpqLo7lObd-AG7lTTVC5i4enkDg3nz4HKrpIqeMPILueF-9tBKEquqxvDdd51GiokAc3OjZ5ACPlufk1d1VaagCP6ZjptbaO3qYx8wPJfslOeT0AIhw8ydnknn7iputGddcRxpylIottcXREuwjGEE9qayuL8M4z"/>
+</div>
+<h3 class="text-label-md font-label-md text-on-surface group-hover:text-secondary transition-colors uppercase">CUSTOM JEWELLERY</h3>
+</div>
+<div class="group cursor-pointer flex flex-col items-center">
+<div class="w-full aspect-square bg-surface-container-high rounded-lg mb-4 overflow-hidden border border-secondary/20 group-hover:border-secondary transition-colors relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A large, perfectly organized black velvet display box filled with rows of uniformly cut, high-clarity loose aquamarine and tourmaline gemstones. The lighting is cinematic and focused, casting long elegant shadows and creating an atmosphere of vast, premium inventory suited for a high-end wholesale gemstone dealer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW1LLg9QUw0sii7dAbAjJKH_3-3Ph_y5w5kBPSIFVxay_pdPLhaXOeA8r07447U5uaAjmg2xgJ1wft8Sgb_uO7gxltoxG9aXRordaLP5D683ZkCBWttz-n6Vcyz9a7RUbjEwyjivhybJFn2BKRPPU8cKFKT2T6K5P9B8pMQhLxufFUmEfvej9SpTRCfyek31UG7Rg2mQcKGOW-yH5q63Akc7ve_j7f1UvsXN8h6MRTljogTVaCqAq9"/>
+</div>
+<h3 class="text-label-md font-label-md text-on-surface group-hover:text-secondary transition-colors uppercase">WHOLESALE</h3>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full py-16 border-t border-secondary/10 flat text-secondary dark:text-secondary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div>
+<p class="text-headline-md font-headline-md text-secondary tracking-tighter mb-4">MIH GEMS</p>
+<p class="text-body-md font-body-md text-on-surface-variant">© 2024 MIH GEMS. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-body-md font-body-md" href="#">Phone</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-body-md font-body-md" href="#">WhatsApp</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-body-md font-body-md" href="#">Email</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-body-md font-body-md" href="#">Instagram</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enquiry Submitted - MIH GEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#1b1c15",
+                        "outline": "#8e9192",
+                        "secondary-container": "#af8d11",
+                        "on-tertiary-container": "#7a7979",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-background": "#e4e3d7",
+                        "error-container": "#93000a",
+                        "on-secondary": "#3c2f00",
+                        "surface-container-lowest": "#0d0f08",
+                        "tertiary": "#c8c6c5",
+                        "on-error": "#690005",
+                        "primary-fixed": "#e5e2e1",
+                        "outline-variant": "#444748",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-surface-variant": "#c4c7c7",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#342800",
+                        "surface": "#13140d",
+                        "on-tertiary": "#313030",
+                        "tertiary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary": "#c9c6c5",
+                        "surface-container-high": "#292b23",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "tertiary-container": "#0a0a0a",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-primary-container": "#7b7979",
+                        "surface-bright": "#393a32",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary-fixed": "#241a00",
+                        "inverse-on-surface": "#303129",
+                        "inverse-primary": "#5f5e5e",
+                        "on-surface": "#e4e3d7",
+                        "secondary-fixed": "#ffe088",
+                        "secondary": "#e9c349",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#c9c6c5",
+                        "inverse-surface": "#e4e3d7",
+                        "surface-container": "#1f2019",
+                        "surface-variant": "#34352e",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "surface-container-highest": "#34352e",
+                        "background": "#13140d",
+                        "on-primary": "#313030",
+                        "primary-container": "#0a0a0a",
+                        "surface-dim": "#13140d"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "20px",
+                        "container-max": "1440px",
+                        "unit": "8px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Montserrat"],
+                        "label-md": ["Montserrat"]
+                    },
+                    fontSize: {
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e4e3d7;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container specific for standard views without navs */
+        .content-canvas {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glassmorphism Card */
+        .success-card {
+            background: rgba(26, 26, 26, 0.6); /* Charcoal with opacity */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Champagne Gold border */
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            padding: 64px 40px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.25rem; /* Using theme default */
+        }
+        
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8), transparent);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #D4AF37; /* Champagne Gold */
+            color: #0A0A0A;
+            border-radius: 0;
+            padding: 16px 32px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #B8860B; /* Metallic Gold */
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 0;
+            padding: 16px 32px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #D4AF37;
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+
+        /* Logo Brand styling extracted from JSON constraints although Navs are suppressed */
+        .brand-logo {
+            letter-spacing: 0.1em;
+            color: #e9c349; /* secondary token */
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body class="antialiased font-body-md text-body-md">
+<!-- Ambient Background -->
+<canvas class="fixed inset-0 w-full h-full -z-10" id="bg-canvas"></canvas>
+<!-- Main Content Canvas -->
+<main class="content-canvas">
+<div class="success-card">
+<!-- Logo / Brand Identifier -->
+<div class="mb-12">
+<h1 class="font-headline-lg text-headline-lg brand-logo uppercase">MIH GEMS</h1>
+<div class="h-px w-16 bg-secondary/30 mx-auto mt-4"></div>
+</div>
+<!-- Success Icon with Halo Gemstone -->
+<div class="mb-8 flex justify-center relative">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 -z-10 opacity-70 pointer-events-none" id="gem-container"></div>
+<div class="w-20 h-20 rounded-full border border-secondary/50 flex items-center justify-center bg-surface-container-low/80 backdrop-blur-md relative z-10">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 0;">done</span>
+<div class="absolute inset-0 rounded-full shadow-[0_0_20px_rgba(233,195,73,0.2)] animate-pulse"></div>
+</div>
+</div>
+<!-- Typography & Message -->
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Enquiry Submitted</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-md mx-auto">
+                Thank you for reaching out to MIH GEMS. Our specialists are reviewing your request and will contact you shortly to discuss your bespoke needs.
+            </p>
+<!-- Reference Details -->
+<div class="bg-surface-container-low/50 border border-secondary/20 p-6 mb-10 flex flex-col items-center animate-fade-in-up delay-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Reference Number</span>
+<span class="font-headline-md text-headline-md text-secondary tracking-widest">MG-8492-XQ</span>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up delay-2">
+<a class="btn-primary font-label-md text-label-md w-full sm:w-auto" href="#">
+                    Return Home
+                </a>
+<a class="btn-secondary font-label-md text-label-md w-full sm:w-auto" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">history</span>
+                    View My Enquiries
+                </a>
+</div>
+</div>
+</main>
+<script>
+    // Initialize WebGL Ambient Background Shader
+    (function() {
+        const canvas = document.getElementById('bg-canvas');
+        if (!canvas) return;
+        const gl = canvas.getContext('webgl');
+        if (!gl) return;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const vsSource = `
+            attribute vec2 position;
+            varying vec2 v_texCoord;
+            void main() {
+                gl_Position = vec4(position, 0.0, 1.0);
+                v_texCoord = position * 0.5 + 0.5;
+            }
+        `;
+        
+        const fsSource = `
+            <!-- STITCH_SHADER_START:ANIMATION_32 class="" -->
+<div class="" style="display:block;width:100%;height:100%;min-height:200px;">
+<canvas id="shader-canvas-ANIMATION_32" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_32');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+varying vec2 v_texCoord;
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec4(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw), 0.0), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 m = u_mouse / u_resolution;
+    
+    // Create flowing organic motion
+    float n1 = snoise(uv * 2.0 + u_time * 0.1 + m * 0.5);
+    float n2 = snoise(uv * 4.0 - u_time * 0.15 + n1 * 0.5);
+    
+    float noise = n1 * 0.6 + n2 * 0.4;
+    
+    // Golden color palette
+    vec3 colorA = vec3(0.07, 0.08, 0.03); // Deep Noir
+    vec3 colorB = vec3(0.48, 0.4, 0.18);  // Muted Gold
+    vec3 colorC = vec3(0.8, 0.7, 0.3);   // Bright Gold highlight
+    
+    // Mix based on noise and vertical gradient
+    vec3 color = mix(colorA, colorB, noise * 0.5 + 0.5);
+    color = mix(color, colorC, pow(max(0.0, noise), 3.0));
+    
+    // Add a slight shimmer/sparkle
+    float sparkle = pow(max(0.0, snoise(uv * 20.0 + u_time * 0.5)), 10.0);
+    color += colorC * sparkle * 0.3;
+    
+    // Edge vignette for cinematic feel
+    float vignette = 1.0 - length(uv - 0.5) * 1.2;
+    color *= clamp(vignette, 0.3, 1.0);
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_32 -->
+        `;
+
+        function compileShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            return shader;
+        }
+
+        const program = gl.createProgram();
+        gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vsSource));
+        gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fsSource));
+        gl.linkProgram(program);
+        gl.useProgram(program);
+
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+            -1.0, -1.0,
+             1.0, -1.0,
+            -1.0,  1.0,
+            -1.0,  1.0,
+             1.0, -1.0,
+             1.0,  1.0
+        ]), gl.STATIC_DRAW);
+
+        const posLoc = gl.getAttribLocation(program, "position");
+        gl.enableVertexAttribArray(posLoc);
+        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+        const timeLoc = gl.getUniformLocation(program, "u_time");
+        const resLoc = gl.getUniformLocation(program, "u_resolution");
+        const mouseLoc = gl.getUniformLocation(program, "u_mouse");
+
+        let mouseX = 0;
+        let mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function render(time) {
+            gl.uniform1f(timeLoc, time * 0.001);
+            gl.uniform2f(resLoc, canvas.width, canvas.height);
+            gl.uniform2f(mouseLoc, mouseX, mouseY);
+            
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+    })();
+</script>
+<script>
+    // Initialize 3D Halo Gemstone
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById('gem-container');
+        if (container && typeof THREE !== 'undefined') {
+            <!-- STITCH_THREEJS_START:ANIMATION_33 class="" -->
+<div class="" style="display:block;width:100%;height:100%;min-height:200px;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_33" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_33');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+camera.position.z = 5;
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xd4af37, 2, 10);
+pointLight.position.set(2, 3, 4);
+scene.add(pointLight);
+
+const blueLight = new THREE.PointLight(0x4169e1, 1, 10);
+blueLight.position.set(-2, -3, 2);
+scene.add(blueLight);
+
+// Create a Gemstone (using Octahedron for a classic diamond cut)
+const geometry = new THREE.OctahedronGeometry(1.5, 1); // 1 detail for faceted look
+const material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    specular: 0xffffff,
+    shininess: 100,
+    transparent: true,
+    opacity: 0.8,
+    flatShading: true,
+    side: THREE.DoubleSide
+});
+
+const gem = new THREE.Mesh(geometry, material);
+scene.add(gem);
+
+// Wireframe overlay for precision feel
+const wireframeGeom = new THREE.OctahedronGeometry(1.51, 1);
+const wireframeMat = new THREE.MeshBasicMaterial({ color: 0xd4af37, wireframe: true, transparent: true, opacity: 0.2 });
+const wireframe = new THREE.Mesh(wireframeGeom, wireframeMat);
+gem.add(wireframe);
+
+// Mouse interaction
+let mouseX = 0;
+let mouseY = 0;
+let targetRotationX = 0;
+let targetRotationY = 0;
+
+const onMouseMove = (event) => {
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+};
+
+window.addEventListener('mousemove', onMouseMove);
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    
+    // Smooth rotation
+    targetRotationY = mouseX * 0.5;
+    targetRotationX = mouseY * 0.5;
+    
+    gem.rotation.y += (targetRotationY - gem.rotation.y) * 0.05;
+    gem.rotation.x += (targetRotationX - gem.rotation.x) * 0.05;
+    
+    // Ambient slow rotation
+    gem.rotation.y += 0.005;
+    
+    // Subtle pulsing
+    const scale = 1 + Math.sin(Date.now() * 0.001) * 0.05;
+    gem.scale.set(scale, scale, scale);
+    
+    renderer.render(scene, camera);
+};
+
+animate();
+
+const handleResize = () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+};
+
+window.addEventListener('resize', handleResize);
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_33 -->
+        }
+    });
+</script>
+</body></html>

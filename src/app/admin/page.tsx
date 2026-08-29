@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { isAdmin } from "@/lib/admin";
+import { DiamondIcon, MailIcon, ArrowRightIcon } from "@/components/ui/icons";
 
 export default async function AdminPage() {
   const { userId } = await auth();
@@ -16,78 +18,58 @@ export default async function AdminPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0a09] text-[#f5efe5]">
-      <header className="border-b border-[#c9a45c]/20">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <a href="/" className="text-xl font-semibold tracking-[0.25em]">
-            MIH GEMS
-          </a>
+    <div>
+      <p className="eyebrow">MIH GEMS</p>
+      <h1 className="mt-3 font-serif text-4xl text-ivory sm:text-5xl">
+        Admin Dashboard
+      </h1>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+        Manage gemstones, enquiries and the MIH GEMS catalogue from one place.
+      </p>
 
-          <a
-            href="/"
-            className="text-sm text-[#a59b8d] transition hover:text-[#d7b56d]"
-          >
-            Back to website
-          </a>
-        </div>
-      </header>
+      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <Link
+          href="/admin/products"
+          className="card-luxe group flex flex-col gap-4 p-6"
+        >
+          <DiamondIcon className="h-7 w-7 text-gold" />
+          <div>
+            <h2 className="font-serif text-xl text-ivory transition-colors group-hover:text-gold">
+              Products
+            </h2>
+            <p className="mt-2 text-sm text-muted">Add and manage gemstones</p>
+          </div>
+          <ArrowRightIcon className="mt-auto h-4 w-4 text-muted transition-colors group-hover:text-gold" />
+        </Link>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-[#d7b56d]">
-            MIH GEMS
-          </p>
+        <Link
+          href="/admin/enquiries"
+          className="card-luxe group flex flex-col gap-4 p-6"
+        >
+          <MailIcon className="h-7 w-7 text-gold" />
+          <div>
+            <h2 className="font-serif text-xl text-ivory transition-colors group-hover:text-gold">
+              Enquiries
+            </h2>
+            <p className="mt-2 text-sm text-muted">Manage customer enquiries</p>
+          </div>
+          <ArrowRightIcon className="mt-auto h-4 w-4 text-muted transition-colors group-hover:text-gold" />
+        </Link>
+      </div>
 
-          <h1 className="mt-3 text-4xl font-light sm:text-5xl">
-            Admin Dashboard
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-[#9f9689]">
-            Manage gemstones, enquiries, customers and the MIH GEMS
-            catalogue from one place.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          <a
-            href="/admin/products"
-            className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
-          >
-            <p className="text-3xl">💎</p>
-            <h2 className="mt-5 text-lg">Products</h2>
-            <p className="mt-2 text-sm text-[#81786d]">
-              Add and manage gemstones
-            </p>
-          </a>
-
-          <a
-            href="/admin/enquiries"
-            className="rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6 transition hover:border-[#d7b56d]/50"
-          >
-            <p className="text-3xl">💬</p>
-            <h2 className="mt-5 text-lg">Enquiries</h2>
-            <p className="mt-2 text-sm text-[#81786d]">
-              Manage customer enquiries
-            </p>
-          </a>
-        </div>
-
-        <div className="mt-8 rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-7">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#81786d]">
-            Future capability
-          </p>
-
-          <h2 className="mt-3 text-xl font-light">
-            Checkout & Payments
-          </h2>
-
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#81786d]">
-            The architecture will remain ready for a future checkout and
-            payment gateway. For now, customer purchases continue through
-            WhatsApp enquiries.
-          </p>
-        </div>
-      </section>
-    </main>
+      <div className="card-luxe mt-8 p-7">
+        <p className="text-[0.62rem] uppercase tracking-[0.25em] text-muted">
+          Future capability
+        </p>
+        <h2 className="mt-3 font-serif text-xl text-ivory">
+          Checkout &amp; Payments
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+          The architecture will remain ready for a future checkout and payment
+          gateway. For now, customer purchases continue through WhatsApp
+          enquiries.
+        </p>
+      </div>
+    </div>
   );
 }

@@ -1,0 +1,326 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Policy &amp; FAQ - MIH GEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0d0f08",
+                        "primary-container": "#0a0a0a",
+                        "primary-fixed": "#e5e2e1",
+                        "outline": "#8e9192",
+                        "on-tertiary": "#313030",
+                        "surface": "#13140d",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#574500",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary": "#313030",
+                        "on-secondary": "#3c2f00",
+                        "inverse-surface": "#e4e3d7",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "tertiary": "#c8c6c5",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-fixed": "#ffe088",
+                        "surface-tint": "#c9c6c5",
+                        "on-error": "#690005",
+                        "secondary": "#e9c349",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container-high": "#292b23",
+                        "surface-bright": "#393a32",
+                        "on-tertiary-container": "#7a7979",
+                        "surface-container": "#1f2019",
+                        "primary": "#c9c6c5",
+                        "on-surface": "#e4e3d7",
+                        "on-background": "#e4e3d7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "inverse-primary": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "tertiary-container": "#0a0a0a",
+                        "on-primary-container": "#7b7979",
+                        "inverse-on-surface": "#303129",
+                        "on-secondary-container": "#342800",
+                        "secondary-container": "#af8d11",
+                        "surface-dim": "#13140d",
+                        "tertiary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#e9c349",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1b1c15",
+                        "on-surface-variant": "#c4c7c7",
+                        "background": "#13140d",
+                        "surface-variant": "#34352e",
+                        "surface-container-highest": "#34352e",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-md": ["Montserrat"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e4e3d7;
+        }
+        .glass-panel {
+            background-color: rgba(26, 26, 26, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar: Suppressed for non-destination focus page, but keeping a minimal brand anchor -->
+<header class="w-full py-6 px-margin-mobile md:px-margin-desktop flex justify-center items-center border-b border-secondary/10 bg-primary-container z-50 sticky top-0">
+<a class="text-headline-md font-headline-md font-bold text-secondary tracking-widest uppercase" href="/"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtDKgDeIkar1gHmKmasEOW9vcSXRj--D6YUkAlO6MnejBVF6UjtimNRhuxFBvRLt3-fBmEnb6YjhTm62LhYQhf5hxJbieltJRoK_MirjdQLIMeNBIpaFaDnNh_JNwQWVvUUVnHG7MtTHRBBny-LAwnXRTEqj0sI2oQhKG1mGPGRSgxzVSWcoTptM9uSiC5ftLPXseEAxICInwYS36VdsVoPxHzDHwygCOQhsKtjbk0iUc-whBc1a_Q9405VqwQ7SJREw" alt="MIH GEMS" class="h-12 w-auto object-contain"></a>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
+<!-- Header Section -->
+<div class="text-center mb-16 max-w-3xl mx-auto">
+<h1 class="text-display-lg font-display-lg text-surface-tint mb-6 glow-text">Client Services</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+                Comprehensive information regarding our policies, shipping, and frequently asked questions for our discerning clientele.
+            </p>
+</div>
+<!-- Navigation Tabs & Content Area -->
+<div class="flex flex-col md:flex-row gap-12 md:gap-gutter">
+<!-- Tab Navigation (Sidebar on Desktop) -->
+<aside class="w-full md:w-1/4 flex-shrink-0">
+<nav class="flex flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 sticky top-32" id="policy-tabs" role="tablist">
+<button aria-selected="true" class="text-left px-6 py-4 border-l-2 border-secondary text-secondary bg-surface-variant/20 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap transition-all duration-300" data-target="shipping" role="tab">
+                        Shipping Policy
+                    </button>
+<button aria-selected="false" class="text-left px-6 py-4 border-l-2 border-transparent text-on-surface-variant hover:text-secondary hover:bg-surface-variant/10 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap transition-all duration-300" data-target="returns" role="tab">
+                        Returns &amp; Refund
+                    </button>
+<button aria-selected="false" class="text-left px-6 py-4 border-l-2 border-transparent text-on-surface-variant hover:text-secondary hover:bg-surface-variant/10 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap transition-all duration-300" data-target="privacy" role="tab">
+                        Privacy Policy
+                    </button>
+<button aria-selected="false" class="text-left px-6 py-4 border-l-2 border-transparent text-on-surface-variant hover:text-secondary hover:bg-surface-variant/10 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap transition-all duration-300" data-target="faq" role="tab">
+                        FAQ
+                    </button>
+</nav>
+</aside>
+<!-- Content Canvas -->
+<div class="w-full md:w-3/4 glass-panel p-8 md:p-12 rounded-DEFAULT">
+<!-- Shipping Policy Content -->
+<div class="tab-content active" id="shipping" role="tabpanel">
+<h2 class="text-headline-lg font-headline-lg text-secondary mb-8">Shipping &amp; Delivery</h2>
+<div class="space-y-8 text-on-surface">
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Domestic &amp; International Couriers</h3>
+<p class="mb-4">We partner with premium, fully insured courier services to ensure the safe and discrete delivery of your MIH GEMS pieces globally. All shipments are trackable and require a signature upon receipt.</p>
+<ul class="list-disc pl-6 space-y-2 text-on-surface-variant">
+<li class="">Domestic Expedited (1-3 Business Days): Complimentary</li>
+<li class="">International Priority (3-7 Business Days): Standard rates apply at checkout</li>
+<li class="">Bespoke/Custom Orders: Please allow an additional 2-4 weeks for craftsmanship before dispatch.</li>
+</ul>
+</section>
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Insurance &amp; Liability</h3>
+<p class="">Every piece is fully insured by MIH GEMS during transit until it is delivered to your specified address. Responsibility for the item passes to you upon signature of receipt.</p>
+</section>
+<div class="h-64 w-full mt-8 rounded-DEFAULT overflow-hidden border border-secondary/20 relative" data-alt="A cinematic, low-key lighting shot of a sleek, matte black luxury shipping box resting on a dark velvet surface. A subtle, warm gold spotlight catches the embossed logo on the lid. The atmosphere is mysterious, secure, and premium, evoking the anticipation of receiving a rare gemstone artifact." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9nDT3VeL-ErPAhisf2Rb1s_Hovm9iAnnXVpsEr0h1TLK-w0WVraUaIc8Kqy70GdrRJiHt9pbzmlYWcUKk_qQjmFt4yaNbEBR5VwtczQppJ9-VMN1KXbKwQ_2-koMBrMWRClkkPw1go7T1yrGbkrC1PotrHnGATJwrdGHGZhqoUPOpJIZAi6QZO1jZPHXgOqtztNnyCZ9syDtqtMN1F18KIRa9e4l27cSFg0P0swGf5iinjTZB97B4')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container to-transparent opacity-60"></div>
+</div>
+</div>
+</div>
+<!-- Returns & Refund Content -->
+<div class="tab-content" id="returns" role="tabpanel">
+<h2 class="text-headline-lg font-headline-lg text-secondary mb-8">Returns &amp; Refunds</h2>
+<div class="space-y-8 text-on-surface">
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Our Commitment</h3>
+<p class="mb-4">We stand behind the exceptional quality and authenticity of every gemstone and jewelry piece. If you are not entirely satisfied, we offer a meticulous return process to ensure your peace of mind.</p>
+</section>
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Conditions for Return</h3>
+<ul class="list-disc pl-6 space-y-2 text-on-surface-variant">
+<li class="">Items must be returned within 14 days of receipt.</li>
+<li class="">Pieces must remain unworn, unaltered, and in their original pristine condition.</li>
+<li class="">All original packaging, certificates (e.g., GIA), and documentation must be included.</li>
+<li class="">Custom or bespoke creations are considered final sale and are not eligible for return.</li>
+</ul>
+</section>
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Process</h3>
+<p class="">To initiate a return, please contact our concierge team. We will provide a fully insured return shipping label and detailed instructions. Upon receipt and inspection by our gemologists, refunds will be processed to the original method of payment within 5-7 business days.</p>
+</section>
+</div>
+</div>
+<!-- Privacy Policy Content -->
+<div class="tab-content" id="privacy" role="tabpanel">
+<h2 class="text-headline-lg font-headline-lg text-secondary mb-8">Privacy Policy</h2>
+<div class="space-y-8 text-on-surface">
+<section>
+<p class="text-on-surface-variant italic mb-6">Last Updated: October 2023</p>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Discretion &amp; Data Protection</h3>
+<p class="mb-4">MIH GEMS values the utmost discretion and privacy of our clientele. We are committed to safeguarding your personal information with the highest standards of security.</p>
+</section>
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Information Collection</h3>
+<p class="mb-4">We collect information essential for fulfilling orders, providing personalized concierge services, and complying with international anti-money laundering (AML) regulations concerning high-value transactions. This includes name, billing/shipping addresses, payment details, and purchase history.</p>
+</section>
+<section>
+<h3 class="text-headline-md font-headline-md text-surface-tint mb-4">Data Usage &amp; Sharing</h3>
+<p class="">Your data is strictly used for order processing and internal analytics. We do not sell or share your personal information with third-party marketers. Data may only be shared with verified partners (e.g., insured couriers) strictly necessary to fulfill our services to you.</p>
+</section>
+</div>
+</div>
+<!-- FAQ Content -->
+<div class="tab-content" id="faq" role="tabpanel">
+<h2 class="text-headline-lg font-headline-lg text-secondary mb-8">Frequently Asked Questions</h2>
+<div class="space-y-6 mb-8">
+<!-- FAQ Item 1 -->
+<div class="border-b border-secondary/20 pb-6">
+<h4 class="text-headline-md font-headline-md text-surface-tint mb-3 cursor-pointer flex justify-between items-center group">
+                                Are all gemstones certified?
+                                <span class="material-symbols-outlined text-secondary transition-transform group-hover:rotate-180">expand_more</span>
+</h4>
+<p class="text-on-surface-variant text-body-md font-body-md pr-8">Yes. All significant gemstones curated by MIH GEMS are accompanied by authenticity certificates from internationally recognized gemological laboratories, such as GIA, AGL, or SSEF.</p>
+</div>
+<!-- FAQ Item 2 -->
+<div class="border-b border-secondary/20 pb-6">
+<h4 class="text-headline-md font-headline-md text-surface-tint mb-3 cursor-pointer flex justify-between items-center group">
+                                Do you offer bespoke design services?
+                                <span class="material-symbols-outlined text-secondary transition-transform group-hover:rotate-180">expand_more</span>
+</h4>
+<p class="text-on-surface-variant text-body-md font-body-md pr-8">Absolutely. Our master craftsmen work closely with clients to create exceptional, one-of-a-kind pieces. Please contact our concierge to arrange a private consultation regarding custom jewelry.</p>
+</div>
+<!-- FAQ Item 3 -->
+<div class="border-b border-secondary/20 pb-6">
+<h4 class="text-headline-md font-headline-md text-surface-tint mb-3 cursor-pointer flex justify-between items-center group">
+                                How should I care for my jewelry?
+                                <span class="material-symbols-outlined text-secondary transition-transform group-hover:rotate-180">expand_more</span>
+</h4>
+<p class="text-on-surface-variant text-body-md font-body-md pr-8">We recommend storing pieces individually in the provided velvet-lined boxes. Avoid exposure to harsh chemicals, extreme temperatures, and abrasive surfaces. Professional cleaning and inspection are recommended annually.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full py-16 border-t border-secondary/10 mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2">
+<h2 class="text-headline-md font-headline-md text-secondary tracking-tighter mb-4">MIH GEMS</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 max-w-sm">
+                    Purveyors of rare, high-end artifacts and cinematic luxury. 
+                </p>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-8">
+                    © 2024 MIH GEMS. ALL RIGHTS RESERVED.
+                </p>
+</div>
+<div class="col-span-1">
+<h3 class="text-label-md font-label-md text-secondary mb-4 uppercase tracking-widest">Contact</h3>
+<ul class="space-y-3">
+<li class=""><a class="text-body-md font-body-md text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Phone</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">WhatsApp</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Email</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h3 class="text-label-md font-label-md text-secondary mb-4 uppercase tracking-widest">Social</h3>
+<ul class="space-y-3">
+<li class=""><a class="text-body-md font-body-md text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Instagram</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('[role="tab"]');
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active state from all tabs
+                    tabs.forEach(t => {
+                        t.setAttribute('aria-selected', 'false');
+                        t.classList.remove('border-secondary', 'text-secondary', 'bg-surface-variant/20');
+                        t.classList.add('border-transparent', 'text-on-surface-variant');
+                    });
+
+                    // Add active state to clicked tab
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.classList.remove('border-transparent', 'text-on-surface-variant');
+                    tab.classList.add('border-secondary', 'text-secondary', 'bg-surface-variant/20');
+
+                    // Hide all panels
+                    panels.forEach(p => {
+                        p.classList.remove('active');
+                        setTimeout(() => { p.style.display = 'none'; }, 300); // Wait for fade out
+                    });
+
+                    // Show target panel
+                    const targetId = tab.getAttribute('data-target');
+                    const targetPanel = document.getElementById(targetId);
+                    
+                    setTimeout(() => {
+                        targetPanel.style.display = 'block';
+                        // Small delay to ensure display block is applied before opacity transition
+                        setTimeout(() => {
+                            targetPanel.classList.add('active');
+                        }, 10);
+                    }, 300);
+                });
+            });
+        });
+    </script>
+
+
+</body></html>

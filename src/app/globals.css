@@ -1,26 +1,292 @@
 @import "tailwindcss";
 
+/*
+  MIH GEMS — Cinematic Noir & Gold design system.
+  Source of truth: design/stitch_mih_gems_e_commerce_admin_suite (DESIGN.md).
+  Tokens below back the semantic utility classes used across the app
+  (bg-noir, text-gold, card-luxe, btn-gold, container-luxe, eyebrow, …).
+*/
+
+@theme {
+  /* Surfaces */
+  --color-noir: #0a0a0a;
+  --color-noir-deep: #050505;
+  --color-charcoal: #17171a;
+  --color-charcoal-high: #1f1f22;
+
+  /* Foreground */
+  --color-ivory: #ece9dd;
+  --color-muted: #9a978c;
+  --color-silver: #c9c6c5;
+
+  /* Accents */
+  --color-gold: #d4af37;
+  --color-metallic: #b8860b;
+  --color-champagne: #e9c349;
+
+  /* Structure */
+  --color-outline: #8e9192;
+
+  /* Status */
+  --color-danger: #ff8a80;
+  --color-success: #7fd1a0;
+
+  /* Typography — Playfair Display for headlines, Montserrat for UI/body */
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-noir);
+  --foreground: var(--color-ivory);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-noir);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 30%, transparent);
+  color: var(--color-ivory);
+}
+
+/* Cinematic spotlight — a soft radial gold glow anchored at the top. */
+.noir-deep {
+  background-color: var(--color-noir-deep);
+  background-image: radial-gradient(
+    60% 50% at 50% 0%,
+    color-mix(in srgb, var(--color-gold) 8%, transparent),
+    transparent 70%
+  );
+}
+
+@layer components {
+  /* Layout ------------------------------------------------------------- */
+  .container-luxe {
+    width: 100%;
+    max-width: 80rem; /* ~1280px content frame */
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-luxe {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-luxe {
+      padding-inline: 5rem; /* 80px desktop margins per DESIGN */
+    }
+  }
+
+  .section-gap {
+    padding-block: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .section-gap {
+      padding-block: 6rem;
+    }
+  }
+
+  /* Editorial eyebrow / labels ---------------------------------------- */
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Cards -------------------------------------------------------------- */
+  .card-luxe {
+    background-color: var(--color-charcoal);
+    border: 1px solid color-mix(in srgb, var(--color-outline) 22%, transparent);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .card-luxe:hover {
+    border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  }
+
+  .glass {
+    background-color: color-mix(in srgb, var(--color-charcoal) 70%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Buttons ------------------------------------------------------------ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease,
+      border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-gold {
+    background-color: var(--color-gold);
+    color: var(--color-noir);
+    border-color: var(--color-gold);
+  }
+  .btn-gold:hover {
+    background-color: var(--color-metallic);
+    border-color: var(--color-metallic);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-gold) 30%, transparent);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-ivory);
+    border-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  }
+  .btn-ghost:hover {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .btn-whatsapp {
+    background-color: #25d366;
+    color: #05240f;
+    border-color: #25d366;
+  }
+  .btn-whatsapp:hover {
+    background-color: #1fb457;
+    border-color: #1fb457;
+  }
+
+  .btn-sm {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.65rem;
+  }
+  .btn-block {
+    width: 100%;
+  }
+
+  /* Inputs ------------------------------------------------------------- */
+  .input-luxe {
+    width: 100%;
+    background-color: color-mix(in srgb, var(--color-charcoal) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-outline) 28%, transparent);
+    color: var(--color-ivory);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .input-luxe::placeholder {
+    color: color-mix(in srgb, var(--color-muted) 80%, transparent);
+  }
+  .input-luxe:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-gold) 40%, transparent);
+  }
+
+  /* Chips & badges ----------------------------------------------------- */
+  .chip-gold,
+  .chip-silver,
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+  .chip-gold,
+  .badge {
+    color: var(--color-gold);
+    border-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+    background-color: color-mix(in srgb, var(--color-gold) 8%, transparent);
+  }
+  .chip-silver {
+    color: var(--color-silver);
+    border-color: color-mix(in srgb, var(--color-silver) 35%, transparent);
+    background-color: color-mix(in srgb, var(--color-silver) 6%, transparent);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 40px color-mix(in srgb, var(--color-gold) 18%, transparent);
+  }
+
+  /* Navigation --------------------------------------------------------- */
+  .smoked-glass {
+    background-color: color-mix(in srgb, var(--color-noir) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  .link-nav {
+    position: relative;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ivory);
+    transition: color 0.25s ease;
+  }
+  .link-nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.4rem;
+    height: 1px;
+    width: 0;
+    background-color: var(--color-gold);
+    transition: width 0.25s ease;
+  }
+  .link-nav:hover,
+  .link-nav[data-active="true"] {
+    color: var(--color-gold);
+  }
+  .link-nav:hover::after,
+  .link-nav[data-active="true"]::after {
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }

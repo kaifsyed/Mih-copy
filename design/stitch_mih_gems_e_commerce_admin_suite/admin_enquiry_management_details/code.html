@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enquiry Details | MIH GEMS Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0d0f08",
+                        "primary-container": "#0a0a0a",
+                        "primary-fixed": "#e5e2e1",
+                        "outline": "#8e9192",
+                        "on-tertiary": "#313030",
+                        "surface": "#13140d",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#574500",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary": "#313030",
+                        "on-secondary": "#3c2f00",
+                        "inverse-surface": "#e4e3d7",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "tertiary": "#c8c6c5",
+                        "on-secondary-fixed": "#241a00",
+                        "secondary-fixed": "#ffe088",
+                        "surface-tint": "#c9c6c5",
+                        "on-error": "#690005",
+                        "secondary": "#e9c349",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container-high": "#292b23",
+                        "surface-bright": "#393a32",
+                        "on-tertiary-container": "#7a7979",
+                        "surface-container": "#1f2019",
+                        "primary": "#c9c6c5",
+                        "on-surface": "#e4e3d7",
+                        "on-background": "#e4e3d7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "inverse-primary": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "tertiary-container": "#0a0a0a",
+                        "on-primary-container": "#7b7979",
+                        "inverse-on-surface": "#303129",
+                        "on-secondary-container": "#342800",
+                        "secondary-container": "#af8d11",
+                        "surface-dim": "#13140d",
+                        "tertiary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#e9c349",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1b1c15",
+                        "on-surface-variant": "#c4c7c7",
+                        "background": "#13140d",
+                        "surface-variant": "#34352e",
+                        "surface-container-highest": "#34352e",
+                        "outline-variant": "#444748"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-desktop": "80px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-md": ["Montserrat"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(26, 26, 26, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3); }
+        .gold-glow { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-secondary selection:text-on-secondary font-body-md text-body-md antialiased">
+<!-- SideNavBar -->
+    {{DATA:COMPONENTS:COMPONENTS_3}}
+
+    <!-- Main Content Canvas -->
+<main class="flex-1 ml-64 p-margin-desktop min-h-screen">
+<!-- Header -->
+<header class="flex justify-between items-start mb-12">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">ENQUIRY DETAILS</p>
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg text-secondary">#ENQ-08492</h1>
+<span class="px-3 py-1 border border-secondary/50 rounded text-secondary font-label-sm text-label-sm uppercase tracking-wider bg-secondary/10">Contacted</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Received: Oct 24, 2024, 14:30 GMT</p>
+</div>
+<button class="flex items-center gap-2 border border-secondary/50 text-secondary hover:bg-secondary/10 px-4 py-2 transition-all font-label-md text-label-md">
+<span class="material-symbols-outlined text-sm">print</span>
+                PRINT
+            </button>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Left Column: Content -->
+<div class="xl:col-span-2 space-y-8">
+<!-- Customer Card -->
+<section class="glass-panel rounded p-8">
+<h2 class="font-headline-md text-headline-md text-secondary mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined">person</span>
+                        Customer Profile
+                    </h2>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Name</p>
+<p class="font-body-lg text-body-lg text-on-background">Mr. Alexander Sterling</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Company</p>
+<p class="font-body-lg text-body-lg text-on-background">Sterling &amp; Co. Acquisitions</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Email</p>
+<p class="font-body-lg text-body-lg text-on-background">a.sterling@example.com</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Phone</p>
+<p class="font-body-lg text-body-lg text-on-background">+44 7911 123456</p>
+</div>
+<div class="col-span-2">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Location</p>
+<p class="font-body-lg text-body-lg text-on-background">Mayfair, London, UK</p>
+</div>
+</div>
+</section>
+<!-- Enquiry Content -->
+<section class="glass-panel rounded p-8">
+<h2 class="font-headline-md text-headline-md text-secondary mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined">diamond</span>
+                        Request Details
+                    </h2>
+<div class="mb-8 p-6 bg-surface-container-highest rounded border border-outline-variant/30 flex gap-6 items-start">
+<div class="w-32 h-32 rounded bg-surface-container-lowest overflow-hidden border border-secondary/20 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A macro photograph of a rare, deep blue sapphire gemstone resting on black velvet in a cinematic, low-light setting. The lighting is dramatic and spotlights the intricate facets and inner brilliance of the jewel. The aesthetic is high-end luxury noir, with rich contrasts and a focus on craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeFOsUWavPhTNkznyxOfYFE8UPrbaqo12AcBq7dPWJlAz_V9xz5ZPr-1Y031IplkFHJcAvPoRUcIMEIsC7ij-nRiYMsg_URh4IFWXJ46ACQv1VFbYct4YO_HL6Rrg6G-POVjEathMLtG7Qnj5MR3zDsSGYkoDIjfZjmpoB-T8Sc4EQhjPJVbCardDVTSU5c_hrsiN_ETelX7g0M3H4W_RwHBS1XH_x0vuO2h5st8TICLiuHt0pjq2L"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-secondary mb-2 uppercase">Requested Artifact</p>
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Ceylon Sapphire, 5.2ct Cushion Cut</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">SKU: SAP-CUS-520</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 border border-outline/50 text-on-surface-variant font-label-sm text-label-sm uppercase">Unheated</span>
+<span class="px-2 py-1 border border-outline/50 text-on-surface-variant font-label-sm text-label-sm uppercase">GIA Certified</span>
+</div>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase">Customer Message</p>
+<p class="font-body-md text-body-md text-on-background bg-surface-container-highest p-4 rounded border border-outline-variant/20 italic">
+                            "I am inquiring about the availability of this specific sapphire for a custom engagement ring commission. I would like to arrange a private viewing in London next week if possible. Please advise on pricing and viewing arrangements."
+                        </p>
+</div>
+</section>
+</div>
+<!-- Right Column: Action Sidebar -->
+<div class="space-y-8">
+<!-- Status Update -->
+<section class="glass-panel rounded p-6">
+<h3 class="font-headline-md text-headline-md text-secondary mb-4">Management</h3>
+<div class="mb-6">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Update Status</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-secondary/30 text-on-background font-body-md text-body-md p-3 rounded appearance-none focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
+<option value="new">New</option>
+<option selected="" value="contacted">Contacted</option>
+<option value="viewing">Viewing Scheduled</option>
+<option value="confirmed">Confirmed</option>
+<option value="completed">Completed</option>
+<option value="closed">Closed/Lost</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="mb-6">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Estimated Value</p>
+<p class="font-headline-md text-headline-md text-secondary">$28,500</p>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-label-md text-label-md uppercase py-3 rounded hover:bg-secondary-fixed transition-colors flex justify-center items-center gap-2 mb-4">
+<span class="material-symbols-outlined">save</span>
+                        Save Changes
+                    </button>
+<button class="w-full border border-secondary text-secondary font-label-md text-label-md uppercase py-3 rounded hover:bg-secondary/10 transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">chat</span>
+                        Contact on WhatsApp
+                    </button>
+</section>
+<!-- Internal Notes -->
+<section class="glass-panel rounded p-6">
+<h3 class="font-headline-md text-headline-md text-secondary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">note_alt</span>
+                        Internal Notes
+                    </h3>
+<div class="space-y-4 mb-4">
+<div class="border-l-2 border-secondary/50 pl-3">
+<p class="font-label-sm text-label-sm text-secondary mb-1">Oct 24, 15:00 - Sarah (Sales)</p>
+<p class="font-body-sm text-body-md text-on-background text-sm">Left a voicemail. Emailed standard brochure.</p>
+</div>
+<div class="border-l-2 border-secondary/50 pl-3">
+<p class="font-label-sm text-label-sm text-secondary mb-1">Oct 25, 09:30 - David (Manager)</p>
+<p class="font-body-sm text-body-md text-on-background text-sm">Client replied via WhatsApp. Wants to see the stone next Tuesday. Coordinating with logistics.</p>
+</div>
+</div>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/30 text-on-background font-body-md text-body-md p-3 rounded focus:border-secondary focus:ring-1 focus:ring-secondary outline-none placeholder:text-on-surface-variant/50" placeholder="Add a new note..." rows="3"></textarea>
+<button class="mt-3 w-full border border-outline text-on-surface font-label-sm text-label-sm uppercase py-2 rounded hover:border-secondary hover:text-secondary transition-colors">
+                        Add Note
+                    </button>
+</section>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MIH GEMS - Product Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#574500",
+                      "on-secondary-container": "#342800",
+                      "surface-variant": "#34352e",
+                      "on-primary-fixed": "#1c1b1b",
+                      "tertiary-container": "#0a0a0a",
+                      "tertiary-fixed": "#e5e2e1",
+                      "on-primary": "#313030",
+                      "error-container": "#93000a",
+                      "surface": "#13140d",
+                      "on-surface-variant": "#c4c7c7",
+                      "primary": "#c9c6c5",
+                      "outline": "#8e9192",
+                      "on-secondary": "#3c2f00",
+                      "surface-container-high": "#292b23",
+                      "on-surface": "#e4e3d7",
+                      "primary-fixed": "#e5e2e1",
+                      "on-tertiary-container": "#7a7979",
+                      "on-primary-fixed-variant": "#474646",
+                      "primary-container": "#0a0a0a",
+                      "inverse-surface": "#e4e3d7",
+                      "secondary-fixed": "#ffe088",
+                      "on-error": "#690005",
+                      "on-background": "#e4e3d7",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-bright": "#393a32",
+                      "surface-container-low": "#1b1c15",
+                      "secondary-container": "#af8d11",
+                      "tertiary": "#c8c6c5",
+                      "secondary": "#e9c349",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c9c6c5",
+                      "background": "#13140d",
+                      "surface-container-lowest": "#0d0f08",
+                      "outline-variant": "#444748",
+                      "surface-dim": "#13140d",
+                      "inverse-on-surface": "#303129",
+                      "secondary-fixed-dim": "#e9c349",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "inverse-primary": "#5f5e5e",
+                      "on-primary-container": "#7b7979",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "on-tertiary": "#313030",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "surface-container-highest": "#34352e",
+                      "surface-container": "#1f2019"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "80px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "margin-mobile": "20px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "label-md": [
+                              "Montserrat"
+                      ],
+                      "label-sm": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      }
+              }
+            },
+          }
+        }
+      </script>
+<style>
+          .glass-panel {
+              background: rgba(26, 26, 26, 0.2);
+              backdrop-filter: blur(20px);
+              -webkit-backdrop-filter: blur(20px);
+              border: 1px solid rgba(212, 175, 55, 0.3);
+          }
+          .glow-effect {
+              box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+          }
+          .btn-primary {
+              background-color: #D4AF37;
+              color: #0A0A0A;
+              border-radius: 0;
+              transition: all 0.3s ease;
+          }
+          .btn-primary:hover {
+              background-color: #B8860B;
+              box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+          }
+          .btn-secondary {
+              background-color: transparent;
+              color: #D4AF37;
+              border: 1px solid #D4AF37;
+              border-radius: 0;
+              transition: all 0.3s ease;
+          }
+          .btn-secondary:hover {
+              background-color: rgba(212, 175, 55, 0.1);
+          }
+      </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-secondary selection:text-tertiary-container flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-secondary/30 flat no shadows flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto hidden md:flex">
+<div class="text-headline-md font-headline-md font-bold text-secondary dark:text-secondary tracking-widest">
+            MIH GEMS
+        </div>
+<nav class="flex gap-6">
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">HOME</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">SHOP</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">GEMSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">SILVER RINGS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">BIRTHSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 hover:text-secondary-fixed transition-all text-label-md font-label-md" href="#">CUSTOM JEWELLERY</a>
+</nav>
+<div class="flex gap-4 text-secondary dark:text-secondary">
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined">search</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined">favorite</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined">shopping_cart</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined">person</span></button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<!-- Breadcrumb -->
+<nav class="mb-8 text-label-sm font-label-sm text-on-surface-variant flex gap-2">
+<a class="hover:text-secondary transition-colors" href="#">Home</a> / 
+            <a class="hover:text-secondary transition-colors" href="#">Gemstones</a> / 
+            <span class="text-secondary">Blue Sapphire</span>
+</nav>
+<!-- Product Hero Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-24">
+<!-- Gallery (Left Column) -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<div class="w-full aspect-square bg-[#1A1A1A] border border-secondary/30 relative overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A stunning, high-resolution macro photograph of a faceted deep blue sapphire gemstone resting on a sleek black velvet surface. The lighting is cinematic, casting a soft, opulent glow that highlights the stone's flawless clarity and brilliant cut against the dark, mysterious background. The style is luxurious and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCZxwAi2i_S0Ss0kwqOffjdVuxvKzVYNxVhGqLkfg3646T4xW2_vusnnWNko318Uq_EbE8D9J4ePZ1CFyG_p7JBYw37i8nn_YnAjgZA2hWCdv6_Dyo6npe0FK4TWr_25qP3Pu1m04z8d2ud1kIz8ot8vuRzNhlIPhTUqn9wWezqlweN8pVuvArZ5ds-0iikJtlICyiKI6JluRVGC2qjmHv4_xYvxuwtVekTGdFBvxh3fW7fOXK793I"/>
+<button class="absolute top-4 right-4 text-secondary p-2 rounded-full glass-panel hover:bg-secondary/20 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2 snap-x">
+<div class="w-24 h-24 flex-shrink-0 bg-[#1A1A1A] border border-secondary cursor-pointer snap-start">
+<img class="w-full h-full object-cover" data-alt="A macro detail shot of the blue sapphire showing its top facets reflecting warm, subtle gold lighting in a dark studio setting. The image exudes high-end luxury and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4r9krYb9WZVMGuK6Vs7VLScLDpf7HJ9d8ho0qNPh3fsfPjOXybwBhpCHsAmJ2dnVI2K1_4uZ4GmNl5sgj2xnwq20B9ajxXO6LtHgQfOM-uMcAZRykumoYAfuj-YtSdWkTXgJBS_evzjHgiyfej72u80U8pS09lk7YsZsWG_DO0OWzDoWr-vFgxA_h9pXSQKRc6T54XJQW9Zj0rDgaeULtzDIedwycdIlVg0_pKXyRUyBn5L17BJrA"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-[#1A1A1A] border border-secondary/30 cursor-pointer snap-start hover:border-secondary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A macro side profile view of the blue sapphire gemstone set against a deep charcoal background, emphasizing the depth of color and expert faceting. The mood is sophisticated and cinematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvqdIzPk0JpdKfA3JynhjjPthcGGSyN9X2j9T-NjQm6jgvpJBrgEL3oi5OoVC1yknpyl-0UqZ0akv8pdTEOy1zecE74kf-T0HaQxnkfJDOK04o01WUCR3kIx4Jl6w81mOYpBqjSgEwilDoa9gxykJTE7tJPpJARKQJXeXgQDJ_nidVeFjhQcyrT68sGksLal1svrinpnMNAphhzqlCYLeZNiMpJp9TAiJl9M8r0q4yQJ00vJrG6Xa"/>
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-[#1A1A1A] border border-secondary/30 cursor-pointer snap-start hover:border-secondary transition-colors">
+<img class="w-full h-full object-cover" data-alt="The blue sapphire shown resting elegantly next to a delicate gold measurement tool on a dark surface, providing a sense of scale and craftsmanship in a moody, upscale setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4qAkjg0wmnm5_KINoUJ0RXWeXz7RRmeXqvrEFhnqJ8Mh1rc1dgyUJynpJgQIASho8FcxHYyVGnP6ye3lJWZRJ7o8kcu_dbs40_HR6Tel_SUSRjtnRx1m_75WVZhNCsq51UVkjY-oEf1h2QvASPx1AsD7OQ7TmbwhcD3EhVV5wFqwG3of1zTdjqCijnNmVPb1wVQUOSK5qiWHaDEyJC1RG2Z32BRY5Ju8R9ZuqgTb5TOdamcwyZlkn"/>
+</div>
+</div>
+</div>
+<!-- Product Info (Right Column) -->
+<div class="lg:col-span-5 flex flex-col pt-4 lg:pl-8">
+<h1 class="text-display-lg md:font-display-lg font-headline-lg-mobile text-secondary mb-2">Blue Sapphire</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-6">Ceylon Origin, Unheated</p>
+<div class="text-headline-lg font-headline-lg text-on-surface mb-8">
+                    ₹ 8,500 <span class="text-label-sm font-label-sm text-on-surface-variant ml-2">(inclusive of all taxes)</span>
+</div>
+<!-- Trust Badges -->
+<div class="flex flex-wrap gap-4 mb-8">
+<div class="flex items-center gap-2 glass-panel px-3 py-1 text-label-sm font-label-sm text-secondary uppercase tracking-widest border border-secondary/30">
+<span class="material-symbols-outlined text-sm">verified</span> 100% Natural
+                    </div>
+<div class="flex items-center gap-2 glass-panel px-3 py-1 text-label-sm font-label-sm text-secondary uppercase tracking-widest border border-secondary/30">
+<span class="material-symbols-outlined text-sm">workspace_premium</span> Certified
+                    </div>
+<div class="flex items-center gap-2 glass-panel px-3 py-1 text-label-sm font-label-sm text-secondary uppercase tracking-widest border border-secondary/30">
+<span class="material-symbols-outlined text-sm">local_shipping</span> Secure Packaging
+                    </div>
+</div>
+<!-- Specifications Table -->
+<div class="mb-10 w-full border-t border-secondary/20 pt-6">
+<div class="grid grid-cols-2 gap-y-4 text-body-md font-body-md">
+<div class="text-on-surface-variant">Category</div>
+<div class="text-on-surface text-right">Gemstones</div>
+<div class="text-on-surface-variant">Carat / Weight</div>
+<div class="text-on-surface text-right">5.25 Carat</div>
+<div class="text-on-surface-variant">Shape</div>
+<div class="text-on-surface text-right">Oval</div>
+<div class="text-on-surface-variant">Origin</div>
+<div class="text-on-surface text-right">Sri Lanka</div>
+<div class="text-on-surface-variant">Treatment</div>
+<div class="text-on-surface text-right">Unheated</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-4 mt-auto">
+<button class="w-full py-4 btn-primary text-label-md font-label-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-lg">chat</span> ENQUIRE ON WHATSAPP
+                    </button>
+<div class="grid grid-cols-2 gap-4">
+<button class="w-full py-4 btn-secondary text-label-md font-label-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_bag</span> ADD TO CART
+                        </button>
+<button class="w-full py-4 glass-panel text-secondary hover:bg-secondary/10 transition-colors text-label-md font-label-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-lg">favorite_border</span> WISHLIST
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- WhatsApp Preview Section (Asymmetric Layout) -->
+<section class="mb-24">
+<div class="flex items-center justify-between border-b border-secondary/30 pb-4 mb-12">
+<h2 class="text-headline-md font-headline-md text-secondary">Enquiry Preview</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-5 order-2 lg:order-1">
+<div class="glass-panel p-8 relative overflow-hidden glow-effect">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent pointer-events-none"></div>
+<h3 class="text-body-lg font-body-lg text-on-surface mb-4">Ready to discuss this piece?</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-8">
+                            Review the details of your enquiry before sending. Our experts typically respond within 15 minutes during business hours to assist you with certification details, video requests, or custom setting options.
+                        </p>
+<button class="w-full py-4 btn-primary text-label-md font-label-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-lg">send</span> SEND ON WHATSAPP
+                        </button>
+</div>
+</div>
+<div class="lg:col-span-7 order-1 lg:order-2 flex justify-center lg:justify-end">
+<!-- Faux WhatsApp Bubble UI -->
+<div class="w-full max-w-md bg-[#0A0A0A] border border-[#202C33] rounded-xl overflow-hidden shadow-2xl">
+<!-- Header -->
+<div class="bg-[#202C33] px-4 py-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-[#0A0A0A]">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<div class="flex-grow">
+<div class="text-[#E9EDEF] font-semibold text-sm">MIH GEMS</div>
+<div class="text-[#8696A0] text-xs">Official Business Account</div>
+</div>
+</div>
+<!-- Chat Area -->
+<div class="bg-[#0B141A] p-4 min-h-[300px] flex flex-col gap-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwYjE0MWEiLz48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIi8+PC9zdmc+')]">
+<!-- User Message -->
+<div class="bg-[#005C4B] rounded-lg rounded-tr-none p-3 max-w-[85%] self-end relative shadow-sm">
+<div class="text-[#E9EDEF] text-sm font-body-md mb-2">
+                                    Hello, I would like to enquire about the following item:
+                                </div>
+<div class="bg-[#025143] p-2 rounded border-l-4 border-[#128C7E] mb-2 flex items-center gap-3">
+<div class="w-12 h-12 bg-black flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small thumbnail showing the faceted blue sapphire gemstone against a dark background, representing the product in a messaging interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1TKPj6zVbmoypozTfaIl3QyWZr77ZFA1DQ9Jak_YURkghfFj3V_hiar2f3Eh-4LK1pFD7PCaeZkEIaECpIVGG11AZwNk6n9tG9K0RmT_lYIv00h-0ARE0zWo8BuH4OsJL0i76olljysmVuWUxQn3NhNKhODWc8VPeWOv2w783utViRShU2po_hLStzLS7HIVnr-0ctlmCJV-EhO29SUaWjI0g-i4xyLYPzvPS9MRuGZnmfvJVfOFG"/>
+</div>
+<div>
+<div class="text-[#E9EDEF] font-semibold text-xs">Blue Sapphire</div>
+<div class="text-[#8696A0] text-xs">₹ 8,500 (Qty: 1)</div>
+</div>
+</div>
+<div class="text-[#E9EDEF] text-sm font-body-md">
+                                    Customer Details:<br/>
+                                    Name: [Your Name]<br/>
+                                    City: [Your City]
+                                </div>
+<div class="text-[#8696A0] text-[10px] text-right mt-1">11:30 AM <span class="material-symbols-outlined text-[14px] align-middle text-[#53bdeb]">done_all</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Products (Bento Grid Style) -->
+<section>
+<div class="flex items-center justify-between border-b border-secondary/30 pb-4 mb-12">
+<h2 class="text-headline-md font-headline-md text-secondary">Curated For You</h2>
+<a class="text-label-sm font-label-sm text-secondary hover:text-secondary-fixed flex items-center gap-1 uppercase tracking-widest" href="#">View Collection <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<a class="group block" href="#">
+<div class="glass-panel p-4 h-full flex flex-col hover:border-secondary transition-colors duration-300">
+<div class="w-full aspect-[4/3] bg-[#0A0A0A] mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A macro photograph of a brilliant red ruby gemstone resting on dark textured slate. Cinematic spotlighting highlights the deep red tones and crisp facets. The style is moody, luxurious, and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCHR1cDveJOY6_vN4uK0RO39IevtBx2NJLKcwfWDSSfbl1XpUASLB1nqFn74QI_6iYxXxPj5Ch28GQXnuNVj3jXxw8J3_pttjWIv6pPvscJjtUiPSWFPgEPq47lYc-j3VCiaXbYrf7mTHUDyXf4_X-kYzFyT9YWTa4y7Kp6JD6h4rSoS9cXvGiXB6xRDL7r4xUkbqPxqeXq7TuWJt6t3o3Rc-CSbm0YrwMdnB3CeHWOLRlsVjFozoE"/>
+</div>
+<div class="flex justify-between items-start mt-auto">
+<div>
+<h4 class="text-body-lg font-headline-lg text-on-surface mb-1">Ruby</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Burmese Origin</p>
+</div>
+<div class="text-body-md font-body-md text-secondary text-right">
+                                ₹ 6,800
+                            </div>
+</div>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="group block" href="#">
+<div class="glass-panel p-4 h-full flex flex-col hover:border-secondary transition-colors duration-300">
+<div class="w-full aspect-[4/3] bg-[#0A0A0A] mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A vivid green emerald gemstone cut in a classic rectangular step-cut, displayed on a sleek black reflective surface. The lighting emphasizes the gem's internal clarity and rich green hue. High-end, dramatic jewelry photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzdRqvj-1Rx2_jtsfIV4pFVcU8N-ewoDuTFHGtvQRXSRqcFqYrjslHpsh_BR9lPjUkw79WKpWHYzkzEBBdW3645gfWegpd1At8ynLfHzazDwptENxfEFzc-a5mhW8Cu9SGgv1zVe2Ps85uUNgbKFmXywlwp8LHKzpDaYCv4o0a8o7mTiyNZLhKD7DFvgcl0XufCibTyTyuHkQG7DbJP57r4im1thWeNrwMxWLjUhXrkNCNon7I3tlU"/>
+</div>
+<div class="flex justify-between items-start mt-auto">
+<div>
+<h4 class="text-body-lg font-headline-lg text-on-surface mb-1">Emerald</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Zambian Origin</p>
+</div>
+<div class="text-body-md font-body-md text-secondary text-right">
+                                ₹ 7,200
+                            </div>
+</div>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="group block" href="#">
+<div class="glass-panel p-4 h-full flex flex-col hover:border-secondary transition-colors duration-300">
+<div class="w-full aspect-[4/3] bg-[#0A0A0A] mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A glowing yellow sapphire gemstone, oval cut, set against a dark cinematic background. Soft radial lighting makes the gemstone appear to emit light, showcasing its flawless cut and bright color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSy9DjfLqY6v2Oedy--9FgwKvTrH0DuBOX5_gxZJYuqeFKG7vPk7kbV2Wc3BnCm2rSTbmG5VuRlqkUQPwcDdreh--K4HOzFp9e1MK2AUqJ8hg7yjHPXj0T1d-jc9Cw7ce8kdZVQ7lQ0AxKsVW30VCTanqRyjN-m8NPQkUvMDoNEiRA6WPy2ToIEdnAk-dfaNItMW6vF1OrSM8s-7iG9mhHNub74TPtmrRMhKEZvbny85w52OpAOBAN"/>
+</div>
+<div class="flex justify-between items-start mt-auto">
+<div>
+<h4 class="text-body-lg font-headline-lg text-on-surface mb-1">Yellow Sapphire</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Ceylon Origin</p>
+</div>
+<div class="text-body-md font-body-md text-secondary text-right">
+                                ₹ 5,500
+                            </div>
+</div>
+</div>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full py-16 border-t border-secondary/10 flat mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto text-on-surface-variant text-body-md font-body-md">
+<div class="flex flex-col gap-4">
+<div class="text-headline-md font-headline-md text-secondary tracking-tighter mb-4">MIH GEMS</div>
+<p class="text-label-sm font-label-sm max-w-[250px]">Premium Gemstones, Silver Jewellery &amp; Custom Creations.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Contact</h4>
+<a class="hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Phone</a>
+<a class="hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">WhatsApp</a>
+<a class="hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Email</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-secondary font-label-md text-label-md uppercase tracking-widest mb-2">Social</h4>
+<a class="hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Instagram</a>
+</div>
+<div class="flex flex-col gap-4 justify-end md:text-right">
+<p class="text-label-sm font-label-sm">© 2024 MIH GEMS. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+</body></html>

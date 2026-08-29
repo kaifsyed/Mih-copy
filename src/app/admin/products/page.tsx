@@ -275,85 +275,43 @@ export default function AdminProductsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0a09] text-[#f5efe5]">
-      <header className="border-b border-[#c9a45c]/20">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <Link
-            href="/admin"
-            className="text-xl font-semibold tracking-[0.25em]"
-          >
-            MIH GEMS
-          </Link>
-
-          <div className="flex items-center gap-5">
-            <Link
-              href="/admin"
-              className="text-sm text-[#9f9689] hover:text-[#d7b56d]"
-            >
-              Dashboard
-            </Link>
-
-            <Link
-              href="/"
-              className="text-sm text-[#9f9689] hover:text-[#d7b56d]"
-            >
-              Website
-            </Link>
-          </div>
-        </nav>
-      </header>
-
-      <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-[#d7b56d]">
-              Administration
-            </p>
-
-            <h1 className="mt-3 text-4xl font-light sm:text-5xl">
-              Products
-            </h1>
-
-            <p className="mt-4 max-w-xl text-sm leading-7 text-[#8f8678]">
-              Manage the gemstones displayed in the MIH GEMS catalogue.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={openAddForm}
-            className="rounded-full bg-[#d7b56d] px-6 py-3 text-sm font-semibold text-[#0b0a09]"
-          >
-            + Add Product
-          </button>
+    <div>
+      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+          <p className="eyebrow">Administration</p>
+          <h1 className="mt-3 font-serif text-4xl text-ivory sm:text-5xl">
+            Products
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+            Manage the gemstones displayed in the MIH GEMS catalogue.
+          </p>
         </div>
 
-        {message && (
-          <div className="mt-6 rounded-xl border border-[#c9a45c]/20 bg-[#100f0d] px-5 py-4 text-sm text-[#d7b56d]">
-            {message}
+        <button type="button" onClick={openAddForm} className="btn btn-gold">
+          + Add Product
+        </button>
+      </div>
+
+      {message && (
+        <div className="mt-6 border border-gold/25 bg-charcoal px-5 py-4 text-sm text-gold">
+          {message}
+        </div>
+      )}
+
+      {showForm && (
+        <form onSubmit={handleSaveProduct} className="card-luxe mt-8 p-6 sm:p-8">
+          <div>
+            <p className="eyebrow">
+              {editingProduct ? "Edit gemstone" : "New gemstone"}
+            </p>
+            <h2 className="mt-2 font-serif text-2xl text-ivory">
+              {editingProduct ? "Edit Product" : "Add Product"}
+            </h2>
           </div>
-        )}
-
-        {showForm && (
-          <form
-            onSubmit={handleSaveProduct}
-            className="mt-8 rounded-2xl border border-[#c9a45c]/20 bg-[#100f0d] p-6 sm:p-8"
-          >
-            <div>
-              <p className="text-xs uppercase tracking-[0.25em] text-[#d7b56d]">
-                {editingProduct ? "Edit gemstone" : "New gemstone"}
-              </p>
-
-              <h2 className="mt-2 text-2xl font-light">
-                {editingProduct ? "Edit Product" : "Add Product"}
-              </h2>
-            </div>
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
-                  Product Name *
-                </span>
+                <span className="field-label">Product Name *</span>
 
                 <input
                   value={form.name}
@@ -361,14 +319,14 @@ export default function AdminProductsPage() {
                     updateForm("name", event.target.value)
                   }
                   placeholder="Natural Blue Sapphire"
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                   required
                 />
 
                 {editingProduct && (
-                  <span className="mt-2 block text-xs text-[#6f675d]">
+                  <span className="mt-2 block text-xs text-muted">
                     The public web address stays{" "}
-                    <span className="text-[#8f8678]">
+                    <span className="text-ivory/80">
                       /shop/{editingProduct.slug}
                     </span>{" "}
                     so existing links keep working.
@@ -377,7 +335,7 @@ export default function AdminProductsPage() {
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Category *
                 </span>
 
@@ -387,13 +345,13 @@ export default function AdminProductsPage() {
                     updateForm("category", event.target.value)
                   }
                   placeholder="Blue Sapphire"
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Detail
                 </span>
 
@@ -403,12 +361,12 @@ export default function AdminProductsPage() {
                     updateForm("detail", event.target.value)
                   }
                   placeholder="Ceylon • Unheated"
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                 />
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Carat / Size
                 </span>
 
@@ -418,12 +376,12 @@ export default function AdminProductsPage() {
                     updateForm("carat", event.target.value)
                   }
                   placeholder="2.03 ct"
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                 />
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Status
                 </span>
 
@@ -435,7 +393,7 @@ export default function AdminProductsPage() {
                       event.target.value as "Available" | "Enquire"
                     )
                   }
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                 >
                   <option value="Available">Available</option>
                   <option value="Enquire">Enquire</option>
@@ -443,7 +401,7 @@ export default function AdminProductsPage() {
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Gemstone Colour
                 </span>
 
@@ -455,7 +413,7 @@ export default function AdminProductsPage() {
                       event.target.value as "blue" | "red" | "green"
                     )
                   }
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                 >
                   <option value="blue">Blue</option>
                   <option value="red">Red</option>
@@ -464,7 +422,7 @@ export default function AdminProductsPage() {
               </label>
 
               <label className="block">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Pricing Mode
                 </span>
 
@@ -476,7 +434,7 @@ export default function AdminProductsPage() {
                       event.target.value as PricingType
                     )
                   }
-                  className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2"
                 >
                   <option value="enquiry">Enquire for Price</option>
                   <option value="negotiable">Negotiable</option>
@@ -484,7 +442,7 @@ export default function AdminProductsPage() {
                   <option value="range">Price Range</option>
                 </select>
 
-                <span className="mt-2 block text-xs text-[#6f675d]">
+                <span className="mt-2 block text-xs text-muted">
                   Leave on Enquire for Price unless you have a real figure to
                   publish.
                 </span>
@@ -492,7 +450,7 @@ export default function AdminProductsPage() {
 
               {form.pricing_type === "fixed" && (
                 <label className="block">
-                  <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                  <span className="field-label">
                     Fixed Price (₹) *
                   </span>
 
@@ -506,7 +464,7 @@ export default function AdminProductsPage() {
                       updateForm("price", event.target.value)
                     }
                     placeholder="Amount in ₹"
-                    className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                    className="input-luxe mt-2"
                   />
                 </label>
               )}
@@ -514,7 +472,7 @@ export default function AdminProductsPage() {
               {form.pricing_type === "range" && (
                 <>
                   <label className="block">
-                    <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                    <span className="field-label">
                       Minimum Price (₹) *
                     </span>
 
@@ -528,12 +486,12 @@ export default function AdminProductsPage() {
                         updateForm("price_min", event.target.value)
                       }
                       placeholder="From"
-                      className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                      className="input-luxe mt-2"
                     />
                   </label>
 
                   <label className="block">
-                    <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                    <span className="field-label">
                       Maximum Price (₹) *
                     </span>
 
@@ -547,14 +505,14 @@ export default function AdminProductsPage() {
                         updateForm("price_max", event.target.value)
                       }
                       placeholder="To"
-                      className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                      className="input-luxe mt-2"
                     />
                   </label>
                 </>
               )}
 
               <label className="block sm:col-span-2">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Product Image
                 </span>
 
@@ -564,30 +522,29 @@ export default function AdminProductsPage() {
                   onChange={(event) =>
                     handleImageChange(event.target.files?.[0] ?? null)
                   }
-                  className="mt-2 block w-full text-sm text-[#a59b8d] file:mr-4 file:rounded-full file:border-0 file:bg-[#d7b56d] file:px-5 file:py-2 file:text-xs file:font-semibold file:text-[#0b0a09]"
+                  className="mt-2 block w-full text-sm text-muted file:mr-4 file:border-0 file:bg-gold file:px-5 file:py-2 file:text-xs file:font-semibold file:uppercase file:tracking-[0.14em] file:text-noir"
                 />
 
-                <span className="mt-2 block text-xs text-[#6f675d]">
+                <span className="mt-2 block text-xs text-muted">
                   JPEG, PNG or WebP, up to 5 MB.
                 </span>
 
                 {imagePreview && (
                   <div className="mt-5">
-                    <p className="mb-2 text-xs uppercase tracking-wider text-[#81786d]">
-                      Image Preview
-                    </p>
+                    <p className="field-label mb-2">Image Preview</p>
 
+                    {/* eslint-disable-next-line @next/next/no-img-element -- object-URL/remote preview, not a static asset */}
                     <img
                       src={imagePreview}
                       alt="Product preview"
-                      className="h-48 w-48 rounded-2xl border border-[#c9a45c]/20 object-cover"
+                      className="h-48 w-48 border border-gold/20 object-cover"
                     />
                   </div>
                 )}
               </label>
 
               <label className="block sm:col-span-2">
-                <span className="text-xs uppercase tracking-wider text-[#81786d]">
+                <span className="field-label">
                   Description
                 </span>
 
@@ -598,7 +555,7 @@ export default function AdminProductsPage() {
                   }
                   placeholder="Describe the gemstone, origin, quality and character..."
                   rows={4}
-                  className="mt-2 w-full resize-none rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
+                  className="input-luxe mt-2 resize-none"
                 />
               </label>
             </div>
@@ -607,7 +564,7 @@ export default function AdminProductsPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="rounded-full bg-[#d7b56d] px-7 py-3 text-sm font-semibold text-[#0b0a09] disabled:opacity-50"
+                className="btn btn-gold"
               >
                 {saving
                   ? "Saving..."
@@ -625,7 +582,7 @@ export default function AdminProductsPage() {
                   setSelectedImage(null);
                   setImagePreview(null);
                 }}
-                className="rounded-full border border-[#c9a45c]/30 px-7 py-3 text-sm text-[#d7b56d]"
+                className="btn btn-ghost"
               >
                 Cancel
               </button>
@@ -633,8 +590,8 @@ export default function AdminProductsPage() {
           </form>
         )}
 
-        <div className="mt-12 overflow-hidden rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d]">
-          <div className="hidden grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] gap-6 border-b border-[#c9a45c]/10 px-6 py-4 text-xs uppercase tracking-wider text-[#81786d] md:grid">
+        <div className="card-luxe mt-12 overflow-hidden">
+          <div className="hidden grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] gap-6 border-b border-outline/12 px-6 py-4 text-[0.62rem] uppercase tracking-[0.14em] text-muted md:grid">
             <span>Product</span>
             <span>Category</span>
             <span>Carat</span>
@@ -644,16 +601,13 @@ export default function AdminProductsPage() {
           </div>
 
           {loading ? (
-            <div className="px-6 py-12 text-center text-sm text-[#81786d]">
+            <div className="px-6 py-12 text-center text-sm text-muted">
               Loading products...
             </div>
           ) : products.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <p className="text-lg text-[#a9a093]">
-                No products yet.
-              </p>
-
-              <p className="mt-2 text-sm text-[#756d62]">
+              <p className="text-lg text-ivory/90">No products yet.</p>
+              <p className="mt-2 text-sm text-muted">
                 Click Add Product to create your first gemstone.
               </p>
             </div>
@@ -661,50 +615,37 @@ export default function AdminProductsPage() {
             products.map((product) => (
               <div
                 key={product.id}
-                className="grid gap-5 border-b border-[#c9a45c]/10 px-6 py-6 last:border-b-0 md:grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] md:items-center md:gap-6"
+                className="grid gap-5 border-b border-outline/12 px-6 py-6 last:border-b-0 md:grid-cols-[2fr_1.1fr_0.8fr_1.1fr_0.9fr_auto] md:items-center md:gap-6"
               >
                 <div className="flex items-center gap-4">
                   {product.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- admin thumbnail from Supabase Storage
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="h-16 w-16 rounded-xl object-cover"
+                      className="h-16 w-16 border border-outline/20 object-cover"
                     />
                   ) : (
-                    <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-[#c9a45c]/15 text-xs text-[#756d62]">
+                    <div className="flex h-16 w-16 items-center justify-center border border-gold/15 text-xs text-muted">
                       No image
                     </div>
                   )}
 
                   <div>
-                    <p className="text-base text-[#eee5d8]">
-                      {product.name}
-                    </p>
-
-                    <p className="mt-1 text-xs text-[#756d62]">
-                      {product.slug}
-                    </p>
+                    <p className="text-base text-ivory">{product.name}</p>
+                    <p className="mt-1 text-xs text-muted">{product.slug}</p>
                   </div>
                 </div>
 
-                <p className="text-sm text-[#a59b8d]">
-                  {product.category}
-                </p>
+                <p className="text-sm text-muted">{product.category}</p>
 
-                <p className="text-sm text-[#a59b8d]">
-                  {product.carat || "—"}
-                </p>
+                <p className="text-sm text-muted">{product.carat || "—"}</p>
 
-                <p className="text-sm text-[#a59b8d]">
-                  {formatPrice(product)}
-                </p>
+                <p className="text-sm text-ivory/90">{formatPrice(product)}</p>
 
                 <span
                   className={
-                    "w-fit rounded-full px-3 py-1 text-xs " +
-                    (product.status === "Available"
-                      ? "bg-[#243c2b] text-[#a9c9ad]"
-                      : "bg-[#3a3020] text-[#d7b56d]")
+                    product.status === "Available" ? "chip-gold" : "chip-silver"
                   }
                 >
                   {product.status}
@@ -714,7 +655,7 @@ export default function AdminProductsPage() {
                   <button
                     type="button"
                     onClick={() => openEditForm(product)}
-                    className="text-sm text-[#d7b56d] transition hover:text-[#f0dca9]"
+                    className="text-sm text-gold transition-colors hover:text-champagne"
                   >
                     Edit
                   </button>
@@ -724,7 +665,7 @@ export default function AdminProductsPage() {
                     onClick={() =>
                       handleDeleteProduct(product.id, product.name)
                     }
-                    className="text-sm text-[#81786d] transition hover:text-red-400"
+                    className="text-sm text-muted transition-colors hover:text-danger"
                   >
                     Delete
                   </button>
@@ -733,7 +674,6 @@ export default function AdminProductsPage() {
             ))
           )}
         </div>
-      </section>
-    </main>
+    </div>
   );
 }

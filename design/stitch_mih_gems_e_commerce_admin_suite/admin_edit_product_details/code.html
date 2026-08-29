@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Product - MIH GEMS Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1b1c15",
+                        "outline": "#8e9192",
+                        "secondary-container": "#af8d11",
+                        "on-tertiary-container": "#7a7979",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-background": "#e4e3d7",
+                        "error-container": "#93000a",
+                        "on-secondary": "#3c2f00",
+                        "surface-container-lowest": "#0d0f08",
+                        "tertiary": "#c8c6c5",
+                        "on-error": "#690005",
+                        "primary-fixed": "#e5e2e1",
+                        "outline-variant": "#444748",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-surface-variant": "#c4c7c7",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#342800",
+                        "surface": "#13140d",
+                        "on-tertiary": "#313030",
+                        "tertiary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary": "#c9c6c5",
+                        "surface-container-high": "#292b23",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "tertiary-container": "#0a0a0a",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-primary-container": "#7b7979",
+                        "surface-bright": "#393a32",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary-fixed": "#241a00",
+                        "inverse-on-surface": "#303129",
+                        "inverse-primary": "#5f5e5e",
+                        "on-surface": "#e4e3d7",
+                        "secondary-fixed": "#ffe088",
+                        "secondary": "#e9c349",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#c9c6c5",
+                        "inverse-surface": "#e4e3d7",
+                        "surface-container": "#1f2019",
+                        "surface-variant": "#34352e",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "surface-container-highest": "#34352e",
+                        "background": "#13140d",
+                        "on-primary": "#313030",
+                        "primary-container": "#0a0a0a",
+                        "surface-dim": "#13140d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "20px",
+                        "container-max": "1440px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Montserrat"],
+                        "label-md": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Input Underline Style */
+        .input-underline {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #34352e; /* surface-variant */
+            color: #e4e3d7; /* on-surface */
+            padding: 8px 0;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .input-underline:focus {
+            outline: none;
+            border-bottom-color: #e9c349; /* Champagne Gold / secondary */
+            box-shadow: none;
+        }
+        .input-underline::placeholder {
+            color: #8e9192; /* outline */
+        }
+        
+        /* Custom Select Style */
+        .select-custom {
+             background: transparent;
+             border: none;
+             border-bottom: 1px solid #34352e;
+             color: #e4e3d7;
+             padding: 8px 0;
+             width: 100%;
+             transition: border-color 0.3s ease;
+             appearance: none;
+             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e9c349%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+             background-repeat: no-repeat;
+             background-position: right 8px top 50%;
+             background-size: 10px auto;
+        }
+        .select-custom:focus {
+             outline: none;
+             border-bottom-color: #e9c349;
+        }
+        .select-custom option {
+            background-color: #1a1a1a;
+            color: #e4e3d7;
+        }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Subtle Gold */
+        }
+        
+        /* Glow Effect for Primary Action */
+        .glow-btn {
+            position: relative;
+        }
+        .glow-btn::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glow-btn:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex selection:bg-secondary/30">
+<!-- SideNavBar (Shared Component Blueprint) -->
+<nav class="bg-surface-container-highest dark:bg-surface-container-highest text-secondary dark:text-secondary h-screen w-64 fixed left-0 top-0 border-r border-secondary/20 shadow-xl hidden md:flex flex-col py-8 z-40">
+<!-- Header / Brand -->
+<div class="px-6 mb-12 text-center">
+<h1 class="text-label-md font-label-md font-bold text-secondary mb-4 tracking-widest uppercase">MIH GEMS</h1>
+<div class="flex items-center gap-3 justify-center mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-secondary/30">
+<img alt="Admin User Profile" class="w-full h-full object-cover" data-alt="Admin user profile avatar, professional portrait, dark moody lighting, cinematic styling, gold accents in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr_jU4hdLwhJOsasIapa91GEB89j4k2pQXVN7bUFK0j7blPEiWeNj_yhzjALmOjPhNg2laIiASOJwQXIw3PomXi9OgS6HcElqK00CXzbBMIuHlrQv7s0YDSmxJk8qZcHu60ohdGfWvct1zTl8Nk1fi4LFoIXv35upxnPrv5muQPfN6Dqom0kBgcEx7aKWsZ4CZ1aDmXA63KUturM0gijTFXmmJb8ZCZ0mY7y14sju-rW7xBJp-yzaA"/>
+</div>
+<div class="text-left">
+<p class="text-headline-sm font-headline-md text-on-surface text-sm">Admin Portal</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-xs">Management Suite</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-grow flex flex-col gap-1">
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Dashboard</span>
+</a>
+<a class="bg-secondary/10 text-secondary border-r-4 border-secondary px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="diamond" data-weight="fill" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="contact_support">contact_support</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Enquiries</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="group">group</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Customers</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Inventory</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Settings</span>
+</a>
+</div>
+<!-- Footer Action -->
+<div class="mt-auto px-4">
+<a class="text-on-surface-variant hover:bg-surface-variant/50 px-4 py-3 flex items-center gap-3 hover:bg-surface-variant/30 transition-all duration-200 ease-in-out group rounded-md" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors" data-icon="logout">logout</span>
+<span class="text-label-md font-label-md group-hover:text-secondary transition-colors">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full relative">
+<!-- Ambient Background Glow -->
+<div class="absolute top-0 right-0 w-1/2 h-1/2 bg-secondary/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<!-- Header -->
+<header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div>
+<a class="text-label-sm font-label-sm text-secondary hover:text-secondary-fixed transition-colors flex items-center gap-2 mb-2" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    BACK TO INVENTORY
+                </a>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface">Edit Product</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">SKU: <span class="text-secondary">MG-RBY-0042</span></p>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-6 py-3 border border-secondary/50 text-secondary hover:border-secondary hover:bg-secondary/10 transition-all duration-300 rounded-sm text-label-md font-label-md uppercase tracking-wider" type="button">
+                    Discard Changes
+                </button>
+<button class="glow-btn flex-1 md:flex-none px-6 py-3 bg-secondary text-[#0a0a0a] hover:bg-[#b8860b] transition-all duration-300 rounded-sm text-label-md font-label-md uppercase tracking-wider font-bold" form="edit-product-form" type="submit">
+                    Update Product
+                </button>
+</div>
+</header>
+<!-- Form Layout -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-gutter" id="edit-product-form">
+<!-- Left Column (Core Info & Media) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Core Information Panel -->
+<section class="glass-panel p-8 rounded-sm">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6 pb-2 border-b border-secondary/20">Core Information</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="col-span-1 md:col-span-2">
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Product Name</label>
+<input class="input-underline text-body-lg font-body-lg" type="text" value="Unheated Burmese Ruby - 2.14ct"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">SKU</label>
+<input class="input-underline text-body-lg font-body-lg" readonly="" type="text" value="MG-RBY-0042"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Category</label>
+<select class="select-custom text-body-lg font-body-lg">
+<option selected="" value="gemstone">Loose Gemstone</option>
+<option value="ring">Ring</option>
+<option value="necklace">Necklace</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Gemstone Specifics Panel -->
+<section class="glass-panel p-8 rounded-sm">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6 pb-2 border-b border-secondary/20">Gemstone Details</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Gem Type</label>
+<input class="input-underline" type="text" value="Ruby"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Carat Weight</label>
+<input class="input-underline" step="0.01" type="number" value="2.14"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Shape / Cut</label>
+<input class="input-underline" type="text" value="Cushion Mixed Cut"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Origin</label>
+<input class="input-underline" type="text" value="Burma (Myanmar)"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Treatment</label>
+<select class="select-custom">
+<option selected="" value="unheated">Unheated / Untreated</option>
+<option value="heated">Heated</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Certification</label>
+<input class="input-underline" type="text" value="GIA Certified"/>
+</div>
+<div class="col-span-1 md:col-span-3 mt-4">
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-4 uppercase tracking-widest">Attributes</label>
+<div class="flex flex-wrap gap-3">
+<div class="px-4 py-1 border border-secondary/50 text-secondary text-label-sm font-label-sm uppercase tracking-wider bg-secondary/5 flex items-center gap-2 cursor-pointer hover:bg-secondary/20 transition-colors">
+                                    Pigeon Blood Red
+                                    <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="px-4 py-1 border border-secondary/50 text-secondary text-label-sm font-label-sm uppercase tracking-wider bg-secondary/5 flex items-center gap-2 cursor-pointer hover:bg-secondary/20 transition-colors">
+                                    VVS Clarity
+                                    <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<button class="px-4 py-1 border border-outline border-dashed text-on-surface-variant text-label-sm font-label-sm uppercase tracking-wider hover:text-secondary hover:border-secondary transition-colors flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Tag
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Media Management Panel -->
+<section class="glass-panel p-8 rounded-sm">
+<div class="flex justify-between items-center mb-6 pb-2 border-b border-secondary/20">
+<h3 class="text-headline-md font-headline-md text-on-surface">Media Gallery</h3>
+<button class="text-label-sm font-label-sm text-secondary hover:text-secondary-fixed transition-colors flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[16px]">upload</span> UPLOAD NEW
+                        </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Primary Image -->
+<div class="col-span-2 row-span-2 relative group aspect-square">
+<div class="absolute top-2 left-2 z-10 bg-surface/80 backdrop-blur-md px-2 py-1 border border-secondary/30 text-secondary text-xs uppercase tracking-widest font-label-sm">Primary</div>
+<img alt="Primary Ruby Image" class="w-full h-full object-cover rounded-sm border border-secondary/30 group-hover:border-secondary transition-colors" data-alt="High fidelity macro photograph of a deep pigeon blood red cushion cut ruby gemstone, resting on dark charcoal velvet, dramatic cinematic lighting highlighting the internal facets and clarity, gold reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHz9ubx0nFVGnGHcC4-TRHkEMaFfOL8EcoyWn4OtvaGotREo6DNEjIUv6z153LdLBifNhQ4eOV9ZUXFL16h5Uh6ohBRFCRtI0uLyB6Ebp8WLtbG7wZSyc8EApE7v33YeYzhMFQ5grBYP5KHgTuy2eqLmZy6cjATVfCmZtQyHzz6jlkfJFKZBGcECpFkSur5bOq2fmJC8-RkN3UcLIUI-98KpALrytYzNeSyZCSRvON5d3eTj0sGKXq"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+<button class="text-white hover:text-secondary" type="button"><span class="material-symbols-outlined">edit</span></button>
+<button class="text-white hover:text-error" type="button"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<!-- Secondary Images -->
+<div class="relative group aspect-square">
+<img alt="Ruby Side View" class="w-full h-full object-cover rounded-sm border border-secondary/30 group-hover:border-secondary transition-colors" data-alt="Macro side profile shot of an unheated red ruby gemstone, demonstrating depth and pavilion cut, cinematic dark background, spotlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV-gCDJAPli_sohefPzbKiiQz8ysbwJ-P2PwC5irR9F71ym5KcOP7u4ZuW7s-Tw0_UtDITROpyCIeyO9As-yNj23RqGnMKhXeR7tJXZqqlQqz5zpnlfV8YztcFqjSJOyKYqlrig8mvVpmYvknnBQVL1JD7TXKta7EZBuHSwFjF5ePcLKDl2LGM9qtViIAM29uB55gsq9b4T1h8wV-oya3MWL7alBPc45Jlg--mANoGewwtzaARVd2P"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+<button class="text-white hover:text-error" type="button"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<div class="relative group aspect-square">
+<img alt="GIA Certificate" class="w-full h-full object-cover rounded-sm border border-secondary/30 group-hover:border-secondary transition-colors" data-alt="A macro shot of a GIA certification certificate leaning against a glowing red ruby gemstone in a dark moody luxurious setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6bcXImBDXv0hjzgSFnjWlrj3xcH5RksguhditT6sJAVoA1uK33Z8ooQ-UvtQZkBSG8vaHDBlSBdU6WDimlHiqqKaoCwwonrXbQqdHPSvcDl8F2R2trQcSMsOsPz0h6S89NqmNWoNVQ1P_D94l35sGHXfBrr59NTgTbEqBCEEMVtze70rTHZGtAJb_a-wGmMUkbrPp9xi9jER6vemsYH6NnOPPlknqYgpov18tqnByYf7ftTvs_pGQ"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+<button class="text-white hover:text-error" type="button"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<!-- Upload Dropzone -->
+<div class="col-span-2 md:col-span-2 border border-dashed border-outline hover:border-secondary rounded-sm flex flex-col items-center justify-center text-on-surface-variant hover:text-secondary transition-colors cursor-pointer p-4 aspect-[2/1]">
+<span class="material-symbols-outlined text-3xl mb-2">add_photo_alternate</span>
+<span class="text-label-sm font-label-sm uppercase tracking-widest text-center">Drag &amp; Drop Media<br/>or Click to Browse</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Pricing, Status, Inventory) -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Status & Visibility -->
+<section class="glass-panel p-6 rounded-sm">
+<h4 class="text-label-md font-label-md text-secondary uppercase tracking-widest mb-4">Visibility</h4>
+<div class="space-y-4">
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="text-body-md font-body-md text-on-surface group-hover:text-secondary transition-colors">Active on Storefront</span>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="peer opacity-0 w-0 h-0" type="checkbox"/>
+<span class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-surface-variant border border-outline rounded-full transition-all before:absolute before:content-[''] before:h-4 before:w-4 before:left-1 before:bottom-0.5 before:bg-outline before:rounded-full before:transition-all peer-checked:bg-secondary/20 peer-checked:border-secondary peer-checked:before:translate-x-4 peer-checked:before:bg-secondary"></span>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="text-body-md font-body-md text-on-surface group-hover:text-secondary transition-colors">Featured Collection</span>
+<div class="relative inline-block w-10 h-6">
+<input class="peer opacity-0 w-0 h-0" type="checkbox"/>
+<span class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-surface-variant border border-outline rounded-full transition-all before:absolute before:content-[''] before:h-4 before:w-4 before:left-1 before:bottom-0.5 before:bg-outline before:rounded-full before:transition-all peer-checked:bg-secondary/20 peer-checked:border-secondary peer-checked:before:translate-x-4 peer-checked:before:bg-secondary"></span>
+</div>
+</label>
+</div>
+</section>
+<!-- Pricing -->
+<section class="glass-panel p-6 rounded-sm">
+<h4 class="text-label-md font-label-md text-secondary uppercase tracking-widest mb-4">Pricing Strategy</h4>
+<div class="space-y-6">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Retail Price (USD)</label>
+<div class="relative">
+<span class="absolute left-0 top-2 text-on-surface-variant">$</span>
+<input class="input-underline pl-6 text-body-lg font-body-lg" type="number" value="12500.00"/>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Wholesale Price (USD)</label>
+<div class="relative">
+<span class="absolute left-0 top-2 text-on-surface-variant">$</span>
+<input class="input-underline pl-6" type="number" value="8500.00"/>
+</div>
+<p class="text-xs text-on-surface-variant mt-2 italic">Hidden from public store.</p>
+</div>
+</div>
+</section>
+<!-- Inventory -->
+<section class="glass-panel p-6 rounded-sm border border-secondary/30 relative overflow-hidden">
+<!-- Subtle accent for important section -->
+<div class="absolute top-0 right-0 w-16 h-16 bg-secondary/10 blur-xl"></div>
+<h4 class="text-label-md font-label-md text-secondary uppercase tracking-widest mb-4">Inventory Management</h4>
+<div class="space-y-6 relative z-10">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Stock Level</label>
+<div class="flex items-center gap-4">
+<input class="input-underline w-24 text-center text-body-lg font-body-lg" min="0" type="number" value="1"/>
+<span class="text-body-md text-on-surface-variant">Units</span>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2 uppercase tracking-widest">Location / Vault</label>
+<select class="select-custom">
+<option value="v1">Vault A - Zurich</option>
+<option selected="" value="v2">Vault B - Dubai</option>
+<option value="v3">Showroom - London</option>
+</select>
+</div>
+<div class="p-4 bg-error-container/20 border border-error/30 rounded-sm mt-4">
+<p class="text-label-sm font-label-sm text-error uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                                Single Unique Item
+                            </p>
+</div>
+</div>
+</section>
+</div>
+</form>
+</main>
+</body></html>

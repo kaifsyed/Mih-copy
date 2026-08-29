@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wholesale Enquiry | MIH GEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#c9c6c5",
+                      "outline-variant": "#444748",
+                      "on-background": "#e4e3d7",
+                      "secondary-fixed": "#ffe088",
+                      "secondary-container": "#af8d11",
+                      "on-primary": "#313030",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "surface-container-lowest": "#0d0f08",
+                      "tertiary-fixed": "#e5e2e1",
+                      "surface-container-highest": "#34352e",
+                      "on-error": "#690005",
+                      "on-primary-container": "#7b7979",
+                      "primary-container": "#0a0a0a",
+                      "on-tertiary": "#313030",
+                      "on-surface": "#e4e3d7",
+                      "secondary-fixed-dim": "#e9c349",
+                      "tertiary": "#c8c6c5",
+                      "surface-container-low": "#1b1c15",
+                      "tertiary-container": "#0a0a0a",
+                      "on-secondary-container": "#342800",
+                      "on-error-container": "#ffdad6",
+                      "surface": "#13140d",
+                      "surface-dim": "#13140d",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "inverse-surface": "#e4e3d7",
+                      "outline": "#8e9192",
+                      "error": "#ffb4ab",
+                      "surface-variant": "#34352e",
+                      "background": "#13140d",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface-bright": "#393a32",
+                      "on-surface-variant": "#c4c7c7",
+                      "on-tertiary-container": "#7a7979",
+                      "surface-container-high": "#292b23",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "primary": "#c9c6c5",
+                      "secondary": "#e9c349",
+                      "inverse-on-surface": "#303129",
+                      "primary-fixed": "#e5e2e1",
+                      "surface-tint": "#c9c6c5",
+                      "surface-container": "#1f2019",
+                      "on-secondary": "#3c2f00",
+                      "inverse-primary": "#5f5e5e",
+                      "error-container": "#93000a",
+                      "on-primary-fixed-variant": "#474646",
+                      "on-secondary-fixed": "#241a00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "20px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-desktop": "80px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "label-sm": [
+                              "Montserrat"
+                      ],
+                      "body-md": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ],
+                      "label-md": [
+                              "Montserrat"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
+        }
+        
+        .gold-glow-hover:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        .input-underline {
+            border: none;
+            border-bottom: 1px solid theme('colors.outline-variant');
+            background: transparent;
+            border-radius: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .input-underline:focus {
+            border-bottom-color: theme('colors.secondary');
+            box-shadow: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: theme('colors.secondary');
+            color: #0A0A0A;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #B8860B;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid theme('colors.secondary');
+            color: theme('colors.secondary');
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Ambient background lighting */
+        .ambient-light {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(10,10,10,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<div class="ambient-light"></div>
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-secondary dark:text-secondary docked full-width top-0 sticky z-50 border-b border-secondary/30 flat no shadows flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="text-headline-md font-headline-md font-bold text-secondary dark:text-secondary tracking-widest uppercase">
+            MIH GEMS
+        </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">HOME</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">SHOP</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">GEMSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">SILVER RINGS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">BIRTHSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 font-label-md text-label-md hover:text-secondary-fixed transition-all" href="#">CUSTOM JEWELLERY</a>
+</div>
+<div class="flex gap-4 items-center">
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200 hidden md:block">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200 hidden md:block">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 flex flex-col items-center">
+<!-- Header Section -->
+<div class="text-center max-w-3xl mb-20">
+<h1 class="font-display-lg text-display-lg md:text-[64px] text-[40px] leading-tight text-on-surface mb-6">Wholesale <span class="text-secondary italic font-normal">Partnerships</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Unlock exclusive access to our premium collection of ethically sourced gemstones and handcrafted jewellery. We offer competitive pricing, dedicated support, and bespoke sourcing for retailers and designers worldwide.
+            </p>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter w-full">
+<!-- Left Column: Benefits & Imagery (Bento Style) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Image Card -->
+<div class="glass-panel p-2 h-64 md:h-80 relative group overflow-hidden">
+<div class="bg-cover bg-center w-full h-full opacity-70 group-hover:opacity-100 transition-opacity duration-700 ease-in-out" data-alt="A macro photograph of raw, unpolished amethyst and sapphire gemstones scattered on dark, textured slate. Cinematic spotlighting highlights the deep purples and blues against the pitch-black background, emphasizing a luxurious, Noir &amp; Gold aesthetic. High contrast, sharp focus, professional lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOneTZemFtPGxIJnyHfnJIZ5l9FS1FVqGeDThWgsz9twwmDcoYiN-Sc3MtI5exODsxvBkTRw7R3_JXlpp-fMHRme_adtwIMJ0ypU_5t4zvQpZMsDGDCrPEKypDONxaLWPBHRRUx9R_cM_VwD1lPcGLaCcn0-7sba8dDDJqHqPNvG-ToIp2nx8oVYgMRLY0kVW4cTQo6s7A9fnFe1QBMc7JRudjRe2xGeIqsdAdbUQ6KdUc5wNvzBTQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-transparent pointer-events-none"></div>
+<div class="absolute bottom-6 left-6">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary border border-secondary/50 px-3 py-1 bg-primary-container/80 backdrop-blur-sm">Bulk Sourcing</span>
+</div>
+</div>
+<!-- Benefits List -->
+<div class="glass-panel p-8 gold-glow flex-grow">
+<h3 class="font-headline-md text-headline-md text-secondary mb-8 border-b border-secondary/20 pb-4">Partner Benefits</h3>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Direct from Mines</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Ethically sourced rough and cut stones, bypassing intermediaries.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Global Logistics</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Secure, insured worldwide shipping with real-time tracking.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Dedicated Account Manager</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Personalised support for bespoke orders and inventory planning.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Enquiry Form -->
+<div class="lg:col-span-7">
+<div class="glass-panel p-8 md:p-12 gold-glow-hover transition-all duration-500">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">Business Enquiry</h2>
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="businessName">BUSINESS NAME *</label>
+<input class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0" id="businessName" required="" type="text"/>
+</div>
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="contactPerson">CONTACT PERSON *</label>
+<input class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0" id="contactPerson" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="email">EMAIL ADDRESS *</label>
+<input class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0" id="email" required="" type="email"/>
+</div>
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="phone">PHONE / WHATSAPP *</label>
+<input class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0" id="phone" required="" type="tel"/>
+</div>
+</div>
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="country">COUNTRY OF OPERATION *</label>
+<input class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0" id="country" required="" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="productInterest">PRIMARY INTEREST</label>
+<select class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0 bg-transparent border-outline-variant focus:border-secondary" id="productInterest">
+<option class="bg-surface" value="">Select Category...</option>
+<option class="bg-surface" value="rough_stones">Rough Gemstones</option>
+<option class="bg-surface" value="cut_stones">Cut &amp; Polished Stones</option>
+<option class="bg-surface" value="silver_jewellery">Silver Jewellery</option>
+<option class="bg-surface" value="custom">Custom Manufacturing</option>
+</select>
+</div>
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="quantity">ESTIMATED VOLUME (MONTHLY)</label>
+<select class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0 bg-transparent border-outline-variant focus:border-secondary" id="quantity">
+<option class="bg-surface" value="">Select Volume...</option>
+<option class="bg-surface" value="small">&lt; 50 pieces / &lt; 1kg rough</option>
+<option class="bg-surface" value="medium">50 - 200 pieces / 1-5kg rough</option>
+<option class="bg-surface" value="large">200+ pieces / 5kg+ rough</option>
+</select>
+</div>
+</div>
+<div class="relative group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 group-focus-within:text-secondary transition-colors" for="message">ADDITIONAL DETAILS (OPTIONAL)</label>
+<textarea class="w-full input-underline text-on-surface font-body-md py-2 focus:ring-0 resize-none" id="message" rows="3"></textarea>
+</div>
+<div class="pt-6 flex flex-col sm:flex-row gap-4">
+<button class="btn-primary font-label-md text-label-md uppercase px-8 py-4 flex-1 flex justify-center items-center gap-2" type="submit">
+                                SUBMIT ENQUIRY
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="btn-secondary font-label-md text-label-md uppercase px-8 py-4 flex-1 flex justify-center items-center gap-2" type="button">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path>
+</svg>
+                                SEND ON WHATSAPP
+                            </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-secondary dark:text-secondary w-full py-16 border-t border-secondary/10 flat">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-4">
+<span class="text-headline-md font-headline-md text-secondary tracking-tighter uppercase">MIH GEMS</span>
+<span class="text-body-md font-body-md text-on-surface-variant mt-auto">© 2024 MIH GEMS. ALL RIGHTS RESERVED.</span>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap justify-end gap-8 items-end">
+<a class="text-on-surface-variant font-label-sm text-label-sm uppercase hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Phone</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm uppercase hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">WhatsApp</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm uppercase hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Email</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm uppercase hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Instagram</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,13 +1,12 @@
 /**
- * Storefront chrome (header + footer) is hidden on the admin console, the
- * Clerk auth screens, and the homepage — each provides its own self-contained
- * layout. Every other storefront route relies on the shared SiteHeader /
+ * Storefront chrome (header + footer) is hidden only on the admin console and
+ * the Clerk auth screens — each provides its own self-contained layout. Every
+ * storefront route (including the homepage) uses the shared SiteHeader /
  * SiteFooter mounted in the root layout.
  */
 export function isChromeless(pathname: string | null): boolean {
   if (!pathname) return false;
   return (
-    pathname === "/" ||
     pathname.startsWith("/admin") ||
     pathname.startsWith("/sign-in") ||
     pathname.startsWith("/sign-up")

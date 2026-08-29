@@ -1,0 +1,414 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MIH GEMS - Shop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#13140d",
+                      "primary-container": "#0a0a0a",
+                      "error": "#ffb4ab",
+                      "inverse-surface": "#e4e3d7",
+                      "inverse-on-surface": "#303129",
+                      "on-tertiary": "#313030",
+                      "surface-dim": "#13140d",
+                      "on-primary-fixed": "#1c1b1b",
+                      "primary-fixed": "#e5e2e1",
+                      "on-secondary-container": "#342800",
+                      "inverse-primary": "#5f5e5e",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#e9c349",
+                      "surface-container-lowest": "#0d0f08",
+                      "outline": "#8e9192",
+                      "surface-container": "#1f2019",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "secondary": "#e9c349",
+                      "secondary-fixed": "#ffe088",
+                      "on-surface": "#e4e3d7",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "primary-fixed-dim": "#c9c6c5",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface-variant": "#34352e",
+                      "on-secondary": "#3c2f00",
+                      "primary": "#c9c6c5",
+                      "on-error": "#690005",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "secondary-container": "#af8d11",
+                      "surface-container-highest": "#34352e",
+                      "tertiary": "#c8c6c5",
+                      "surface-container-low": "#1b1c15",
+                      "surface": "#13140d",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-tint": "#c9c6c5",
+                      "surface-container-high": "#292b23",
+                      "on-primary-fixed-variant": "#474646",
+                      "on-primary": "#313030",
+                      "on-tertiary-container": "#7a7979",
+                      "tertiary-container": "#0a0a0a",
+                      "on-primary-container": "#7b7979",
+                      "on-surface-variant": "#c4c7c7",
+                      "surface-bright": "#393a32",
+                      "on-background": "#e4e3d7",
+                      "outline-variant": "#444748",
+                      "tertiary-fixed": "#e5e2e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "80px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "label-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Playfair Display"
+                      ],
+                      "display-lg": [
+                              "Playfair Display"
+                      ],
+                      "headline-md": [
+                              "Playfair Display"
+                      ],
+                      "body-md": [
+                              "Montserrat"
+                      ],
+                      "label-sm": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-lg": [
+                              "Playfair Display"
+                      ]
+              },
+              "fontSize": {
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e4e3d7;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .gold-border {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .gold-border:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        .gold-glow:hover {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .smoked-glass {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Top Navigation (Web) -->
+<nav class="hidden md:flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto bg-surface/80 dark:bg-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-secondary/30">
+<a href="#" class="flex items-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_yzsVKp2gS2XZ7Qsc9CY4cSfeyOR1bCwIobice6ku8r6lbI5bgfcy7A6kMIc2I9NxlSCXt1iJLg1WwJ57DCqsNysaCfYY-f5XVx5ZzQ5iXmeN46_cmigSu0LhdD9TWjGWifvEX-elRsMlSwjTOc7R26Lzhsbr1GBi-mp9DY21SjqhN3kLBV_NfY5muPfrqYvh48ZgGcKvcGoR8auKYD9ZFUx2xXNvQ7tnnYxWjtC9QJ-N-q_d1pwVfdqB3vhgsC2ahw" alt="MIH GEMS" class="h-12 w-auto object-contain"></a>
+<div class="flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">HOME</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">SHOP</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">GEMSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">SILVER RINGS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">BIRTHSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300 text-label-md font-label-md hover:text-secondary-fixed transition-all scale-95 duration-200" href="#">CUSTOM JEWELLERY</a>
+</div>
+<div class="flex items-center gap-4 text-secondary dark:text-secondary">
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span></button>
+<button class="hover:text-secondary-fixed transition-all scale-95 duration-200"><span class="material-symbols-outlined" data-icon="person">person</span></button>
+</div>
+</nav>
+<!-- Mobile Header -->
+<header class="md:hidden flex justify-between items-center px-margin-mobile py-4 sticky top-0 z-50 smoked-glass border-b border-secondary/30">
+<button class="text-secondary" id="mobileMenuBtn"><span class="material-symbols-outlined">menu</span></button>
+<a href="#" class="flex items-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYpdXHxE5VcPNuIHDvYETd-C2KyrwLALSBzgYgBvoxwUl4qCaCWb5SHoq32kNVPG6oXYgdtvqs-v4moH8lLSX85QOo6Q4XkPDCbqewYXseZwjWOGjBn6gAf35iSWG1-muk-edNtQdLGQbVmrnxXZgDUAFdVNt_yUdP2EWBG4NTRLpMZflXSa_UvG-4xQ6kXkl69nw5IiDBHr6Nt_jsuRx5BomuWBfyt7fHZ6t8Wy2G8ETBTsm2wmeTTVKXgqY8kZOAMQ" alt="MIH GEMS" class="h-10 w-auto object-contain"></a>
+<div class="flex gap-3">
+<button class="text-secondary"><span class="material-symbols-outlined">search</span></button>
+<button class="text-secondary"><span class="material-symbols-outlined">shopping_cart</span></button>
+</div>
+</header>
+<main class="flex-grow px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full pt-8 pb-24 md:py-16">
+<div class="flex justify-between items-end mb-8 md:mb-12">
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface mb-2">Curated Collection</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Discover our hand-selected rare gemstones and bespoke pieces.</p>
+</div>
+<button class="flex items-center gap-2 border border-secondary/30 text-secondary px-4 py-2 rounded-none hover:border-secondary/80 hover:bg-secondary/10 transition-colors" id="filterBtn">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span class="text-label-sm font-label-sm uppercase hidden sm:inline">Filter</span>
+</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+<!-- Card 1 -->
+<div class="group cursor-pointer bg-[#1A1A1A] gold-border gold-glow transition-all duration-300 relative flex flex-col h-full">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up studio photograph of a dazzling, deep blue sapphire gemstone resting on a textured, matte black slate surface. The lighting is dramatic and cinematic, with a soft spotlight highlighting the intricate facets and deep azure hues of the gem against the dark background. The aesthetic is luxurious, moody, and extremely high-end noir." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXU2fG7xl2ygxqXG0PhLH6QvYVuf_QpYYrrTPbbun_ZzaZYXnkIKUmj37nD-ACAUFaTn84S9seTQW38Bloj9vfrbzZZOiwtAhK9yL2tHlxN7TR0umUn79hP3dhDknetFHmQ4ED119gz5y-secp63X0c68NHpC91VtzvtKUS9Hmvi49L_yjD031mfgM7UffNXVC4lLxJvKrDTg_DV4Cth1MiRpPFtzKh4zj1JHbL5xU5GMEA_NLjRVh">
+<button class="absolute top-4 right-4 text-on-surface/50 hover:text-secondary transition-colors z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="absolute top-4 left-4">
+<span class="bg-[#1A1A1A] border border-secondary/30 text-on-surface text-[10px] px-2 py-1 uppercase tracking-wider font-label-sm">GIA Certified</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="text-headline-sm font-headline-md text-on-surface mb-1">Ceylon Blue Sapphire</h3>
+<p class="text-body-sm font-body-md text-on-surface-variant mb-4">3.42 Carats, Unheated</p>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md font-label-md text-secondary tracking-widest">$4,250</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer bg-[#1A1A1A] gold-border gold-glow transition-all duration-300 relative flex flex-col h-full">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro shot of a brilliant cut diamond set in a minimalist brushed gold ring. The ring is placed on a dark, reflective surface that creates a subtle mirrored effect. The scene is lit with a solitary, warm golden beam that accentuates the diamond's fire and the metallic sheen of the band. The mood is sophisticated and exclusive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA4x8xDHbNoAnG8TLfusFcjL4RNaXJ2giEG5h-ySZQuhJibKq94iYlsY6ibSN4lAvZV8bFTFNAm73eZkeFG76XjDtZvcDNdUH7Qt2iA93Q7tYVog8AHGEuM5lu9EDZJhZEYPUb_63xoP-38yt3P_6Qd4maR7wZ0GJ72XlMSTbfIwZJuRJsz5ezDpEZCxEvMDjq_JqE25QVCTYuPWgny_Bg2O9wR0XiCESZcAuVgRRo-Bd0X-aivTpS">
+<button class="absolute top-4 right-4 text-on-surface/50 hover:text-secondary transition-colors z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="text-headline-sm font-headline-md text-on-surface mb-1">Solitaire Diamond Ring</h3>
+<p class="text-body-sm font-body-md text-on-surface-variant mb-4">1.2ct, VVS1, 18k Gold</p>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md font-label-md text-secondary tracking-widest">$8,900</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer bg-[#1A1A1A] gold-border gold-glow transition-all duration-300 relative flex flex-col h-full">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A vivid, blood-red ruby gem presented on a piece of dark, aged wood. The lighting is low-key, creating deep shadows that contrast sharply with the glowing red core of the gemstone. The composition evokes a sense of ancient luxury and hidden treasures, fitting perfectly into a cinematic noir aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd4BMQrUnZ0c2KM2vEoSUx2UBc4yvmKhpCphF9iqr2IxpqVco2rLDLjmTXLLap74dgiYKGqRr6PrIPWZksdEsjbDZspyOzP4LPDvnbH_kTmPYwyg7GLqThU-O9g35i-gZsiaeFACdT0o2mCWUuNMNPIKvU8BqS1QVKRn0PkSLGandPEbaBo3UbshOdAHYFgR9svWIhXlX_66O-0rF0EMMsfulhf5OtF-BzINESHyb2IBkScKFZnGw7">
+<button class="absolute top-4 right-4 text-on-surface/50 hover:text-secondary transition-colors z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="absolute top-4 left-4">
+<span class="bg-[#1A1A1A] border border-secondary/30 text-on-surface text-[10px] px-2 py-1 uppercase tracking-wider font-label-sm">Rare</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="text-headline-sm font-headline-md text-on-surface mb-1">Burmese Ruby</h3>
+<p class="text-body-sm font-body-md text-on-surface-variant mb-4">2.15 Carats, Pigeon Blood</p>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md font-label-md text-secondary tracking-widest">$12,000</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group cursor-pointer bg-[#1A1A1A] gold-border gold-glow transition-all duration-300 relative flex flex-col h-full">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant emerald-cut Colombian emerald resting delicately against a dark grey silk fabric. The lighting is soft and diffused, emphasizing the gem's rich, saturated green color and internal clarity without harsh reflections. The overall tone is calm, opulent, and steeped in high-contrast cinematic noir style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0FPDSiE3zHOVUoUIf5_dGIh0s7LmtycKAfWdshk9uRDxrYPKx-I3VIxPFJ892v4oVTWt8L_pyu6nUxf_ADFP7ouc3SnaXBSLg_0uM8hVgLtcs7dBkZXZr-_1j3DkZ2CDJyhuYh3SZKNJkHDuZBqtR1FGVWQ0zPxiBrjELdF9oGeSb4eJDIoqkNSYfscUTsRpr55fLnG37DJXi0gB1Taqx-9iF83pFh3BPMi_N7oi0siImsRASLSZc">
+<button class="absolute top-4 right-4 text-on-surface/50 hover:text-secondary transition-colors z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="text-headline-sm font-headline-md text-on-surface mb-1">Colombian Emerald</h3>
+<p class="text-body-sm font-body-md text-on-surface-variant mb-4">4.8 Carats, Minor Oil</p>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md font-label-md text-secondary tracking-widest">$6,500</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center md:py-16">
+<button class="bg-[#D4AF37] text-[#0A0A0A] font-label-md text-label-md px-8 py-3 uppercase tracking-widest hover:bg-[#B8860B] transition-colors rounded-none">Load More</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-secondary/10 grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1 mb-8 md:mb-0">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc7oYmo1MYtty-wWWnf7_f1_bDMJFCtePcRPjrE_qHH1MgLHda1YTEjs5he5w_M21F057tFr_4Q2ehGs9vHEtmmWIj0oCst3xQbxddN8u5-ay8Y-dy2RMezaNNIERLf0f7ov4cOBlRrcdwolIhynnUvmKt3ClpfJeHJ8VQ9QQ6BUqTskAL6_yGL-oVaLr02N2DpResPTnTAjmN26-5TlrrAtgS5EjqhubLBN8WBc64LEbR_0jj6AsiVWohR3Ob8sla-Q" alt="MIH GEMS" class="h-12 w-auto object-contain mb-4">
+<p class="text-body-md font-body-md text-on-surface-variant">© 2024 MIH GEMS. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex flex-col gap-3 col-span-1">
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-label-sm font-label-sm" href="#">Phone</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-label-sm font-label-sm" href="#">WhatsApp</a>
+</div>
+<div class="flex flex-col gap-3 col-span-1">
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-label-sm font-label-sm" href="#">Email</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 opacity-80 hover:opacity-100 transition-opacity text-label-sm font-label-sm" href="#">Instagram</a>
+</div>
+</footer>
+<!-- Filter Drawer (Hidden by default) -->
+<div class="fixed inset-y-0 right-0 w-full sm:w-96 smoked-glass border-l border-secondary/30 z-[100] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col" id="filterDrawer">
+<div class="p-6 border-b border-secondary/20 flex justify-between items-center">
+<h2 class="text-headline-md font-headline-md text-on-surface">Filters</h2>
+<button class="text-secondary hover:text-secondary-fixed" id="closeFilterBtn"><span class="material-symbols-outlined">close</span></button>
+</div>
+<div class="p-6 overflow-y-auto flex-grow space-y-8">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface mb-4 uppercase tracking-widest">Category</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 text-body-md text-on-surface-variant cursor-pointer group">
+<div class="w-4 h-4 border border-secondary/50 group-hover:border-secondary flex items-center justify-center"></div>
+                        Gemstones
+                    </label>
+<label class="flex items-center gap-3 text-body-md text-on-surface-variant cursor-pointer group">
+<div class="w-4 h-4 border border-secondary/50 group-hover:border-secondary flex items-center justify-center"></div>
+                        Rings
+                    </label>
+<label class="flex items-center gap-3 text-body-md text-on-surface-variant cursor-pointer group">
+<div class="w-4 h-4 border border-secondary/50 group-hover:border-secondary flex items-center justify-center"></div>
+                        Necklaces
+                    </label>
+</div>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-on-surface mb-4 uppercase tracking-widest">Gem Type</h3>
+<div class="flex flex-wrap gap-2">
+<button class="border border-secondary/30 text-on-surface px-3 py-1 text-label-sm font-label-sm uppercase hover:border-secondary hover:text-secondary transition-colors">Sapphire</button>
+<button class="border border-secondary/30 text-on-surface px-3 py-1 text-label-sm font-label-sm uppercase hover:border-secondary hover:text-secondary transition-colors">Ruby</button>
+<button class="border border-secondary/30 text-on-surface px-3 py-1 text-label-sm font-label-sm uppercase hover:border-secondary hover:text-secondary transition-colors">Emerald</button>
+<button class="border border-secondary/30 text-on-surface px-3 py-1 text-label-sm font-label-sm uppercase hover:border-secondary hover:text-secondary transition-colors">Diamond</button>
+</div>
+</div>
+<div>
+<h3 class="text-label-md font-label-md text-on-surface mb-4 uppercase tracking-widest">Price Range</h3>
+<div class="flex items-center gap-4">
+<input class="w-full bg-transparent border-b border-secondary/30 text-on-surface py-2 focus:outline-none focus:border-secondary font-body-md placeholder:text-on-surface/30" placeholder="Min" type="text">
+<span class="text-on-surface-variant">-</span>
+<input class="w-full bg-transparent border-b border-secondary/30 text-on-surface py-2 focus:outline-none focus:border-secondary font-body-md placeholder:text-on-surface/30" placeholder="Max" type="text">
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-secondary/20 bg-[#1A1A1A]">
+<button class="w-full bg-[#D4AF37] text-[#0A0A0A] font-label-md text-label-md px-8 py-4 uppercase tracking-widest hover:bg-[#B8860B] transition-colors rounded-none">Apply Filters</button>
+</div>
+</div>
+<!-- Backdrop for Drawer -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] hidden transition-opacity opacity-0" id="drawerBackdrop"></div>
+<script>
+        // Filter Drawer Logic
+        const filterBtn = document.getElementById('filterBtn');
+        const closeFilterBtn = document.getElementById('closeFilterBtn');
+        const filterDrawer = document.getElementById('filterDrawer');
+        const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+        function openDrawer() {
+            filterDrawer.classList.remove('translate-x-full');
+            drawerBackdrop.classList.remove('hidden');
+            // Small delay to allow display block to take effect before changing opacity
+            setTimeout(() => {
+                drawerBackdrop.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            filterDrawer.classList.add('translate-x-full');
+            drawerBackdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                drawerBackdrop.classList.add('hidden');
+            }, 300); // match transition duration
+            document.body.style.overflow = '';
+        }
+
+        filterBtn.addEventListener('click', openDrawer);
+        closeFilterBtn.addEventListener('click', closeDrawer);
+        drawerBackdrop.addEventListener('click', closeDrawer);
+    </script>
+
+
+</body></html>

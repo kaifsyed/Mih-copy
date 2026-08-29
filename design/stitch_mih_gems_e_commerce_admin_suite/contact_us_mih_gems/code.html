@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us - MIH GEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#0d0f08",
+                    "primary-container": "#0a0a0a",
+                    "primary-fixed": "#e5e2e1",
+                    "outline": "#8e9192",
+                    "on-tertiary": "#313030",
+                    "surface": "#13140d",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "on-secondary-fixed-variant": "#574500",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary": "#313030",
+                    "on-secondary": "#3c2f00",
+                    "inverse-surface": "#e4e3d7",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "tertiary": "#c8c6c5",
+                    "on-secondary-fixed": "#241a00",
+                    "secondary-fixed": "#ffe088",
+                    "surface-tint": "#c9c6c5",
+                    "on-error": "#690005",
+                    "secondary": "#e9c349",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "surface-container-high": "#292b23",
+                    "surface-bright": "#393a32",
+                    "on-tertiary-container": "#7a7979",
+                    "surface-container": "#1f2019",
+                    "primary": "#c9c6c5",
+                    "on-surface": "#e4e3d7",
+                    "on-background": "#e4e3d7",
+                    "on-primary-fixed": "#1c1b1b",
+                    "inverse-primary": "#5f5e5e",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "tertiary-container": "#0a0a0a",
+                    "on-primary-container": "#7b7979",
+                    "inverse-on-surface": "#303129",
+                    "on-secondary-container": "#342800",
+                    "secondary-container": "#af8d11",
+                    "surface-dim": "#13140d",
+                    "tertiary-fixed": "#e5e2e1",
+                    "secondary-fixed-dim": "#e9c349",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#1b1c15",
+                    "on-surface-variant": "#c4c7c7",
+                    "background": "#13140d",
+                    "surface-variant": "#34352e",
+                    "surface-container-highest": "#34352e",
+                    "outline-variant": "#444748"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "margin-desktop": "80px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Montserrat"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-sm": ["Montserrat"],
+                    "body-md": ["Montserrat"],
+                    "label-md": ["Montserrat"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .bg-charcoal { background-color: #1A1A1A; }
+        .bg-black-base { background-color: #0A0A0A; }
+        .border-gold { border-color: #D4AF37; }
+        .text-gold { color: #D4AF37; }
+        .glass-effect {
+            background-color: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .glow-gold {
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        }
+        
+        /* Custom Input Styling */
+        input:focus, textarea:focus {
+            border-color: #D4AF37 !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body class="bg-black-base text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-secondary/30 flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto flat no shadows">
+<div class="flex items-center gap-4">
+<!-- Brand Logo -->
+<a class="text-headline-md font-headline-md font-bold text-secondary dark:text-secondary tracking-widest flex items-center gap-2 scale-95 duration-200" href="#">
+<img alt="MIH GEMS Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9nkd5CANBrzDZhxZ8jA17bJ61P9s770xfA_QWaJc65cqBPrpX2tAGijmuKFWk_owgf_htHlVKq1dcT3LPLbU6bMGQUwVXwoUTYBeAgxjWe9j60W8sgFTaLJ-31-2AE9zTto3ZbRF_zEmS7ITRDW8gq8WHMHoyre9KFo1eW-fm4L6uOZIeVLqr7Td1p7kP8YIu7pCA2lZbWhHbGweZF9oaHmdx8ztRYBlY7X3hlHIWioBxzt8rLZ4z0nccPvzvL1XM6A"/>
+<span>MIH GEMS</span>
+</a>
+</div>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex gap-8 items-center text-label-md font-label-md">
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">HOME</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">SHOP</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">GEMSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">SILVER RINGS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">BIRTHSTONES</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">CUSTOM JEWELLERY</a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4 text-secondary dark:text-secondary">
+<button aria-label="search" class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+<button aria-label="favorite" class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<button aria-label="shopping_cart" class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</button>
+<button aria-label="person" class="hover:text-secondary-fixed transition-all scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[120px] pb-[120px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<div class="text-center mb-[80px] md:mb-[120px]">
+<h1 class="text-headline-lg-mobile md:text-display-lg font-headline-lg-mobile md:font-display-lg mb-4">Contact Us</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto">We invite you to reach out for inquiries regarding our collections, bespoke services, or any assistance you may require.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-[80px] lg:gap-gutter">
+<!-- Left: Contact Information -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<!-- Contact Card -->
+<div class="bg-charcoal border border-gold/30 p-8 relative overflow-hidden group hover:border-gold/60 transition-colors duration-300">
+<div class="absolute inset-0 glow-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<h2 class="text-headline-md font-headline-md mb-8">Get in Touch</h2>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-gold mt-1">call</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Phone</p>
+<p class="text-body-md font-body-md">+1 (800) 123-4567</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-gold mt-1">chat</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">WhatsApp</p>
+<p class="text-body-md font-body-md">+1 (800) 123-4567</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-gold mt-1">mail</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Email</p>
+<p class="text-body-md font-body-md">concierge@mihgems.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Address & Hours Card -->
+<div class="bg-charcoal border border-gold/30 p-8 relative overflow-hidden group hover:border-gold/60 transition-colors duration-300">
+<div class="absolute inset-0 glow-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-gold mt-1">location_on</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Boutique Address</p>
+<p class="text-body-md font-body-md">123 Luxury Avenue<br/>New York, NY 10022<br/>United States</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-gold mt-1">schedule</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Hours of Operation</p>
+<p class="text-body-md font-body-md">Monday - Friday: 10am - 7pm<br/>Saturday: 11am - 6pm<br/>Sunday: By Appointment Only</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Contact Form -->
+<div class="lg:col-span-7">
+<div class="bg-charcoal border border-gold/30 p-8 md:p-12 relative">
+<h2 class="text-headline-md font-headline-md mb-8">Send an Enquiry</h2>
+<form action="#" class="flex flex-col gap-8" method="POST">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative">
+<input class="peer w-full bg-transparent border-0 border-b border-outline-variant py-2 text-body-md font-body-md focus:ring-0 focus:border-gold transition-colors placeholder-transparent" id="firstName" name="firstName" placeholder="First Name" required="" type="text"/>
+<label class="absolute left-0 -top-3.5 text-label-sm font-label-sm text-on-surface-variant transition-all peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-label-sm peer-focus:font-label-sm peer-focus:text-gold uppercase" for="firstName">First Name</label>
+</div>
+<div class="relative">
+<input class="peer w-full bg-transparent border-0 border-b border-outline-variant py-2 text-body-md font-body-md focus:ring-0 focus:border-gold transition-colors placeholder-transparent" id="lastName" name="lastName" placeholder="Last Name" required="" type="text"/>
+<label class="absolute left-0 -top-3.5 text-label-sm font-label-sm text-on-surface-variant transition-all peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-label-sm peer-focus:font-label-sm peer-focus:text-gold uppercase" for="lastName">Last Name</label>
+</div>
+</div>
+<div class="relative">
+<input class="peer w-full bg-transparent border-0 border-b border-outline-variant py-2 text-body-md font-body-md focus:ring-0 focus:border-gold transition-colors placeholder-transparent" id="email" name="email" placeholder="Email Address" required="" type="email"/>
+<label class="absolute left-0 -top-3.5 text-label-sm font-label-sm text-on-surface-variant transition-all peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-label-sm peer-focus:font-label-sm peer-focus:text-gold uppercase" for="email">Email Address</label>
+</div>
+<div class="relative">
+<select class="peer w-full bg-transparent border-0 border-b border-outline-variant py-2 text-body-md font-body-md focus:ring-0 focus:border-gold transition-colors appearance-none" id="enquiryType" name="enquiryType" required="">
+<option class="bg-charcoal text-on-surface-variant" disabled="" selected="" value="">Select Enquiry Type</option>
+<option class="bg-charcoal text-on-surface" value="general">General Enquiry</option>
+<option class="bg-charcoal text-on-surface" value="product">Product Information</option>
+<option class="bg-charcoal text-on-surface" value="appointment">Request Appointment</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<div class="relative mt-4">
+<textarea class="peer w-full bg-transparent border-0 border-b border-outline-variant py-2 text-body-md font-body-md focus:ring-0 focus:border-gold transition-colors placeholder-transparent resize-none" id="message" name="message" placeholder="Your Message" required="" rows="4"></textarea>
+<label class="absolute left-0 -top-3.5 text-label-sm font-label-sm text-on-surface-variant transition-all peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-label-sm peer-focus:font-label-sm peer-focus:text-gold uppercase" for="message">Your Message</label>
+</div>
+<button class="bg-[#D4AF37] text-[#0A0A0A] font-label-md text-label-md py-4 px-8 uppercase tracking-widest hover:bg-[#B8860B] transition-colors duration-300 w-full md:w-auto self-start mt-4" type="submit">
+                            Send Message
+                        </button>
+</form>
+</div>
+</div>
+</div>
+<!-- Additional Links Section -->
+<div class="mt-[120px] border-t border-gold/20 pt-[80px]">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<a class="group block p-8 border border-outline-variant hover:border-gold/50 transition-colors duration-300 bg-charcoal/50 text-center relative overflow-hidden" href="#">
+<div class="absolute inset-0 glow-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<span class="material-symbols-outlined text-gold mb-4 text-4xl">diamond</span>
+<h3 class="text-headline-sm font-headline-sm mb-2 text-on-surface group-hover:text-gold transition-colors">Custom Jewellery</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Begin the journey of creating a bespoke masterpiece.</p>
+</a>
+<a class="group block p-8 border border-outline-variant hover:border-gold/50 transition-colors duration-300 bg-charcoal/50 text-center relative overflow-hidden" href="#">
+<div class="absolute inset-0 glow-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<span class="material-symbols-outlined text-gold mb-4 text-4xl">storefront</span>
+<h3 class="text-headline-sm font-headline-sm mb-2 text-on-surface group-hover:text-gold transition-colors">Wholesale</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Partner with us for exclusive wholesale opportunities.</p>
+</a>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full py-16 border-t border-secondary/10 grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto text-secondary dark:text-secondary text-body-md font-body-md opacity-80 hover:opacity-100 transition-opacity">
+<div class="col-span-1 md:col-span-4 flex justify-between items-end mb-8 border-b border-secondary/10 pb-8">
+<div class="text-headline-md font-headline-md text-secondary tracking-tighter font-bold">MIH GEMS</div>
+<div class="text-label-sm font-label-sm">© 2024 MIH GEMS. ALL RIGHTS RESERVED.</div>
+</div>
+<div>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 block mb-2" href="#">Phone</a>
+</div>
+<div>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 block mb-2" href="#">WhatsApp</a>
+</div>
+<div>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 block mb-2" href="#">Email</a>
+</div>
+<div>
+<a class="text-on-surface-variant hover:text-secondary-fixed underline-offset-4 block mb-2" href="#">Instagram</a>
+</div>
+</footer>
+</body></html>

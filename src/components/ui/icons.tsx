@@ -22,6 +22,15 @@ export function SearchIcon(p: IconProps) {
   );
 }
 
+export function GlobeIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" />
+    </svg>
+  );
+}
+
 export function HeartIcon({ filled, ...p }: IconProps & { filled?: boolean }) {
   return (
     <svg {...base} fill={filled ? "currentColor" : "none"} {...p}>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enquiry Submitted - MIH GEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#1b1c15",
+                        "outline": "#8e9192",
+                        "secondary-container": "#af8d11",
+                        "on-tertiary-container": "#7a7979",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-background": "#e4e3d7",
+                        "error-container": "#93000a",
+                        "on-secondary": "#3c2f00",
+                        "surface-container-lowest": "#0d0f08",
+                        "tertiary": "#c8c6c5",
+                        "on-error": "#690005",
+                        "primary-fixed": "#e5e2e1",
+                        "outline-variant": "#444748",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-surface-variant": "#c4c7c7",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#342800",
+                        "surface": "#13140d",
+                        "on-tertiary": "#313030",
+                        "tertiary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary": "#c9c6c5",
+                        "surface-container-high": "#292b23",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "tertiary-container": "#0a0a0a",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-primary-container": "#7b7979",
+                        "surface-bright": "#393a32",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary-fixed": "#241a00",
+                        "inverse-on-surface": "#303129",
+                        "inverse-primary": "#5f5e5e",
+                        "on-surface": "#e4e3d7",
+                        "secondary-fixed": "#ffe088",
+                        "secondary": "#e9c349",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#c9c6c5",
+                        "inverse-surface": "#e4e3d7",
+                        "surface-container": "#1f2019",
+                        "surface-variant": "#34352e",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "surface-container-highest": "#34352e",
+                        "background": "#13140d",
+                        "on-primary": "#313030",
+                        "primary-container": "#0a0a0a",
+                        "surface-dim": "#13140d"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "20px",
+                        "container-max": "1440px",
+                        "unit": "8px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Montserrat"],
+                        "label-md": ["Montserrat"]
+                    },
+                    fontSize: {
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        ambientPulse: {
+                            '0%': { transform: 'scale(1)', opacity: '0.4' },
+                            '100%': { transform: 'scale(1.2)', opacity: '0.7' },
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'ambient-pulse': 'ambientPulse 8s ease-in-out infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e4e3d7;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient Shader Background */
+        .ambient-shader-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: linear-gradient(145deg, #050505 0%, #151205 50%, #050505 100%);
+        }
+        
+        .ambient-glow {
+            position: fixed;
+            width: 150vw;
+            height: 150vh;
+            top: -25vh;
+            left: -25vw;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Container specific for standard views without navs */
+        .content-canvas {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glassmorphism Card */
+        .success-card {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            padding: 48px 24px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .success-card {
+                padding: 64px 40px;
+            }
+        }
+
+        /* Button Styles - Optimized for Mobile */
+        .btn-primary {
+            background-color: #D4AF37;
+            color: #0A0A0A;
+            border-radius: 9999px; /* Pill shape for modern mobile feel */
+            padding: 16px 32px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 56px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #fce38a;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: rgba(212, 175, 55, 0.05);
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 9999px;
+            padding: 16px 32px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 56px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #D4AF37;
+            background-color: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .brand-logo {
+            letter-spacing: 0.15em;
+            color: #e9c349;
+        }
+        
+        /* 3D Gemstone representation */
+        .gemstone-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .gemstone-glow {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(233,195,73,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="antialiased font-body-md text-body-md">
+<!-- Cinematic Ambient Background -->
+<div class="ambient-shader-bg"></div>
+<div class="ambient-glow animate-ambient-pulse"></div>
+<div class="ambient-glow animate-ambient-pulse" style="top: auto; bottom: -20vh; left: auto; right: -20vw; animation-delay: -4s;"></div>
+<!-- Main Content Canvas -->
+<main class="content-canvas">
+<div class="success-card">
+<!-- Logo / Brand Identifier -->
+<div class="mb-10">
+<h1 class="font-headline-lg-mobile sm:font-headline-lg text-headline-lg-mobile sm:text-headline-lg brand-logo uppercase">MIH GEMS</h1>
+<div class="h-px w-12 bg-secondary/40 mx-auto mt-6"></div>
+</div>
+<!-- 3D Gemstone Focal Point -->
+<div class="mb-10 flex justify-center">
+<div class="gemstone-container animate-float">
+<div class="gemstone-glow animate-pulse"></div>
+<img alt="Celebratory 3D Gemstone" class="w-full h-full object-cover mix-blend-screen relative z-10 drop-shadow-[0_0_15px_rgba(233,195,73,0.5)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVTRlhl0fxxR2NhUwpZbtj5TjjxdSpA6uhV2wgKhc8MNBkahdg4CqH052vaLqcYmMFbm1lOrpe7qn64rZOP7EBqLGgB2_vZ66-rDVGjppUgTbZlhreU3LmKfg4Y7CAdqEKOZ8NW-V46S7Xm04Cd70I0BDJrAPcm8HIra2DVqKz2yJTLtBGB-3sS3EqGhvmL6AX2ZRBR5CjVOyQsiPdHZHu84YdVQaeGE9Dh5kUkANVCyHggWcg2NtX" style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; object-position: center;"/>
+<div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-4xl text-white drop-shadow-md" style="font-variation-settings: 'FILL' 1;">done</span>
+</div>
+</div>
+</div>
+<!-- Typography & Message -->
+<h2 class="font-headline-md sm:font-headline-lg text-headline-md sm:text-headline-lg text-on-surface mb-4">Enquiry Submitted</h2>
+<p class="font-body-md sm:font-body-lg text-body-md sm:text-body-lg text-on-surface-variant mb-8 max-w-md mx-auto px-4">
+                Thank you for reaching out to MIH GEMS. Our specialists are reviewing your request and will contact you shortly to discuss your bespoke needs.
+            </p>
+<!-- Reference Details -->
+<div class="bg-surface-container/40 rounded-2xl border border-secondary/10 p-6 mb-10 flex flex-col items-center backdrop-blur-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2 opacity-80">Reference Number</span>
+<span class="font-headline-md text-headline-md text-secondary tracking-widest">MG-8492-XQ</span>
+</div>
+<!-- CTAs (Thumb-friendly for mobile) -->
+<div class="flex flex-col gap-4 justify-center items-stretch sm:items-center sm:flex-row w-full max-w-md mx-auto">
+<a class="btn-primary font-label-md text-label-md w-full sm:w-auto" href="#">
+                    Return Home
+                </a>
+<a class="btn-secondary font-label-md text-label-md w-full sm:w-auto" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">history</span>
+                    View My Enquiries
+                </a>
+</div>
+</div>
+</main>
+</body></html>
