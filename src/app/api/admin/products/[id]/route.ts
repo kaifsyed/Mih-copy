@@ -65,7 +65,7 @@ export async function PATCH(
     }
 
     const pricing = validatePricing({
-      pricing_type: String(formData.get("pricing_type") || "negotiable").trim(),
+      pricing_type: String(formData.get("pricing_type") || "enquiry").trim(),
       price: formData.get("price"),
       price_min: formData.get("price_min"),
       price_max: formData.get("price_max"),

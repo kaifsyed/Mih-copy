@@ -16,7 +16,7 @@ import { supabase } from "@/lib/supabase";
  * no image → gemstone gradient).
  */
 
-export type PricingType = "fixed" | "range" | "negotiable";
+export type PricingType = "enquiry" | "negotiable" | "fixed" | "range";
 export type ProductStatus = "Available" | "Enquire";
 export type ProductColor = "blue" | "red" | "green";
 
@@ -40,7 +40,12 @@ export type Product = {
   created_at: string;
 };
 
-const PRICING_TYPES: readonly PricingType[] = ["fixed", "range", "negotiable"];
+const PRICING_TYPES: readonly PricingType[] = [
+  "enquiry",
+  "negotiable",
+  "fixed",
+  "range",
+];
 const PRODUCT_COLORS: readonly ProductColor[] = ["blue", "red", "green"];
 
 function asTrimmedString(value: unknown): string | null {

@@ -1,189 +1,176 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-// TODO(Phase 4): replace with getProductBySlug() from "@/lib/products".
-import { legacyProducts as products } from "@/lib/legacy-products";
+import { getProductBySlug, getRelatedProducts } from "@/lib/products";
+import { gemstoneGradient } from "@/lib/gemstone";
+import { PriceTag } from "@/components/product/price-tag";
+import { StatusChip } from "@/components/product/status-chip";
+import { EnquireButton } from "@/components/product/enquire-button";
+import AddToCartButton from "@/components/product/add-to-cart-button";
+import WishlistButton from "@/components/wishlist/wishlist-button";
+import { ProductCard } from "@/components/product/product-card";
+import { ArrowRightIcon } from "@/components/ui/icons";
+
+// Product data is admin-managed; render per request so edits show immediately.
+export const dynamic = "force-dynamic";
 
 type ProductPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 };
 
-export default async function ProductPage({
+export async function generateMetadata({
   params,
-}: ProductPageProps) {
+}: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const product = await getProductBySlug(slug);
 
-  const product = products.find(
-    (item) => item.slug === slug
-  );
+  if (!product) {
+    return { title: "Product not found" };
+  }
+
+  const description =
+    product.description?.trim() ||
+    `${product.name} — a natural ${product.category.toLowerCase()} from MIH GEMS. Enquire for availability, certification and pricing.`;
+
+  return {
+    title: product.name,
+    description,
+    openGraph: {
+      title: product.name,
+      description,
+      type: "website",
+      images: product.image_url ? [{ url: product.image_url }] : undefined,
+    },
+  };
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
-  const whatsappMessage = `Hi MIH GEMS, I'm interested in the ${product.name}. Please share the details and price.`;
+  const related = await getRelatedProducts(product);
 
   return (
-    <main className="min-h-screen bg-[#0b0a09] text-[#f5efe5]">
-      <header className="border-b border-[#c9a45c]/20">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <a
-            href="/"
-            className="text-xl font-semibold tracking-[0.25em]"
-          >
-            MIH GEMS
-          </a>
+    <div className="container-luxe section-gap">
+      <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.18em] text-muted">
+        <Link href="/shop" className="transition-colors hover:text-gold">
+          Shop
+        </Link>
+        <span className="mx-2 text-outline">/</span>
+        <span className="text-ivory">{product.name}</span>
+      </nav>
 
-          <div className="hidden items-center gap-8 text-sm text-[#d8d0c4] md:flex">
-            <a href="/" className="hover:text-[#d7b56d]">
-              Home
-            </a>
-
-            <a href="/shop" className="text-[#d7b56d]">
-              Shop
-            </a>
-
-            <a href="/wishlist" className="hover:text-[#d7b56d]">
-              Wishlist ♡
-            </a>
-
-            <a href="/account" className="hover:text-[#d7b56d]">
-              Account
-            </a>
-          </div>
-
-          <a
-            href={`https://wa.me/919663140305?text=${encodeURIComponent(
-              whatsappMessage
-            )}`}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-[#c9a45c]/50 px-4 py-2 text-xs font-medium text-[#e4c887] transition hover:bg-[#c9a45c] hover:text-[#0b0a09]"
-          >
-            WhatsApp
-          </a>
-        </nav>
-      </header>
-
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <a
-          href="/shop"
-          className="text-sm text-[#9f9689] hover:text-[#d7b56d]"
-        >
-          ← Back to Shop
-        </a>
-
-        <div className="mt-10 grid gap-14 lg:grid-cols-2 lg:items-center">
-          <div className="flex aspect-square items-center justify-center rounded-[2rem] border border-[#c9a45c]/15 bg-gradient-to-br from-[#1b1814] to-[#090807]">
-            <div
-              className={`h-48 w-48 rotate-45 rounded-[2.5rem] border border-[#d7b56d]/40 shadow-[0_0_100px_rgba(201,164,92,0.12)] ${
-                product.color === "blue"
-                  ? "bg-gradient-to-br from-[#466c8d] via-[#20384b] to-[#0b141c]"
-                  : product.color === "red"
-                    ? "bg-gradient-to-br from-[#73363d] via-[#39151c] to-[#14090b]"
-                    : "bg-gradient-to-br from-[#55705d] via-[#243c2b] to-[#0b140d]"
-              }`}
+      <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        {/* Image */}
+        <div className="relative aspect-square overflow-hidden border border-outline/20">
+          {product.image_url ? (
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
+          ) : (
+            <div
+              className="flex h-full w-full items-center justify-center"
+              style={{ backgroundImage: gemstoneGradient(product.color) }}
+            >
+              <span className="font-serif text-4xl tracking-[0.2em] text-ivory/70">
+                MIH GEMS
+              </span>
+            </div>
+          )}
+          <div className="absolute left-4 top-4">
+            <StatusChip status={product.status} />
           </div>
+        </div>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-[#d7b56d]">
-              {product.category}
-            </p>
+        {/* Details */}
+        <div className="flex flex-col">
+          <span className="eyebrow">{product.category}</span>
+          <h1 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
+            {product.name}
+          </h1>
 
-            <h1 className="mt-4 text-4xl font-light tracking-tight sm:text-5xl">
-              {product.name}
-            </h1>
-
-            <p className="mt-5 text-sm uppercase tracking-[0.18em] text-[#82796c]">
+          {product.detail ? (
+            <p className="mt-4 text-sm uppercase tracking-[0.18em] text-muted">
               {product.detail}
             </p>
+          ) : null}
+          {product.carat ? (
+            <p className="mt-2 text-base text-ivory/80">{product.carat}</p>
+          ) : null}
 
-            <p className="mt-4 text-lg text-[#c8beb0]">
-              {product.carat}
-            </p>
+          <div className="mt-6">
+            <PriceTag product={product} size="lg" />
+          </div>
 
-            <div className="mt-8 h-px bg-[#c9a45c]/15" />
-
-            <p className="mt-8 max-w-xl text-base leading-8 text-[#a9a093]">
+          {product.description ? (
+            <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
               {product.description}
             </p>
+          ) : null}
 
-            <div className="mt-8 rounded-2xl border border-[#c9a45c]/15 bg-[#100f0d] p-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#756d62]">
-                Availability
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <EnquireButton product={product} />
+            <AddToCartButton product={product} />
+          </div>
+          <div className="mt-3">
+            <WishlistButton product={product} variant="button" />
+          </div>
+
+          <div className="mt-10 grid gap-4 border-t border-outline/12 pt-8 sm:grid-cols-3">
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.2em] text-muted">
+                Quality
               </p>
-
-              <p className="mt-2 text-sm text-[#d8d0c4]">
-                {product.status === "Available"
-                  ? "Currently available"
-                  : "Available on enquiry"}
+              <p className="mt-1 text-sm text-ivory/80">Hand-selected</p>
+            </div>
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.2em] text-muted">
+                Certification
               </p>
+              <p className="mt-1 text-sm text-ivory/80">On request</p>
             </div>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`https://wa.me/919663140305?text=${encodeURIComponent(
-                  whatsappMessage
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-[#d7b56d] px-7 py-3.5 text-center text-sm font-semibold text-[#0b0a09] transition hover:bg-[#e5cd96]"
-              >
-                Enquire on WhatsApp
-              </a>
-
-              <a
-                href="/wishlist"
-                className="rounded-full border border-[#c9a45c]/30 px-7 py-3.5 text-center text-sm text-[#eee5d8] transition hover:border-[#d7b56d] hover:text-[#d7b56d]"
-              >
-                ♡ Add to Wishlist
-              </a>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div>
-                <p className="text-xs uppercase tracking-wider text-[#756d62]">
-                  Quality
-                </p>
-                <p className="mt-1 text-sm text-[#c8beb0]">
-                  Carefully selected
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-wider text-[#756d62]">
-                  Service
-                </p>
-                <p className="mt-1 text-sm text-[#c8beb0]">
-                  Personal guidance
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-wider text-[#756d62]">
-                  Shipping
-                </p>
-                <p className="mt-1 text-sm text-[#c8beb0]">
-                  Worldwide
-                </p>
-              </div>
+            <div>
+              <p className="text-[0.62rem] uppercase tracking-[0.2em] text-muted">
+                Shipping
+              </p>
+              <p className="mt-1 text-sm text-ivory/80">Worldwide</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <footer className="border-t border-[#c9a45c]/10 bg-[#070706]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-[#756d62] sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p className="tracking-[0.2em] text-[#b7aa96]">
-            MIH GEMS
-          </p>
-
-          <p>Natural gemstones - Custom jewellery</p>
-
-          <p>© {new Date().getFullYear()} MIH GEMS</p>
-        </div>
-      </footer>
-    </main>
+      {/* Related */}
+      {related.length > 0 ? (
+        <section className="section-gap border-t border-outline/12 pt-16">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="font-serif text-2xl text-ivory lg:text-3xl">
+              You may also like
+            </h2>
+            <Link
+              href="/shop"
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-gold"
+            >
+              View all
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {related.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </div>
   );
 }

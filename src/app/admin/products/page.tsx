@@ -28,8 +28,8 @@ const emptyForm = {
   color: "blue" as "blue" | "red" | "green",
   // Pricing must be part of this form. The API validates pricing on every
   // PATCH, so a form that omitted these fields would reset each product to
-  // "negotiable" and wipe its price on every save.
-  pricing_type: "negotiable" as PricingType,
+  // "enquiry" and wipe its price on every save.
+  pricing_type: "enquiry" as PricingType,
   price: "",
   price_min: "",
   price_max: "",
@@ -139,7 +139,7 @@ export default function AdminProductsPage() {
       status: product.status,
       description: product.description ?? "",
       color: product.color ?? "blue",
-      pricing_type: product.pricing_type ?? "negotiable",
+      pricing_type: product.pricing_type ?? "enquiry",
       price: product.price === null ? "" : String(product.price),
       price_min:
         product.price_min === null ? "" : String(product.price_min),
@@ -478,15 +478,14 @@ export default function AdminProductsPage() {
                   }
                   className="mt-2 w-full rounded-xl border border-[#c9a45c]/20 bg-[#0b0a09] px-4 py-3 text-sm outline-none focus:border-[#d7b56d]"
                 >
-                  <option value="negotiable">
-                    Price on Enquiry / Negotiable
-                  </option>
+                  <option value="enquiry">Enquire for Price</option>
+                  <option value="negotiable">Negotiable</option>
                   <option value="fixed">Fixed Price</option>
                   <option value="range">Price Range</option>
                 </select>
 
                 <span className="mt-2 block text-xs text-[#6f675d]">
-                  Leave on Price on Enquiry unless you have a real figure to
+                  Leave on Enquire for Price unless you have a real figure to
                   publish.
                 </span>
               </label>

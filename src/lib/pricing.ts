@@ -1,19 +1,23 @@
 import type { PricingType, Product } from "@/lib/products";
 
 /**
- * MIH GEMS pricing system — three admin-controlled modes:
+ * MIH GEMS pricing system — four admin-controlled modes:
+ *   - enquiry     → "Enquire for Price"      (no numbers)
+ *   - negotiable  → "Negotiable"             (no numbers)
  *   - fixed       → ₹5,500
  *   - range       → ₹3,500 – ₹4,300
- *   - negotiable  → Price on Enquiry
  *
  * This module is the SINGLE source of truth for how a price is displayed
  * (shop cards, product detail, wishlist, cart, admin table, WhatsApp) and
  * how pricing input is validated (admin API + admin form). Whenever a valid
- * price cannot be produced we fall back to "Price on Enquiry" rather than
+ * price cannot be produced we fall back to "Enquire for Price" rather than
  * inventing a number.
  */
 
-export const ENQUIRY_LABEL = "Price on Enquiry";
+/** Legacy alias kept for callers that compared against it. */
+export const ENQUIRY_LABEL = "Enquire for Price";
+export const ENQUIRE_LABEL = "Enquire for Price";
+export const NEGOTIABLE_LABEL = "Negotiable";
 
 export type Priceable = Pick<
   Product,
@@ -38,16 +42,18 @@ function toPositiveNumber(value: unknown): number | null {
 /**
  * Returns the customer-facing price string for a product. Safe to call with
  * partially-populated rows (e.g. before the pricing migration has run) — it
- * degrades to {@link ENQUIRY_LABEL} whenever the data is missing or invalid.
+ * degrades to {@link ENQUIRE_LABEL} whenever the data is missing or invalid.
  */
 export function formatPrice(product: Priceable | null | undefined): string {
-  if (!product) return ENQUIRY_LABEL;
+  if (!product) return ENQUIRE_LABEL;
 
-  const type: PricingType = product.pricing_type ?? "negotiable";
+  // Rows written before the pricing migration have a null pricing_type; treat
+  // them as enquiry-only rather than inventing a number.
+  const type: PricingType = product.pricing_type ?? "enquiry";
 
   if (type === "fixed") {
     const price = toPositiveNumber(product.price);
-    return price !== null && price > 0 ? formatINR(price) : ENQUIRY_LABEL;
+    return price !== null && price > 0 ? formatINR(price) : ENQUIRE_LABEL;
   }
 
   if (type === "range") {
@@ -56,25 +62,51 @@ export function formatPrice(product: Priceable | null | undefined): string {
     if (min !== null && min > 0 && max !== null && max >= min) {
       return max === min ? formatINR(min) : `${formatINR(min)} – ${formatINR(max)}`;
     }
-    return ENQUIRY_LABEL;
+    return ENQUIRE_LABEL;
   }
 
-  // negotiable / anything unexpected
-  return ENQUIRY_LABEL;
-}
+  if (type === "negotiable") return NEGOTIABLE_LABEL;
 
-/** True when a product has no concrete price and can only be enquired about. */
-export function isEnquiryOnly(product: Priceable | null | undefined): boolean {
-  return formatPrice(product) === ENQUIRY_LABEL;
+  // enquiry / anything unexpected
+  return ENQUIRE_LABEL;
 }
 
 /**
- * A numeric value usable for client-side "sort by price". Enquiry-only
- * products return null so callers can order them last.
+ * True when a product carries a concrete numeric price (a valid fixed price or
+ * range). Enquiry-only and negotiable pieces return false. This — not a string
+ * comparison against a label — is the reliable test for "has a real price".
+ */
+export function hasNumericPrice(product: Priceable | null | undefined): boolean {
+  if (!product) return false;
+  const type: PricingType = product.pricing_type ?? "enquiry";
+  if (type === "fixed") {
+    const price = toPositiveNumber(product.price);
+    return price !== null && price > 0;
+  }
+  if (type === "range") {
+    const min = toPositiveNumber(product.price_min);
+    const max = toPositiveNumber(product.price_max);
+    return min !== null && min > 0 && max !== null && max >= min;
+  }
+  return false;
+}
+
+/**
+ * True when a product has no concrete price and can only be enquired about.
+ * Used to decide whether a WhatsApp message should carry a price — so both
+ * "Enquire for Price" and "Negotiable" pieces send without a number.
+ */
+export function isEnquiryOnly(product: Priceable | null | undefined): boolean {
+  return !hasNumericPrice(product);
+}
+
+/**
+ * A numeric value usable for client-side "sort by price". Products without a
+ * concrete price return null so callers can order them last.
  */
 export function sortPriceValue(product: Priceable | null | undefined): number | null {
   if (!product) return null;
-  const type: PricingType = product.pricing_type ?? "negotiable";
+  const type: PricingType = product.pricing_type ?? "enquiry";
   if (type === "fixed") return toPositiveNumber(product.price);
   if (type === "range") return toPositiveNumber(product.price_min);
   return null;
@@ -97,8 +129,8 @@ export type PricingValidation =
 
 /**
  * Validates and normalizes raw pricing input (strings from a form or JSON).
- * Enforces: fixed price > 0; range min > 0 and max >= min; negotiable carries
- * no numbers. Rejects negative / non-numeric values.
+ * Enforces: fixed price > 0; range min > 0 and max >= min; enquiry & negotiable
+ * carry no numbers. Rejects negative / non-numeric values.
  */
 export function validatePricing(raw: {
   pricing_type?: unknown;
@@ -108,7 +140,12 @@ export function validatePricing(raw: {
 }): PricingValidation {
   const type = raw.pricing_type;
 
-  if (type !== "fixed" && type !== "range" && type !== "negotiable") {
+  if (
+    type !== "enquiry" &&
+    type !== "negotiable" &&
+    type !== "fixed" &&
+    type !== "range"
+  ) {
     return { ok: false, error: "Please choose a valid pricing type." };
   }
 
@@ -141,9 +178,9 @@ export function validatePricing(raw: {
     };
   }
 
-  // negotiable
+  // enquiry / negotiable — no numbers stored
   return {
     ok: true,
-    value: { pricing_type: "negotiable", price: null, price_min: null, price_max: null },
+    value: { pricing_type: type, price: null, price_min: null, price_max: null },
   };
 }
