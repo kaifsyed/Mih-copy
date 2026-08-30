@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getProducts, getCategories } from "@/lib/products";
 import type { Product } from "@/lib/products";
@@ -138,12 +139,10 @@ export default async function Home() {
         </section>
       ) : null}
 
-      {/* Custom jewellery split CTA */}
+      {/* Custom jewellery split CTA — text left, supplied image right on
+          desktop; on mobile the text stacks above the image (DOM order). */}
       <section className="container-luxe section-gap">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="relative aspect-[5/4] overflow-hidden border border-gold/15 bg-charcoal glow-gold">
-            <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gold/40 bg-gradient-to-br from-silver/25 via-gold/10 to-noir-deep" />
-          </div>
           <div>
             <p className="eyebrow">Jewellery, your way</p>
             <h2 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
@@ -159,6 +158,15 @@ export default async function Home() {
               Discuss a Custom Piece
               <ArrowRightIcon className="h-4 w-4" />
             </Link>
+          </div>
+          <div className="relative aspect-[5/4] overflow-hidden border border-gold/15 bg-charcoal glow-gold">
+            <Image
+              src="/jewellery-your-way.png"
+              alt="Bespoke MIH GEMS jewellery crafted around a natural gemstone."
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
