@@ -5,6 +5,7 @@ import type { Product } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { whatsappLink } from "@/lib/whatsapp";
 import { HeroCarousel } from "@/components/home/hero-carousel";
+import { StarField } from "@/components/home/star-field";
 import {
   ArrowRightIcon,
   WhatsappIcon,
@@ -29,7 +30,7 @@ const TRUST = [
   { Icon: GlobeIcon, title: "Worldwide Shipping", text: "Serving gemstone clients across India and beyond." },
 ];
 
-const FEATURED_LIMIT = 8;
+const FEATURED_LIMIT = 4;
 
 /**
  * A curated, mixed featured selection: interleave Gemstones and Jewellery so
@@ -60,7 +61,9 @@ export default async function Home() {
   const categories = getCategories(products).slice(0, 5);
 
   return (
-    <main className="flex flex-col">
+    <main className="relative isolate flex flex-col">
+      {/* Homepage-only decorative reflected-light layer (behind content) */}
+      <StarField />
       {/* Hero — premium multi-slide carousel */}
       <HeroCarousel />
 

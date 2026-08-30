@@ -276,6 +276,50 @@ body {
   }
 }
 
+@layer components {
+  /* Homepage star atmosphere ------------------------------------------ */
+  /* Tiny reflected-light points; decorative only. Static by default,
+     with a slow, low-opacity twinkle on a subset. Disabled under
+     prefers-reduced-motion. Density is reduced on small screens. */
+  .mih-star {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.28;
+    /* A faint halo so points read as reflected light, not hard pixels. */
+    box-shadow: 0 0 3px color-mix(in srgb, var(--color-champagne) 30%, transparent);
+  }
+  .mih-star--twinkle {
+    animation-name: mih-twinkle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 6s;
+    will-change: opacity;
+  }
+  @keyframes mih-twinkle {
+    0%,
+    100% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+  /* Thin out the field on small screens so mobile stays clean/light. */
+  @media (max-width: 640px) {
+    .mih-starfield .mih-star:nth-child(even) {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mih-star--twinkle {
+      animation: none;
+    }
+    .mih-star {
+      opacity: 0.22;
+    }
+  }
+}
+
 @layer utilities {
   .clamp-2 {
     display: -webkit-box;
