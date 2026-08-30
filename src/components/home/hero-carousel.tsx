@@ -19,7 +19,7 @@ type Slide = {
   secondary?: Cta;
 };
 
-const INTERVAL = 6500;
+const INTERVAL = 5000;
 
 // Slides pair the supplied MIH GEMS photography (public/hero-*.png) with copy.
 // Each image has its subject on the right, so the legibility scrim + text sit
