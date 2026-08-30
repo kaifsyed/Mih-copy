@@ -37,6 +37,29 @@ export function isProductCategory(value: unknown): value is ProductCategory {
   );
 }
 
+/**
+ * Jewellery sub-types. Single source of truth shared by the admin form, the
+ * admin API validation and the shop's secondary filter — the same reason the
+ * categories above are centralized. Only meaningful when category is
+ * "Jewellery"; gemstones always carry a null subcategory.
+ */
+export const JEWELLERY_SUBCATEGORIES = [
+  "Rings",
+  "Bracelets",
+  "Necklaces",
+  "Earrings",
+] as const;
+export type JewellerySubcategory = (typeof JEWELLERY_SUBCATEGORIES)[number];
+
+export function isJewellerySubcategory(
+  value: unknown,
+): value is JewellerySubcategory {
+  return (
+    typeof value === "string" &&
+    (JEWELLERY_SUBCATEGORIES as readonly string[]).includes(value)
+  );
+}
+
 export type Product = {
   id: string;
   slug: string;
@@ -44,6 +67,8 @@ export type Product = {
   category: string;
   detail: string | null;
   carat: string | null;
+  /** Jewellery sub-type; null for gemstones and for un-categorized rows. */
+  subcategory: JewellerySubcategory | null;
   status: ProductStatus;
   description: string | null;
   color: ProductColor | null;
@@ -86,6 +111,12 @@ function asProductColor(value: unknown): ProductColor | null {
   return PRODUCT_COLORS.find((color) => color === normalized) ?? null;
 }
 
+/** Only the four known jewellery sub-types survive; everything else is null. */
+function asJewellerySubcategory(value: unknown): JewellerySubcategory | null {
+  const trimmed = asTrimmedString(value);
+  return isJewellerySubcategory(trimmed) ? trimmed : null;
+}
+
 /** Anything that is not an explicit "Available" is treated as enquiry-only. */
 function asProductStatus(value: unknown): ProductStatus {
   return asTrimmedString(value)?.toLowerCase() === "available"
@@ -113,6 +144,7 @@ function normalizeProduct(row: unknown): Product | null {
     category: asTrimmedString(raw.category) ?? "Gemstone",
     detail: asTrimmedString(raw.detail),
     carat: asTrimmedString(raw.carat),
+    subcategory: asJewellerySubcategory(raw.subcategory),
     status: asProductStatus(raw.status),
     description: asTrimmedString(raw.description),
     color: asProductColor(raw.color),
@@ -205,4 +237,69 @@ export function getCategories(products: readonly Product[]): string[] {
   return Array.from(new Set(products.map((p) => p.category))).sort((a, b) =>
     a.localeCompare(b),
   );
+}
+
+// ---------------------------------------------------------------------------
+// Categorization validation — shared by the admin API routes and the admin
+// form, mirroring how pricing validation is single-sourced in lib/pricing.ts.
+// ---------------------------------------------------------------------------
+
+export type NormalizedCategorization = {
+  category: ProductCategory;
+  subcategory: JewellerySubcategory | null;
+  carat: string | null;
+};
+
+export type CategorizationValidation =
+  | { ok: true; value: NormalizedCategorization }
+  | { ok: false; error: string };
+
+/**
+ * Validates category + jewellery subcategory + carat together and returns the
+ * normalized fields to persist. The rules the customer-facing UI relies on:
+ *   - Gemstones: no subcategory (forced null); carat optional.
+ *   - Jewellery: a required subcategory from JEWELLERY_SUBCATEGORIES; carat is
+ *     never stored (forced null).
+ * Stale/irrelevant values are dropped here rather than trusted from the client,
+ * so a Gemstone can never keep a subcategory and Jewellery can never keep carat.
+ */
+export function validateCategorization(raw: {
+  category?: unknown;
+  subcategory?: unknown;
+  carat?: unknown;
+}): CategorizationValidation {
+  const category =
+    typeof raw.category === "string" ? raw.category.trim() : "";
+
+  if (!isProductCategory(category)) {
+    return {
+      ok: false,
+      error: "Category must be either Gemstones or Jewellery.",
+    };
+  }
+
+  const carat = typeof raw.carat === "string" ? raw.carat.trim() : "";
+  const subcategory =
+    typeof raw.subcategory === "string" ? raw.subcategory.trim() : "";
+
+  if (category === "Jewellery") {
+    if (!isJewellerySubcategory(subcategory)) {
+      return {
+        ok: false,
+        error:
+          "Jewellery type must be one of Rings, Bracelets, Necklaces or Earrings.",
+      };
+    }
+    // Jewellery never carries carat/size.
+    return {
+      ok: true,
+      value: { category, subcategory, carat: null },
+    };
+  }
+
+  // Gemstones: carat optional, never a subcategory.
+  return {
+    ok: true,
+    value: { category, subcategory: null, carat: carat || null },
+  };
 }

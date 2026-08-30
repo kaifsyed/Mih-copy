@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProducts, getCategories } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { whatsappLink } from "@/lib/whatsapp";
 import { HeroCarousel } from "@/components/home/hero-carousel";
@@ -28,9 +29,34 @@ const TRUST = [
   { Icon: GlobeIcon, title: "Worldwide Shipping", text: "Serving gemstone clients across India and beyond." },
 ];
 
+const FEATURED_LIMIT = 8;
+
+/**
+ * A curated, mixed featured selection: interleave Gemstones and Jewellery so
+ * both categories surface when both exist, then top up with anything remaining
+ * (including legacy-category rows), preserving the newest-first order the query
+ * already returns. Degrades naturally to a single category, or to an empty
+ * array when there are no products.
+ */
+function pickFeatured(products: Product[]): Product[] {
+  const gems = products.filter((p) => p.category === "Gemstones");
+  const jewellery = products.filter((p) => p.category === "Jewellery");
+
+  const mixed: Product[] = [];
+  const rounds = Math.max(gems.length, jewellery.length);
+  for (let i = 0; i < rounds; i++) {
+    if (gems[i]) mixed.push(gems[i]);
+    if (jewellery[i]) mixed.push(jewellery[i]);
+  }
+
+  const chosen = new Set(mixed.map((p) => p.id));
+  const rest = products.filter((p) => !chosen.has(p.id));
+  return [...mixed, ...rest].slice(0, FEATURED_LIMIT);
+}
+
 export default async function Home() {
   const products = await getProducts();
-  const featured = products.slice(0, 8);
+  const featured = pickFeatured(products);
   const categories = getCategories(products).slice(0, 5);
 
   return (
@@ -60,19 +86,19 @@ export default async function Home() {
             <div>
               <p className="eyebrow">Featured collection</p>
               <h2 className="mt-3 font-serif text-4xl text-ivory lg:text-5xl">
-                Selected gemstones
+                Gems &amp; fine jewellery
               </h2>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-                A glimpse of the pieces currently in our collection. Enquire for
-                availability, certification and pricing.
+                A curated selection of natural gems and fine jewellery, chosen
+                for those who appreciate something truly distinctive.
               </p>
             </div>
             <Link
               href="/shop"
-              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-gold"
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-gold transition-colors hover:text-champagne"
             >
-              View all
-              <ArrowRightIcon className="h-3.5 w-3.5" />
+              Explore the Collection
+              <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

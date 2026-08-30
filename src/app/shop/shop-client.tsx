@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Product } from "@/lib/products";
-import { PRODUCT_CATEGORIES } from "@/lib/products";
+import { PRODUCT_CATEGORIES, JEWELLERY_SUBCATEGORIES } from "@/lib/products";
 import { sortPriceValue } from "@/lib/pricing";
 import { whatsappLink } from "@/lib/whatsapp";
 import { ProductCard } from "@/components/product/product-card";
@@ -55,6 +55,8 @@ export default function ShopClient({
   const [category, setCategory] = useState(
     categories.includes(initialCategory) ? initialCategory : "All",
   );
+  // Secondary filter, only meaningful when category === "Jewellery".
+  const [subcategory, setSubcategory] = useState<string>("All");
   const [availability, setAvailability] = useState<Availability>("All");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -78,6 +80,14 @@ export default function ShopClient({
         if (!haystack.includes(q)) return false;
       }
       if (category !== "All" && p.category !== category) return false;
+      // Jewellery sub-type filter only applies within the Jewellery category.
+      if (
+        category === "Jewellery" &&
+        subcategory !== "All" &&
+        p.subcategory !== subcategory
+      ) {
+        return false;
+      }
       if (availability !== "All" && p.status !== availability) return false;
 
       if (hasMin || hasMax) {
@@ -115,12 +125,12 @@ export default function ShopClient({
       );
 
     return list;
-  }, [products, query, category, availability, priceMin, priceMax, sort]);
+  }, [products, query, category, subcategory, availability, priceMin, priceMax, sort]);
 
   // Reset pagination whenever the result set changes. Comparing the previous
   // value in state (the React "adjust state during render" pattern) avoids a
   // setState-in-effect while staying compatible with the React Compiler.
-  const filterSig = `${query}|${category}|${availability}|${priceMin}|${priceMax}|${sort}`;
+  const filterSig = `${query}|${category}|${subcategory}|${availability}|${priceMin}|${priceMax}|${sort}`;
   const [prevSig, setPrevSig] = useState(filterSig);
   if (prevSig !== filterSig) {
     setPrevSig(filterSig);
@@ -131,6 +141,7 @@ export default function ShopClient({
   const hasActiveFilters =
     query.trim() !== "" ||
     category !== "All" ||
+    subcategory !== "All" ||
     availability !== "All" ||
     priceMin.trim() !== "" ||
     priceMax.trim() !== "";
@@ -138,9 +149,17 @@ export default function ShopClient({
   const resetFilters = () => {
     setQuery("");
     setCategory("All");
+    setSubcategory("All");
     setAvailability("All");
     setPriceMin("");
     setPriceMax("");
+  };
+
+  // Selecting a primary category resets the Jewellery sub-type so a stale
+  // "Rings" selection can't silently hide products after switching category.
+  const selectCategory = (next: string) => {
+    setCategory(next);
+    setSubcategory("All");
   };
 
   return (
@@ -197,7 +216,7 @@ export default function ShopClient({
                     <button
                       key={c}
                       type="button"
-                      onClick={() => setCategory(c)}
+                      onClick={() => selectCategory(c)}
                       aria-pressed={active}
                       className={`flex items-center justify-between border-b border-outline/15 py-2.5 text-left text-sm transition-colors last:border-b-0 ${
                         active ? "text-gold" : "text-muted hover:text-ivory"
@@ -212,6 +231,35 @@ export default function ShopClient({
                 })}
               </div>
             </fieldset>
+
+            {/* Jewellery sub-type — only shown while Jewellery is selected, as a
+                natural secondary filter under the primary categories. */}
+            {category === "Jewellery" ? (
+              <fieldset>
+                <legend className="field-label">Jewellery type</legend>
+                <div className="flex flex-col">
+                  {["All", ...JEWELLERY_SUBCATEGORIES].map((s) => {
+                    const active = subcategory === s;
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => setSubcategory(s)}
+                        aria-pressed={active}
+                        className={`flex items-center justify-between border-b border-outline/15 py-2.5 text-left text-sm transition-colors last:border-b-0 ${
+                          active ? "text-gold" : "text-muted hover:text-ivory"
+                        }`}
+                      >
+                        <span>{s === "All" ? "All Jewellery" : s}</span>
+                        {active ? (
+                          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                        ) : null}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ) : null}
 
             {/* Availability */}
             <fieldset>

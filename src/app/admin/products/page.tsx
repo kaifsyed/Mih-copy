@@ -1,7 +1,12 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { normalizeProducts, PRODUCT_CATEGORIES } from "@/lib/products";
+import {
+  normalizeProducts,
+  PRODUCT_CATEGORIES,
+  JEWELLERY_SUBCATEGORIES,
+  validateCategorization,
+} from "@/lib/products";
 import type { PricingType, Product } from "@/lib/products";
 import { formatPrice, validatePricing } from "@/lib/pricing";
 
@@ -22,6 +27,9 @@ const emptyForm = {
   category: "",
   detail: "",
   carat: "",
+  // Jewellery-only sub-type. Kept empty for Gemstones and cleared whenever the
+  // category switches, so a stale value is never submitted.
+  subcategory: "",
   status: "Enquire" as "Available" | "Enquire",
   description: "",
   // Pricing must be part of this form. The API validates pricing on every
@@ -131,6 +139,18 @@ export default function AdminProductsPage() {
     }));
   }
 
+  // Switching category clears the field that no longer applies, so a Gemstone
+  // can never submit a jewellery subcategory and Jewellery can never submit a
+  // carat. The form's conditional fields update immediately from form.category.
+  function handleCategoryChange(value: string) {
+    setForm((current) => ({
+      ...current,
+      category: value,
+      carat: value === "Gemstones" ? current.carat : "",
+      subcategory: value === "Jewellery" ? current.subcategory : "",
+    }));
+  }
+
   function handleImageChange(file: File | null) {
     setSelectedImage(file);
 
@@ -167,6 +187,7 @@ export default function AdminProductsPage() {
         : "",
       detail: product.detail ?? "",
       carat: product.carat ?? "",
+      subcategory: product.subcategory ?? "",
       status: product.status,
       description: product.description ?? "",
       pricing_type: product.pricing_type ?? "enquiry",
@@ -195,6 +216,7 @@ export default function AdminProductsPage() {
     data.set("category", form.category.trim());
     data.set("detail", form.detail.trim());
     data.set("carat", form.carat.trim());
+    data.set("subcategory", form.subcategory.trim());
     data.set("status", form.status);
     data.set("description", form.description.trim());
     data.set("pricing_type", form.pricing_type);
@@ -217,8 +239,16 @@ export default function AdminProductsPage() {
       return;
     }
 
-    if (!(PRODUCT_CATEGORIES as readonly string[]).includes(form.category)) {
-      setMessage("Please choose a valid category.");
+    // Same validator the API uses, so an invalid category/subcategory (e.g. a
+    // Jewellery product with no type selected) is caught before any upload.
+    const categorization = validateCategorization({
+      category: form.category,
+      subcategory: form.subcategory,
+      carat: form.carat,
+    });
+
+    if (!categorization.ok) {
+      setMessage(categorization.error);
       return;
     }
 
@@ -376,7 +406,7 @@ export default function AdminProductsPage() {
                 <select
                   value={form.category}
                   onChange={(event) =>
-                    updateForm("category", event.target.value)
+                    handleCategoryChange(event.target.value)
                   }
                   className="input-luxe mt-2"
                   required
@@ -407,20 +437,46 @@ export default function AdminProductsPage() {
                 />
               </label>
 
-              <label className="block">
-                <span className="field-label">
-                  Carat / Size
-                </span>
+              {/* Carat / Size — gemstones only. Hidden (and never submitted)
+                  for Jewellery, whose size is not expressed in carats. */}
+              {form.category === "Jewellery" ? (
+                <label className="block">
+                  <span className="field-label">Jewellery Type *</span>
 
-                <input
-                  value={form.carat}
-                  onChange={(event) =>
-                    updateForm("carat", event.target.value)
-                  }
-                  placeholder="2.03 ct"
-                  className="input-luxe mt-2"
-                />
-              </label>
+                  <select
+                    value={form.subcategory}
+                    onChange={(event) =>
+                      updateForm("subcategory", event.target.value)
+                    }
+                    className="input-luxe mt-2"
+                    required
+                  >
+                    <option value="" disabled>
+                      Select a type
+                    </option>
+                    {JEWELLERY_SUBCATEGORIES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ) : (
+                <label className="block">
+                  <span className="field-label">
+                    Carat / Size
+                  </span>
+
+                  <input
+                    value={form.carat}
+                    onChange={(event) =>
+                      updateForm("carat", event.target.value)
+                    }
+                    placeholder="2.03 ct"
+                    className="input-luxe mt-2"
+                  />
+                </label>
+              )}
 
               <label className="block">
                 <span className="field-label">

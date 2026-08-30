@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { isProductCategory } from "@/lib/products";
+import { validateCategorization } from "@/lib/products";
 import { validatePricing } from "@/lib/pricing";
 import { validateProductImage } from "@/lib/product-image";
 
@@ -50,6 +50,7 @@ export async function PATCH(
     const category = String(formData.get("category") || "").trim();
     const detail = String(formData.get("detail") || "").trim();
     const carat = String(formData.get("carat") || "").trim();
+    const subcategory = String(formData.get("subcategory") || "").trim();
     const status = String(formData.get("status") || "Enquire").trim();
     const description = String(
       formData.get("description") || ""
@@ -64,9 +65,15 @@ export async function PATCH(
       );
     }
 
-    if (!isProductCategory(category)) {
+    const categorization = validateCategorization({
+      category,
+      subcategory,
+      carat,
+    });
+
+    if (!categorization.ok) {
       return NextResponse.json(
-        { error: "Category must be either Gemstones or Jewellery" },
+        { error: categorization.error },
         { status: 400 }
       );
     }
@@ -95,9 +102,10 @@ export async function PATCH(
 
     const updateData: Record<string, string | number | null> = {
       name,
-      category,
+      category: categorization.value.category,
+      subcategory: categorization.value.subcategory,
       detail: detail || null,
-      carat: carat || null,
+      carat: categorization.value.carat,
       status: status || "Enquire",
       description: description || null,
       ...pricing.value,

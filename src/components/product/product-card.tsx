@@ -68,12 +68,16 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
         <div className="flex flex-1 flex-col gap-2 p-5">
           {product.category ? (
-            <span className="eyebrow text-[0.62rem]">{product.category}</span>
+            <span className="eyebrow text-[0.62rem]">
+              {product.subcategory
+                ? `${product.category} · ${product.subcategory}`
+                : product.category}
+            </span>
           ) : null}
           <h3 className="font-serif text-lg leading-snug text-ivory transition-colors group-hover:text-gold clamp-2">
             {product.name ?? "Untitled piece"}
           </h3>
-          {product.carat ? (
+          {product.category !== "Jewellery" && product.carat ? (
             <p className="text-xs uppercase tracking-widest text-muted">
               {product.carat}
             </p>

@@ -97,7 +97,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Details */}
         <div className="flex flex-col">
-          <span className="eyebrow">{product.category}</span>
+          <span className="eyebrow">
+            {product.subcategory
+              ? `${product.category} · ${product.subcategory}`
+              : product.category}
+          </span>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
             {product.name}
           </h1>
@@ -107,7 +111,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {product.detail}
             </p>
           ) : null}
-          {product.carat ? (
+          {product.category !== "Jewellery" && product.carat ? (
             <p className="mt-2 text-base text-ivory/80">{product.carat}</p>
           ) : null}
 
