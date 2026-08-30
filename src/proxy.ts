@@ -1,26 +1,26 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
 /**
- * Routes that require a signed-in Clerk session, enforced at the edge before
- * any page or route handler runs.
+ * Clerk session integration for every request.
  *
- * This is the OUTER gate only — it proves "someone is signed in". It does not
- * prove "this person is the admin". Admin authorization stays where it can be
- * trusted: `isAdmin()` inside src/app/admin/layout.tsx and inside every
- * /api/admin route handler. Both layers are required.
+ * This wires up Clerk so `auth()` / `currentUser()` work in server components,
+ * layouts and route handlers. It intentionally performs NO authorization here.
+ *
+ * Authorization lives with each protected resource, which is both the current
+ * Clerk guidance and safer (middleware path-matching can diverge from how
+ * Next.js actually routes a request and leave a resource reachable):
+ *   - /admin/*            → src/app/admin/layout.tsx (auth() + isAdmin) and each
+ *                            admin page re-checks isAdmin()
+ *   - /api/admin/*        → every handler checks isAdmin() → 401
+ *   - /api/enquiries GET  → isAdmin() → 401
+ *   - /account            → src/app/account/page.tsx (auth() → sign-in)
+ *   - /after-sign-in      → auth() → sign-in, then role redirect
+ *
+ * Note: Clerk's createRouteMatcher() + auth.protect() were removed here because
+ * createRouteMatcher() is deprecated in @clerk/nextjs (logs a runtime warning)
+ * and the resource-level checks above are the real security boundary.
  */
-const isProtectedRoute = createRouteMatcher([
-  "/admin(.*)",
-  "/api/admin(.*)",
-  "/account(.*)",
-]);
-
-export default clerkMiddleware(async (auth, request) => {
-  if (isProtectedRoute(request)) {
-    // Redirects browsers to sign-in; returns an error for API requests.
-    await auth.protect();
-  }
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
