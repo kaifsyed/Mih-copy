@@ -102,16 +102,16 @@ export function SiteHeader() {
       {/* Main bar */}
       <div className="container-luxe flex items-center justify-between gap-4 py-4">
         {/* Left: mobile menu + logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
-            className="inline-flex h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold lg:hidden"
+            className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10 lg:hidden"
           >
             <MenuIcon className="h-6 w-6" />
           </button>
-          <Logo priority />
+          <Logo priority imgClassName="h-8 w-auto sm:h-12 md:h-16" />
         </div>
 
         {/* Center: primary nav */}
@@ -135,7 +135,7 @@ export function SiteHeader() {
             onClick={() => setSearchOpen((v) => !v)}
             aria-label="Search"
             aria-expanded={searchOpen}
-            className="inline-flex h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold"
+            className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
           >
             <SearchIcon className="h-5 w-5" />
           </button>
@@ -143,7 +143,7 @@ export function SiteHeader() {
           <Link
             href="/wishlist"
             aria-label={`Wishlist${wishlistCount ? ` (${wishlistCount})` : ""}`}
-            className="relative hidden h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold sm:inline-flex"
+            className="relative inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
           >
             <HeartIcon className="h-5 w-5" />
             <CountBadge count={wishlistCount} />
@@ -152,7 +152,7 @@ export function SiteHeader() {
           <Link
             href="/cart"
             aria-label={`Enquiry cart${cartBadge ? ` (${cartBadge})` : ""}`}
-            className="relative inline-flex h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold"
+            className="relative inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
           >
             <BagIcon className="h-5 w-5" />
             <CountBadge count={cartBadge} />
@@ -162,7 +162,7 @@ export function SiteHeader() {
             <Link
               href="/account"
               aria-label="Account"
-              className="inline-flex h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold"
+              className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
             >
               <UserIcon className="h-5 w-5" />
             </Link>
@@ -171,7 +171,7 @@ export function SiteHeader() {
             <Link
               href="/sign-in"
               aria-label="Sign in"
-              className="inline-flex h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold"
+              className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
             >
               <UserIcon className="h-5 w-5" />
             </Link>
@@ -216,34 +216,39 @@ export function SiteHeader() {
             onClick={() => setMenuOpen(false)}
             aria-hidden
           />
-          <div className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col border-l border-gold/15 bg-noir">
-            <div className="flex items-center justify-between border-b border-gold/12 px-6 py-4">
-              <Logo href={null} imgClassName="h-10 w-auto" />
+          <div className="absolute right-0 top-0 flex h-full max-h-dvh w-[86%] max-w-sm flex-col border-l border-gold/15 bg-noir">
+            <div className="flex shrink-0 items-center justify-between border-b border-gold/12 px-5 py-3">
+              <Logo href={null} imgClassName="h-8 w-auto" />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close menu"
                 className="inline-flex h-10 w-10 items-center justify-center text-ivory hover:text-gold"
               >
-                <CloseIcon className="h-6 w-6" />
+                <CloseIcon className="h-5 w-5" />
               </button>
             </div>
 
-            <nav className="flex flex-col px-6 py-4" aria-label="Mobile">
+            {/* Primary nav scrolls internally on short viewports so the bottom
+                actions always stay reachable without clipping. */}
+            <nav
+              className="flex flex-1 flex-col overflow-y-auto px-5 py-1"
+              aria-label="Mobile"
+            >
               {PRIMARY_NAV.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   data-active={isActivePath(pathname, item.href)}
-                  className="border-b border-outline/15 py-4 font-serif text-xl text-ivory data-[active=true]:text-gold"
+                  className="border-b border-outline/15 py-3 font-serif text-lg text-ivory data-[active=true]:text-gold"
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            <div className="mt-auto flex flex-col gap-3 border-t border-gold/12 px-6 py-6">
-              <div className="flex gap-3">
+            <div className="flex shrink-0 flex-col gap-2 border-t border-gold/12 px-5 py-4">
+              <div className="flex gap-2">
                 <Link href="/wishlist" className="btn btn-ghost btn-sm flex-1">
                   <HeartIcon className="h-4 w-4" />
                   Wishlist{wishlistCount ? ` (${wishlistCount})` : ""}
@@ -254,13 +259,13 @@ export function SiteHeader() {
                 </Link>
               </div>
               <Show when="signed-in">
-                <Link href="/account" className="btn btn-ghost btn-block">
+                <Link href="/account" className="btn btn-ghost btn-sm btn-block">
                   <UserIcon className="h-4 w-4" />
                   My Account
                 </Link>
               </Show>
               <Show when="signed-out">
-                <Link href="/sign-in" className="btn btn-ghost btn-block">
+                <Link href="/sign-in" className="btn btn-ghost btn-sm btn-block">
                   <UserIcon className="h-4 w-4" />
                   Sign In
                 </Link>
@@ -269,7 +274,7 @@ export function SiteHeader() {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-whatsapp btn-block"
+                className="btn btn-whatsapp btn-sm btn-block"
               >
                 <WhatsappIcon className="h-4 w-4" />
                 Enquire on WhatsApp
