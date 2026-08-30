@@ -11,18 +11,41 @@ import {
 } from "@/components/ui/icons";
 import { whatsappLink } from "@/lib/whatsapp";
 import { SOCIAL_LINKS } from "@/lib/site";
-import { isChromeless, PRIMARY_NAV } from "@/components/layout/chrome";
+import { isChromeless } from "@/components/layout/chrome";
 
 const SOCIAL_ICONS = {
   instagram: InstagramIcon,
   facebook: FacebookIcon,
 } as const;
 
-const CUSTOMER_LINKS = [
-  { href: "/wishlist", label: "Wishlist" },
-  { href: "/cart", label: "Enquiry Cart" },
-  { href: "/account", label: "My Account" },
-  { href: "/policies", label: "Policies" },
+// Approved footer navigation — one shared source for every device. Only the
+// layout changes responsively; the content is identical on desktop/tablet/mobile.
+// "Help & FAQs" points at the real FAQ tab on /policies (no dedicated /help or
+// /faq route exists — we reuse the existing destination rather than inventing one).
+const FOOTER_NAV = [
+  {
+    title: "Explore",
+    links: [
+      { href: "/shop", label: "Shop" },
+      { href: "/custom-jewellery", label: "Custom Jewellery" },
+      { href: "/wholesale", label: "Wholesale" },
+    ],
+  },
+  {
+    title: "Information",
+    links: [
+      { href: "/policies#faq", label: "Help & FAQs" },
+      { href: "/about", label: "About MIH GEMS" },
+      { href: "/policies", label: "Policies" },
+    ],
+  },
+  {
+    title: "My Account",
+    links: [
+      { href: "/account", label: "My Account" },
+      { href: "/cart", label: "Enquiry Cart" },
+    ],
+  },
 ] as const;
 
 export function SiteFooter() {
@@ -33,7 +56,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto border-t border-gold/12 bg-noir-deep">
-      <div className="container-luxe grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="container-luxe grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div className="flex flex-col gap-5">
           <Logo href={null} imgClassName="h-12 w-auto" />
@@ -63,7 +86,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="inline-flex h-10 w-10 items-center justify-center border border-gold/25 text-muted transition-colors hover:border-gold/60 hover:text-gold"
+                  className="inline-flex h-11 w-11 items-center justify-center border border-gold/25 text-muted transition-colors hover:border-gold/60 hover:text-gold"
                 >
                   <Icon className="h-5 w-5" />
                 </a>
@@ -72,41 +95,25 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Explore */}
-        <nav aria-label="Explore" className="flex flex-col gap-4">
-          <h4 className="eyebrow">Explore</h4>
-          <ul className="flex flex-col gap-3">
-            {PRIMARY_NAV.filter((item) => item.href !== "/").map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-gold"
-                >
-                  <ArrowRightIcon className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Customer */}
-        <nav aria-label="Your account" className="flex flex-col gap-4">
-          <h4 className="eyebrow">Customer Care</h4>
-          <ul className="flex flex-col gap-3">
-            {CUSTOMER_LINKS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-gold"
-                >
-                  <ArrowRightIcon className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* Navigation groups — Explore · Information · My Account */}
+        {FOOTER_NAV.map((group) => (
+          <nav key={group.title} aria-label={group.title} className="flex flex-col gap-4">
+            <h4 className="eyebrow">{group.title}</h4>
+            <ul className="flex flex-col gap-3">
+              {group.links.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-gold"
+                  >
+                    <ArrowRightIcon className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
       </div>
 
       <div className="border-t border-outline/12">

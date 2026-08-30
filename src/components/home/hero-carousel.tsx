@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -90,10 +90,16 @@ function CtaLink({ cta, gold }: { cta: Cta; gold: boolean }) {
   );
 }
 
+// Horizontal travel (px) required before a touch gesture counts as a swipe.
+const SWIPE_THRESHOLD = 40;
+
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const count = SLIDES.length;
+
+  const next = () => setIndex((i) => (i + 1) % count);
+  const prev = () => setIndex((i) => (i - 1 + count) % count);
 
   // Autoplay, honouring prefers-reduced-motion and pausing on interaction.
   useEffect(() => {
@@ -106,15 +112,38 @@ export function HeroCarousel() {
     return () => window.clearInterval(id);
   }, [paused, count]);
 
+  // Touch swipe: track the start point and act on release. Only a
+  // predominantly-horizontal drag past the threshold changes slides, so
+  // vertical page scrolling and taps on the CTA buttons are unaffected. No
+  // preventDefault, so the page never blocks native scroll or causes overflow.
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  function onTouchStart(e: React.TouchEvent) {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy)) return;
+    if (dx < 0) next();
+    else prev();
+  }
+
   return (
     <section
-      className="relative overflow-hidden border-b border-gold/12 bg-noir-deep"
+      className="relative touch-pan-y overflow-hidden border-b border-gold/12 bg-noir-deep"
       aria-roledescription="carousel"
       aria-label="MIH GEMS featured highlights"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       {/* Fixed min-heights + centred content with generous padding guarantee
           the eyebrow, heading, copy and CTAs always sit inside the hero and
@@ -171,7 +200,7 @@ export function HeroCarousel() {
         {/* Prev / next controls */}
         <button
           type="button"
-          onClick={() => setIndex((i) => (i - 1 + count) % count)}
+          onClick={prev}
           aria-label="Previous slide"
           className="absolute left-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center border border-gold/25 bg-noir/50 text-ivory backdrop-blur-sm transition hover:border-gold/60 hover:text-gold sm:inline-flex"
         >
@@ -179,7 +208,7 @@ export function HeroCarousel() {
         </button>
         <button
           type="button"
-          onClick={() => setIndex((i) => (i + 1) % count)}
+          onClick={next}
           aria-label="Next slide"
           className="absolute right-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center border border-gold/25 bg-noir/50 text-ivory backdrop-blur-sm transition hover:border-gold/60 hover:text-gold sm:inline-flex"
         >
