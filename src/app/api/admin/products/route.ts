@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { isProductCategory } from "@/lib/products";
 import { validatePricing } from "@/lib/pricing";
 import { validateProductImage } from "@/lib/product-image";
 
@@ -68,10 +69,6 @@ export async function POST(request: Request) {
       formData.get("description") || ""
     ).trim();
 
-    const color = String(
-      formData.get("color") || ""
-    ).trim();
-
     const image = formData.get("image");
 
     if (!name) {
@@ -84,6 +81,13 @@ export async function POST(request: Request) {
     if (!category) {
       return NextResponse.json(
         { error: "Product category is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!isProductCategory(category)) {
+      return NextResponse.json(
+        { error: "Category must be either Gemstones or Jewellery" },
         { status: 400 }
       );
     }
@@ -127,7 +131,6 @@ export async function POST(request: Request) {
           carat: carat || null,
           status: status || "Enquire",
           description: description || null,
-          color: color || null,
           ...pricing.value,
         })
         .select()

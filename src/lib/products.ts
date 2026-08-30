@@ -20,6 +20,23 @@ export type PricingType = "enquiry" | "negotiable" | "fixed" | "range";
 export type ProductStatus = "Available" | "Enquire";
 export type ProductColor = "blue" | "red" | "green";
 
+/**
+ * The two customer-facing product categories. This is the single source of
+ * truth shared by the admin form (selector), the admin API (server-side
+ * validation) and the shop filter, so the three can never drift apart.
+ * Existing rows may hold other/legacy category values — those are left intact
+ * and simply fall outside these two filters until an admin re-categorizes them.
+ */
+export const PRODUCT_CATEGORIES = ["Gemstones", "Jewellery"] as const;
+export type ProductCategory = (typeof PRODUCT_CATEGORIES)[number];
+
+export function isProductCategory(value: unknown): value is ProductCategory {
+  return (
+    typeof value === "string" &&
+    (PRODUCT_CATEGORIES as readonly string[]).includes(value)
+  );
+}
+
 export type Product = {
   id: string;
   slug: string;

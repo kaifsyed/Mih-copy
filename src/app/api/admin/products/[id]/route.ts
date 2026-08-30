@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { isProductCategory } from "@/lib/products";
 import { validatePricing } from "@/lib/pricing";
 import { validateProductImage } from "@/lib/product-image";
 
@@ -53,13 +54,19 @@ export async function PATCH(
     const description = String(
       formData.get("description") || ""
     ).trim();
-    const color = String(formData.get("color") || "").trim();
 
     const image = formData.get("image");
 
     if (!name) {
       return NextResponse.json(
         { error: "Product name is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!isProductCategory(category)) {
+      return NextResponse.json(
+        { error: "Category must be either Gemstones or Jewellery" },
         { status: 400 }
       );
     }
@@ -88,12 +95,11 @@ export async function PATCH(
 
     const updateData: Record<string, string | number | null> = {
       name,
-      category: category || null,
+      category,
       detail: detail || null,
       carat: carat || null,
       status: status || "Enquire",
       description: description || null,
-      color: color || null,
       ...pricing.value,
     };
 

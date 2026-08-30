@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { normalizeProducts } from "@/lib/products";
+import { normalizeProducts, PRODUCT_CATEGORIES } from "@/lib/products";
 import type { PricingType, Product } from "@/lib/products";
 import { formatPrice, validatePricing } from "@/lib/pricing";
 
@@ -24,7 +24,6 @@ const emptyForm = {
   carat: "",
   status: "Enquire" as "Available" | "Enquire",
   description: "",
-  color: "blue" as "blue" | "red" | "green",
   // Pricing must be part of this form. The API validates pricing on every
   // PATCH, so a form that omitted these fields would reset each product to
   // "enquiry" and wipe its price on every save.
@@ -158,12 +157,18 @@ export default function AdminProductsPage() {
 
     setForm({
       name: product.name,
-      category: product.category,
+      // Only preselect the category when it's one of the two supported values;
+      // legacy/other values reset to "" so the admin must consciously pick one
+      // (nothing is changed in the database until they save).
+      category: (PRODUCT_CATEGORIES as readonly string[]).includes(
+        product.category,
+      )
+        ? product.category
+        : "",
       detail: product.detail ?? "",
       carat: product.carat ?? "",
       status: product.status,
       description: product.description ?? "",
-      color: product.color ?? "blue",
       pricing_type: product.pricing_type ?? "enquiry",
       price: product.price === null ? "" : String(product.price),
       price_min:
@@ -192,7 +197,6 @@ export default function AdminProductsPage() {
     data.set("carat", form.carat.trim());
     data.set("status", form.status);
     data.set("description", form.description.trim());
-    data.set("color", form.color);
     data.set("pricing_type", form.pricing_type);
     data.set("price", form.price.trim());
     data.set("price_min", form.price_min.trim());
@@ -210,6 +214,11 @@ export default function AdminProductsPage() {
 
     if (!form.name.trim() || !form.category.trim()) {
       setMessage("Product name and category are required.");
+      return;
+    }
+
+    if (!(PRODUCT_CATEGORIES as readonly string[]).includes(form.category)) {
+      setMessage("Please choose a valid category.");
       return;
     }
 
@@ -364,15 +373,23 @@ export default function AdminProductsPage() {
                   Category *
                 </span>
 
-                <input
+                <select
                   value={form.category}
                   onChange={(event) =>
                     updateForm("category", event.target.value)
                   }
-                  placeholder="Blue Sapphire"
                   className="input-luxe mt-2"
                   required
-                />
+                >
+                  <option value="" disabled>
+                    Select a category
+                  </option>
+                  {PRODUCT_CATEGORIES.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
               </label>
 
               <label className="block">
@@ -422,27 +439,6 @@ export default function AdminProductsPage() {
                 >
                   <option value="Available">Available</option>
                   <option value="Enquire">Enquire</option>
-                </select>
-              </label>
-
-              <label className="block">
-                <span className="field-label">
-                  Gemstone Colour
-                </span>
-
-                <select
-                  value={form.color}
-                  onChange={(event) =>
-                    updateForm(
-                      "color",
-                      event.target.value as "blue" | "red" | "green"
-                    )
-                  }
-                  className="input-luxe mt-2"
-                >
-                  <option value="blue">Blue</option>
-                  <option value="red">Red</option>
-                  <option value="green">Green</option>
                 </select>
               </label>
 

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Product } from "@/lib/products";
+import { PRODUCT_CATEGORIES } from "@/lib/products";
 import { sortPriceValue } from "@/lib/pricing";
 import { whatsappLink } from "@/lib/whatsapp";
 import { ProductCard } from "@/components/product/product-card";
@@ -37,16 +38,10 @@ export default function ShopClient({
   initialCategory = "All",
   initialQuery = "",
 }: ShopClientProps) {
-  const categories = useMemo(() => {
-    const unique = Array.from(
-      new Set(
-        products
-          .map((p) => p.category)
-          .filter((c): c is string => Boolean(c && c.trim())),
-      ),
-    ).sort((a, b) => a.localeCompare(b));
-    return ["All", ...unique];
-  }, [products]);
+  // Exactly two customer-facing categories, plus "All". Fixed rather than
+  // derived from the catalogue so the filter is stable even when a legacy row
+  // carries some other category value (such rows simply appear under "All").
+  const categories = ["All", ...PRODUCT_CATEGORIES];
 
   const availabilityCounts = useMemo(
     () => ({
