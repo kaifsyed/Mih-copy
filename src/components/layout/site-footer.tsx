@@ -62,7 +62,7 @@ export function SiteFooter() {
           <Logo href={null} imgClassName="h-12 w-auto" />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
             A private atelier for natural gemstones and bespoke fine jewellery.
-            Every piece is offered by personal enquiry — hand-selected, certified
+            Every piece is offered by personal enquiry, hand-selected, certified
             on request, and crafted to order.
           </p>
           <a
@@ -118,9 +118,22 @@ export function SiteFooter() {
 
       <div className="border-t border-outline/12">
         <div className="container-luxe flex flex-col items-center justify-between gap-3 py-6 text-center sm:flex-row sm:text-left">
-          <p className="text-xs tracking-wide text-muted">
-            © {year} MIH GEMS. All rights reserved.
-          </p>
+          <div className="flex flex-col gap-3">
+            <p className="text-xs tracking-wide text-muted">
+              © {year} MIH GEMS. All rights reserved.
+            </p>
+            <p className="text-xs tracking-wide text-muted">
+              Developed By {" "}
+              <a
+                href="https://www.instagram.com/kaifsyed/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold transition-colors hover:text-champagne"
+              >
+                Kaif Syed
+              </a>
+            </p>
+          </div>
           <p className="text-[0.68rem] uppercase tracking-[0.24em] text-outline">
             Natural Gemstones · Fine Jewellery · By Enquiry
           </p>

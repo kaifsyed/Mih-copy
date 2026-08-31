@@ -180,7 +180,7 @@ export default async function Home() {
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted">
             Tell us the gemstone, colour, size, budget or jewellery style you
-            have in mind — we&apos;ll help you find the right option.
+            have in mind. We&apos;ll help you find the right option.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a

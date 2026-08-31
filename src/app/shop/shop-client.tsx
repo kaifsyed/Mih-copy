@@ -169,7 +169,7 @@ export default function ShopClient({
         align="left"
         eyebrow="MIH GEMS Collection"
         title="Curated gemstones"
-        description="Explore natural gemstones selected for quality, character and beauty. Filter by category, availability and price — then enquire on the pieces that speak to you."
+        description="Explore natural gemstones selected for quality, character and beauty. Filter by category, availability and price, then enquire on the pieces that speak to you."
       />
 
       <div className="mt-12 flex flex-col gap-8 lg:flex-row">

@@ -53,7 +53,7 @@ export default function ContactPage() {
         as="h1"
         eyebrow="Contact"
         title="Get in touch"
-        description="Questions about a piece, a commission, an appointment or a partnership — we're happy to help. Send an enquiry below or message us directly on WhatsApp."
+        description="Questions about a piece, a commission, an appointment or a partnership. We're happy to help. Send an enquiry below or message us directly on WhatsApp."
       />
 
       <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">

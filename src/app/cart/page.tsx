@@ -5,7 +5,7 @@ import CartClient from "@/components/cart/cart-client";
 export const metadata: Metadata = {
   title: "Enquiry Cart",
   description:
-    "Review the gemstones and jewellery you're interested in and send them to MIH GEMS as a single WhatsApp enquiry. No online payment — pricing and availability are confirmed personally.",
+    "Review the gemstones and jewellery you're interested in and send them to MIH GEMS as a single WhatsApp enquiry. No online payment. Pricing and availability are confirmed personally.",
 };
 
 export default function CartPage() {
@@ -16,7 +16,7 @@ export default function CartPage() {
         align="left"
         eyebrow="MIH GEMS"
         title="Your enquiry cart"
-        description="Collect the pieces you'd like to ask about, then send them to us in one WhatsApp message. This is an enquiry — there's no online payment."
+        description="Collect the pieces you'd like to ask about, then send them to us in one WhatsApp message. This is an enquiry. There's no online payment."
         className="mb-12"
       />
       <CartClient />

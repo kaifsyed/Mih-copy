@@ -32,7 +32,7 @@ const REASSURANCE = [
   "Natural, hand-selected gemstones",
   "Independent certification available on request",
   "Sketches and renderings before we begin",
-  "No online payment — details confirmed personally",
+  "No online payment, details confirmed personally",
 ];
 
 export default function CustomJewelleryPage() {
@@ -42,7 +42,7 @@ export default function CustomJewelleryPage() {
         as="h1"
         eyebrow="Bespoke"
         title="Your vision, our creation"
-        description="Commission a one-of-a-kind piece — an engagement ring, a signature pendant, or a reimagined heirloom. Tell us what you have in mind and we'll take it from first sketch to finished jewellery."
+        description="Commission a one-of-a-kind piece, an engagement ring, a signature pendant, or a reimagined heirloom. Tell us what you have in mind and we'll take it from first sketch to finished jewellery."
       />
 
       <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">

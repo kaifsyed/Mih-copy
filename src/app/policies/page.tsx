@@ -20,7 +20,7 @@ const SECTIONS: PolicySection[] = [
     label: "Enquiries & ordering",
     heading: "Enquiries & ordering",
     intro:
-      "MIH GEMS is an enquiry-based boutique — there is no online checkout. This keeps every purchase personal and lets us confirm the details that matter with you directly.",
+      "MIH GEMS is an enquiry-based boutique. There is no online checkout. This keeps every purchase personal and lets us confirm the details that matter with you directly.",
     blocks: [
       {
         heading: "How it works",
@@ -58,7 +58,7 @@ const SECTIONS: PolicySection[] = [
     blocks: [
       {
         heading: "Returns & exchanges",
-        body: "Because natural gemstones are unique and many pieces are made or sourced to order, returns and exchanges are handled case by case. We'll explain what applies to your specific piece at the time of purchase — just ask before you buy.",
+        body: "Because natural gemstones are unique and many pieces are made or sourced to order, returns and exchanges are handled case by case. We'll explain what applies to your specific piece at the time of purchase. Just ask before you buy.",
       },
       {
         heading: "Caring for your jewellery",
@@ -92,7 +92,7 @@ const SECTIONS: PolicySection[] = [
     blocks: [
       {
         heading: "What we collect",
-        body: "When you send an enquiry we collect the details you provide — such as your name, contact details and message — so we can respond to you.",
+        body: "When you send an enquiry we collect the details you provide, such as your name, contact details and message, so we can respond to you.",
       },
       {
         heading: "How we use it",
@@ -100,7 +100,7 @@ const SECTIONS: PolicySection[] = [
       },
       {
         heading: "Your choices",
-        body: "You can ask us to update or delete the details you've shared at any time — just get in touch.",
+        body: "You can ask us to update or delete the details you've shared at any time. Just get in touch.",
       },
     ],
   },
@@ -127,7 +127,7 @@ const SECTIONS: PolicySection[] = [
       },
       {
         q: "Do you offer wholesale?",
-        a: "Yes — we supply jewellers, designers and retailers. Tell us about your business on the Wholesale page and we'll be in touch.",
+        a: "Yes, we supply jewellers, designers and retailers. Tell us about your business on the Wholesale page and we'll be in touch.",
       },
     ],
   },
