@@ -86,12 +86,15 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
       {/* Right — form panel */}
       <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12 sm:px-10">
         <div className="w-full max-w-[440px]">
-          {/* Mobile-only logo (the left panel carries it on md+) */}
-          <span className="mb-8 inline-flex rounded-[3px] bg-noir px-5 py-3 md:hidden">
-            <Logo href="/" imgClassName="h-9 w-auto" />
-          </span>
+          {/* Mobile-only logo (the left panel carries it on md+), centered with
+              transparent background so it reads cleanly on the ivory panel. */}
+          <div className="mb-8 flex justify-center md:hidden">
+            <Logo href="/" imgClassName="h-12 w-auto" />
+          </div>
 
-          <h1 className="font-serif text-4xl text-noir">{heading}</h1>
+          <h1 className="text-center font-serif text-3xl text-noir sm:text-4xl">
+            {heading}
+          </h1>
           <span
             aria-hidden
             className="mt-4 flex items-center gap-3 text-gold"
@@ -100,7 +103,9 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
             <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
             <span className="h-px flex-1 bg-gold/40" />
           </span>
-          <p className="mt-4 text-center text-sm text-noir/70">{subheading}</p>
+          <p className="mt-4 text-center text-sm leading-relaxed text-noir">
+            {subheading}
+          </p>
 
           <div className="mt-8">{children}</div>
         </div>
