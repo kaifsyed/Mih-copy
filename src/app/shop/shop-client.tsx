@@ -168,8 +168,8 @@ export default function ShopClient({
         as="h1"
         align="left"
         eyebrow="MIH GEMS Collection"
-        title="Curated gemstones"
-        description="Explore natural gemstones selected for quality, character and beauty. Filter by category, availability and price, then enquire on the pieces that speak to you."
+        title="Our Collection of Timeless Treasures"
+        description="Discover a curated collection of natural gemstones, fine silver jewellery, yellow gold creations and meaningful malas, thoughtfully selected for beauty, character and individuality. Explore pieces crafted to celebrate every style, story and occasion."
       />
 
       <div className="mt-12 flex flex-col gap-8 lg:flex-row">
