@@ -4,6 +4,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { FloatingWhatsapp } from "@/components/layout/floating-whatsapp";
 import { SITE_URL } from "@/lib/site";
 
 // Playfair Display — editorial serif headlines. Montserrat — UI/body.
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </div>
           <SiteFooter />
+          <FloatingWhatsapp />
         </ClerkProvider>
       </body>
     </html>
