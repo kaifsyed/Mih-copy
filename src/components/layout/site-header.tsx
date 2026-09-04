@@ -84,14 +84,14 @@ export function SiteHeader() {
       {/* Slim brand strip */}
       <div className="hidden border-b border-gold/10 md:block">
         <div className="container-luxe flex items-center justify-between py-2">
-          <p className="text-[0.62rem] uppercase tracking-[0.28em] text-muted">
+          <p className="text-xs uppercase tracking-[0.22em] text-muted">
             Natural Gemstones · Enquiry-Based Fine Jewellery
           </p>
           <a
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.28em] text-muted transition-colors hover:text-gold"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-muted transition-colors hover:text-gold"
           >
             <WhatsappIcon className="h-3.5 w-3.5" />
             Enquire on WhatsApp

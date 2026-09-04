@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Enquiry Cart",
   description:
     "Review the gemstones and jewellery you're interested in and send them to MIH GEMS as a single WhatsApp enquiry. No online payment. Pricing and availability are confirmed personally.",
+  // Cart contents are stored per device and have no search value.
+  robots: { index: false, follow: false },
 };
 
 export default function CartPage() {

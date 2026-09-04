@@ -10,7 +10,9 @@ import { EnquireButton } from "@/components/product/enquire-button";
 import AddToCartButton from "@/components/product/add-to-cart-button";
 import WishlistButton from "@/components/wishlist/wishlist-button";
 import { ProductCard } from "@/components/product/product-card";
+import { ProductJsonLd } from "@/components/seo/product-jsonld";
 import { ArrowRightIcon } from "@/components/ui/icons";
+import { SITE_URL } from "@/lib/site";
 
 // Product data is admin-managed; render per request so edits show immediately.
 export const dynamic = "force-dynamic";
@@ -43,7 +45,14 @@ export async function generateMetadata({
       title: product.name,
       description,
       type: "website",
+      url: `${SITE_URL}/shop/${product.slug}`,
       images: product.image_url ? [{ url: product.image_url }] : undefined,
+    },
+    twitter: {
+      card: product.image_url ? "summary_large_image" : "summary",
+      title: product.name,
+      description,
+      images: product.image_url ? [product.image_url] : undefined,
     },
   };
 }
@@ -67,6 +76,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <span className="mx-2 text-outline">/</span>
         <span className="text-ivory">{product.name}</span>
       </nav>
+
+      <ProductJsonLd product={product} />
 
       <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Image */}

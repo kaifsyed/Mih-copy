@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Your Wishlist",
   description:
     "Gemstones and jewellery you've saved from MIH GEMS, kept on this device. Enquire on the pieces you love over WhatsApp.",
+  // Wishlist is per-device, with no public search value.
+  robots: { index: false, follow: false },
 };
 
 export default function WishlistPage() {

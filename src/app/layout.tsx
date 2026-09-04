@@ -1,11 +1,12 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { FloatingWhatsapp } from "@/components/layout/floating-whatsapp";
 import { SITE_URL } from "@/lib/site";
+import { OrganizationJsonLd } from "@/components/seo/organization-jsonld";
 
 // Playfair Display — editorial serif headlines. Montserrat — UI/body.
 const playfair = Playfair_Display({
@@ -46,13 +47,30 @@ export const metadata: Metadata = {
     description:
       "Natural, hand-selected coloured gemstones and bespoke fine jewellery, offered by personal enquiry.",
     url: SITE_URL,
+    locale: "en_IN",
+    images: [
+      {
+        url: "/logo-header.png",
+        width: 1821,
+        height: 864,
+        alt: "MIH GEMS — Gems & Jewellery",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MIH GEMS — Natural Gemstones & Fine Jewellery",
     description:
       "Natural, hand-selected coloured gemstones and bespoke fine jewellery, offered by personal enquiry.",
+    images: ["/logo-header.png"],
   },
+};
+
+// Viewport must be exported separately from `metadata` since Next.js 14
+// (deprecated in the metadata object). The default `width=device-width,
+// initial-scale=1` viewport tag is added by Next.js automatically.
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -78,6 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
           <SiteFooter />
           <FloatingWhatsapp />
+          <OrganizationJsonLd />
         </ClerkProvider>
       </body>
     </html>
