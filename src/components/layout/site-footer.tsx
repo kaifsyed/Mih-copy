@@ -59,7 +59,7 @@ export function SiteFooter() {
       <div className="container-luxe grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div className="flex flex-col gap-5">
-          <Logo href={null} imgClassName="h-12 w-auto" />
+          <Logo href={null} imgClassName="h-12 w-auto" priority />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
             A private atelier for natural gemstones and bespoke fine jewellery.
             Every piece is offered by personal enquiry, hand-selected, certified
