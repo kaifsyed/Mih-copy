@@ -264,8 +264,9 @@ export default async function Home() {
           <div className="relative aspect-[5/4] overflow-hidden border border-gold/15 bg-charcoal glow-gold">
             <Image
               src="/jewellery-your-way.png"
-              alt="Bespoke MIH GEMS jewellery crafted around a natural gemstone."
+              alt="Bespoke jewellery crafted around a natural gemstone."
               fill
+              quality={85}
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />

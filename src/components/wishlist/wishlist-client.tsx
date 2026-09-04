@@ -83,9 +83,10 @@ export default function WishlistClient() {
                 {item.image_url ? (
                   <Image
                     src={item.image_url}
-                    alt={item.name ?? "Saved gemstone"}
+                    alt={item.name ?? "Saved gemstone photograph"}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={85}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (

@@ -58,6 +58,7 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
           alt=""
           fill
           priority
+          quality={85}
           sizes="(max-width: 1024px) 40vw, 50vw"
           className="object-cover object-center"
         />

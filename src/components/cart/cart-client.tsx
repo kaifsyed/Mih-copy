@@ -61,9 +61,10 @@ export default function CartClient() {
               {item.image_url ? (
                 <Image
                   src={item.image_url}
-                  alt={item.name ?? "Gemstone"}
+                  alt={item.name ?? "Gemstone photograph"}
                   fill
                   sizes="112px"
+                  quality={85}
                   className="object-cover"
                 />
               ) : (

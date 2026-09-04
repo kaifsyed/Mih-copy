@@ -109,6 +109,7 @@ export default function AboutPage() {
               alt="Natural coloured gemstones and fine jewellery arranged on a jeweller's workbench"
               fill
               priority
+              quality={85}
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
             />

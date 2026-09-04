@@ -29,6 +29,7 @@ export function Logo({
       width={1821}
       height={864}
       priority={priority}
+      quality={90}
       sizes="(max-width: 768px) 200px, 320px"
       className={`w-auto object-contain ${imgClassName}`}
     />

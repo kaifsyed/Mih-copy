@@ -47,9 +47,10 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           {product.image_url ? (
             <Image
               src={product.image_url}
-              alt={product.name ?? "MIH GEMS product"}
+              alt={product.name ?? "Product photograph"}
               fill
               priority={priority}
+              quality={85}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
