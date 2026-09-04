@@ -9,6 +9,13 @@ import WishlistButton from "@/components/wishlist/wishlist-button";
 type ProductCardProps = {
   product: Product;
   priority?: boolean;
+  /**
+   * Responsive `sizes` for `next/image`. Defaults to the previous shared
+   * value so existing call sites stay byte-identical; callers that render the
+   * card in a tighter or wider grid can pass a more accurate value to avoid
+   * over-fetching.
+   */
+  sizes?: string;
 };
 
 /**
@@ -17,7 +24,11 @@ type ProductCardProps = {
  * page; the wishlist toggle sits above the link so it stays independently
  * clickable (no nested interactive elements).
  */
-export function ProductCard({ product, priority = false }: ProductCardProps) {
+export function ProductCard({
+  product,
+  priority = false,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+}: ProductCardProps) {
   const href = `/shop/${product.slug}` as const;
 
   return (
@@ -51,7 +62,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
               fill
               priority={priority}
               quality={85}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes={sizes}
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
           ) : (

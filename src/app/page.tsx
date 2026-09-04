@@ -159,7 +159,7 @@ export default async function Home() {
           </div>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((item, i) => (
-              <ProductCard key={item.id} product={item} priority={i < 4} />
+              <ProductCard key={item.id} product={item} priority={i === 0} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
             ))}
           </div>
         </section>

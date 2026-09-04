@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { invalidateProductCache } from "@/lib/products-cache";
 import { validateCategorization } from "@/lib/products";
 import { validatePricing } from "@/lib/pricing";
 import { validateProductImage } from "@/lib/product-image";
@@ -193,6 +194,7 @@ export async function PATCH(
         .remove([existingProduct.image_path]);
     }
 
+    invalidateProductCache();
     return NextResponse.json(updatedProduct);
   } catch (error) {
     console.error("Product update error:", error);
@@ -275,6 +277,7 @@ export async function DELETE(
       );
     }
 
+    invalidateProductCache();
     return NextResponse.json({
       success: true,
     });

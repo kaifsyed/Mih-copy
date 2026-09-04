@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { WhatsappIcon } from "@/components/ui/icons";
 import { SITE_URL } from "@/lib/site";
-import { useHydrated } from "@/lib/use-hydrated";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
@@ -39,12 +38,15 @@ function productMessage(slug: string) {
  * Lightweight, dependency-free floating WhatsApp contact button. Rendered once
  * in the root layout, hidden on chromeless routes (/admin, /sign-in, /sign-up)
  * so the storefront stays uncluttered and the admin console isn't disturbed.
+ *
+ * Rendering is intentionally synchronous (no `useHydrated` gate) so the button
+ * is visible in the initial paint — there is no behavior that depends on the
+ * client store, and the prior hydration gate caused a visible layout flash on
+ * slow connections.
  */
 export function FloatingWhatsapp() {
   const pathname = usePathname();
-  const hydrated = useHydrated();
 
-  if (!hydrated) return null;
   if (isChromelessPath(pathname)) return null;
 
   const slug = getProductSlug(pathname);

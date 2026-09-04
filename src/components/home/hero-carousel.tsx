@@ -151,6 +151,16 @@ export function HeroCarousel() {
       <div className="relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[44rem]">
         {SLIDES.map((slide, i) => {
           const active = i === index;
+          // Render the photography only for the active slide and its immediate
+          // neighbours so the optimizer isn't asked to transcode all four
+          // ~2 MB PNGs up front. The slide slot itself stays in the DOM at the
+          // same coordinates, so opacity transitions and the legibility scrims
+          // remain visually continuous. A tonal placeholder covers any slide
+          // whose image has not yet been mounted, so transitions never flash
+          // onto a transparent layer.
+          const prevIndex = (index - 1 + count) % count;
+          const nextIndex = (index + 1) % count;
+          const mountImage = active || i === prevIndex || i === nextIndex;
           return (
             <div
               key={slide.key}
@@ -160,16 +170,25 @@ export function HeroCarousel() {
               aria-hidden={!active}
               className={`absolute inset-0 transition-opacity duration-[900ms] ease-out motion-reduce:transition-none ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
             >
-              {/* Background photography — subject sits on the right */}
-              <Image
-                src={slide.image}
-                alt=""
-                fill
-                priority={i === 0}
-                quality={85}
-                sizes="100vw"
-                className="object-cover object-right"
+              {/* Tonal placeholder — sits behind the photo so slides without a
+                  mounted image still render as a dark luxe surface rather
+                  than transparent black. */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-br from-noir-deep via-noir to-charcoal-high"
               />
+              {mountImage ? (
+                <Image
+                  src={slide.image}
+                  alt=""
+                  fill
+                  priority={i === 0}
+                  loading={i === 0 ? undefined : "lazy"}
+                  quality={85}
+                  sizes="100vw"
+                  className="object-cover object-right"
+                />
+              ) : null}
               {/* Legibility scrims — darken the left where copy sits */}
               <div className="absolute inset-0 bg-gradient-to-r from-noir-deep via-noir-deep/85 to-noir-deep/20" />
               <div className="absolute inset-0 bg-gradient-to-t from-noir-deep/85 via-transparent to-noir-deep/40" />

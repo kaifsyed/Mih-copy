@@ -9,10 +9,13 @@ import { SITE_URL } from "@/lib/site";
 import { OrganizationJsonLd } from "@/components/seo/organization-jsonld";
 
 // Playfair Display — editorial serif headlines. Montserrat — UI/body.
+// Repository audit confirmed no `font-bold` / `font-extrabold` usage;
+// Playfair 500/600 covers every Playfair Display reference. One fewer
+// woff2 file in the initial font payload.
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600"],
   display: "swap",
 });
 

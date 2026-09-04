@@ -380,6 +380,7 @@ export default function ShopClient({
                     key={product.id}
                     product={product}
                     priority={i < 3}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ))}
               </div>

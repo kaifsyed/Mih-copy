@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/admin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { invalidateProductCache } from "@/lib/products-cache";
 import { validateCategorization } from "@/lib/products";
 import { validatePricing } from "@/lib/pricing";
 import { validateProductImage } from "@/lib/product-image";
@@ -238,6 +239,7 @@ export async function POST(request: Request) {
       );
     }
 
+    invalidateProductCache();
     return NextResponse.json(
       product,
       { status: 201 }

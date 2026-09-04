@@ -1,4 +1,17 @@
+import { unstable_cache } from "next/cache";
 import { supabase } from "@/lib/supabase";
+
+/**
+ * Public product catalogue cache — wraps the anon SELECTs so the homepage, shop
+ * listing and sitemap can serve cached results between admin writes.
+ *
+ * Only public catalogue data goes through this cache (anon client, RLS-bound).
+ * Admin mutations invalidate the same tag (see `lib/products-cache.ts`) so
+ * freshly added/edited/deleted products appear within the next request after
+ * the write succeeds.
+ */
+const PRODUCT_CACHE_TAG = "products";
+const PRODUCT_CACHE_REVALIDATE_SECONDS = 60;
 
 /**
  * MIH GEMS product model — the single source of truth for the shape of a
@@ -170,11 +183,7 @@ export function normalizeProducts(rows: unknown): Product[] {
     .filter((product): product is Product => product !== null);
 }
 
-/**
- * All products, newest first. Returns an empty array rather than throwing so a
- * database outage degrades to an empty-state page instead of a crash.
- */
-export async function getProducts(): Promise<Product[]> {
+async function fetchProducts(): Promise<Product[]> {
   const { data, error } = await supabase
     .from("products")
     .select("*")
@@ -188,8 +197,25 @@ export async function getProducts(): Promise<Product[]> {
   return normalizeProducts(data);
 }
 
-/** A single product by slug, or null when it does not exist. */
-export async function getProductBySlug(slug: string): Promise<Product | null> {
+const getProductsCached = unstable_cache(
+  async () => fetchProducts(),
+  ["public-products-list"],
+  { tags: [PRODUCT_CACHE_TAG], revalidate: PRODUCT_CACHE_REVALIDATE_SECONDS },
+);
+
+/**
+ * All products, newest first. Returns an empty array rather than throwing so a
+ * database outage degrades to an empty-state page instead of a crash.
+ *
+ * Reads the public catalogue through a short-lived cache so the homepage and
+ * shop listing don't hit Supabase on every request. Admin mutations invalidate
+ * the cache via the same tag.
+ */
+export async function getProducts(): Promise<Product[]> {
+  return getProductsCached();
+}
+
+async function fetchProductBySlug(slug: string): Promise<Product | null> {
   const trimmed = slug?.trim();
   if (!trimmed) return null;
 
@@ -207,14 +233,20 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   return normalizeProduct(data);
 }
 
-/**
- * Other products in the same category, for the "related" strip on a product
- * page. Falls back to the newest products when the category has nothing else,
- * so the section is either genuinely relevant or genuinely empty.
- */
-export async function getRelatedProducts(
+const getProductBySlugCached = unstable_cache(
+  async (slug: string) => fetchProductBySlug(slug),
+  ["public-product-by-slug"],
+  { tags: [PRODUCT_CACHE_TAG], revalidate: PRODUCT_CACHE_REVALIDATE_SECONDS },
+);
+
+/** A single product by slug, or null when it does not exist. */
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  return getProductBySlugCached(slug);
+}
+
+async function fetchRelatedProducts(
   product: Pick<Product, "id" | "category">,
-  limit = 4,
+  limit: number,
 ): Promise<Product[]> {
   const { data, error } = await supabase
     .from("products")
@@ -230,6 +262,25 @@ export async function getRelatedProducts(
   }
 
   return normalizeProducts(data);
+}
+
+const getRelatedProductsCached = unstable_cache(
+  async (id: string, category: string, limit: number) =>
+    fetchRelatedProducts({ id, category }, limit),
+  ["public-related-products"],
+  { tags: [PRODUCT_CACHE_TAG], revalidate: PRODUCT_CACHE_REVALIDATE_SECONDS },
+);
+
+/**
+ * Other products in the same category, for the "related" strip on a product
+ * page. Falls back to the newest products when the category has nothing else,
+ * so the section is either genuinely relevant or genuinely empty.
+ */
+export async function getRelatedProducts(
+  product: Pick<Product, "id" | "category">,
+  limit = 4,
+): Promise<Product[]> {
+  return getRelatedProductsCached(product.id, product.category, limit);
 }
 
 /** Distinct categories present in a product list, alphabetically sorted. */
