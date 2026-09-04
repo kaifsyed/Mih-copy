@@ -127,9 +127,10 @@ export const CUSTOM_FORM: EnquiryFormConfig = {
     {
       name: "jewellery_type",
       label: "Jewellery type",
-      kind: "chips",
+      kind: "select",
       required: true,
       full: true,
+      placeholder: "Select jewellery type",
       options: [
         opt("Ring"),
         opt("Pendant"),
