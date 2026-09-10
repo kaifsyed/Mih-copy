@@ -12,16 +12,13 @@ import {
 import { whatsappLink } from "@/lib/whatsapp";
 import { SOCIAL_LINKS } from "@/lib/site";
 import { isChromeless } from "@/components/layout/chrome";
+import { GooglePreferredSource } from "@/components/seo/google-preferred-source";
 
 const SOCIAL_ICONS = {
   instagram: InstagramIcon,
   facebook: FacebookIcon,
 } as const;
 
-// Approved footer navigation — one shared source for every device. Only the
-// layout changes responsively; the content is identical on desktop/tablet/mobile.
-// "Help & FAQs" points at the real FAQ tab on /policies (no dedicated /help or
-// /faq route exists — we reuse the existing destination rather than inventing one).
 const FOOTER_NAV = [
   {
     title: "Explore",
@@ -52,7 +49,7 @@ export function SiteFooter() {
   const pathname = usePathname();
   if (isChromeless(pathname)) return null;
 
-  const year = 2026; // Rendered statically; avoids hydration drift from new Date().
+  const year = 2026;
 
   return (
     <footer className="mt-auto border-t border-gold/12 bg-noir-deep">
@@ -114,6 +111,18 @@ export function SiteFooter() {
             </ul>
           </nav>
         ))}
+
+        {/* Google Preferred Sources */}
+        <div className="flex flex-col gap-4">
+          <h4 className="eyebrow">Prefer MIH GEMS on Google</h4>
+          <p className="text-sm leading-relaxed text-muted">
+            Add MIH GEMS as a preferred source to make it easier to find our
+            latest content in Google.
+          </p>
+          <div className="pt-2">
+            <GooglePreferredSource />
+          </div>
+        </div>
       </div>
 
       <div className="border-t border-outline/12">

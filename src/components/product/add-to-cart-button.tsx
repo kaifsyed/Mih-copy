@@ -8,6 +8,7 @@ import { BagIcon, CheckIcon } from "@/components/ui/icons";
 
 type AddToCartButtonProps = {
   product: Product;
+  quantity?: number;
   className?: string;
 };
 
@@ -18,6 +19,7 @@ type AddToCartButtonProps = {
  */
 export default function AddToCartButton({
   product,
+  quantity = 1,
   className = "",
 }: AddToCartButtonProps) {
   const { isInCart, add } = useCart();
@@ -50,9 +52,9 @@ export default function AddToCartButton({
           price: product.price,
           price_min: product.price_min,
           price_max: product.price_max,
-        })
+        }, quantity)
       }
-      className={`btn btn-gold ${className}`}
+      className={`btn btn-gold inline-flex items-center justify-center ${className}`}
     >
       <BagIcon className="h-4 w-4" />
       Add to Enquiry Cart

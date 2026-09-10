@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
+import { getLatestArticles } from "@/lib/articles";
 import type { Product } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
+import { ArticleCard } from "@/components/blog/article-card";
 import { whatsappLink } from "@/lib/whatsapp";
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { StarField } from "@/components/home/star-field";
@@ -112,6 +114,7 @@ function pickFeatured(products: Product[]): Product[] {
 export default async function Home() {
   const products = await getProducts();
   const featured = pickFeatured(products);
+  const latestArticles = await getLatestArticles(3);
 
   return (
     <main className="relative isolate flex flex-col">
@@ -273,6 +276,36 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* The MIH GEMS Journal */}
+      {latestArticles.length > 0 ? (
+        <section className="container-luxe section-gap">
+          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow">The MIH GEMS Journal</p>
+              <h2 className="mt-3 font-serif text-4xl text-ivory lg:text-5xl">
+                Discover gemstone stories & guides
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+                Styling inspiration, buying guides and everything worth knowing
+                before you choose something that shines.
+              </p>
+            </div>
+            <Link
+              href="/blog"
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-gold transition-colors hover:text-champagne self-start"
+            >
+              Explore the Journal
+              <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {latestArticles.map((article, i) => (
+              <ArticleCard key={article.slug} article={article} priority={i === 0} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Consultation CTA */}
       <section className="noir-deep border-t border-gold/12">

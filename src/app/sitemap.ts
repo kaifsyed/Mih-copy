@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/products";
+import { getArticles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
 
 // The catalogue changes over time, so regenerate per request rather than
@@ -14,6 +15,7 @@ const STATIC_PATHS = [
   "/about",
   "/contact",
   "/policies",
+  "/blog",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -40,5 +42,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // than failing the whole sitemap.
   }
 
-  return [...staticEntries, ...productEntries];
+  let articleEntries: MetadataRoute.Sitemap = [];
+  try {
+    const articles = await getArticles();
+    articleEntries = articles.map((article) => ({
+      url: `${SITE_URL}/blog/${article.slug}`,
+      lastModified: article.date ? new Date(article.date) : undefined,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    }));
+  } catch {
+    // If articles can't be loaded, still return the static routes.
+  }
+
+  return [...staticEntries, ...productEntries, ...articleEntries];
 }

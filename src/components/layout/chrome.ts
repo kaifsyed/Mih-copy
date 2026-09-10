@@ -18,6 +18,7 @@ export const PRIMARY_NAV = [
   { href: "/shop", label: "Shop" },
   { href: "/custom-jewellery", label: "Custom Jewellery" },
   { href: "/wholesale", label: "Wholesale" },
+  { href: "/blog", label: "Journal" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;

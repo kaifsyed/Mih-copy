@@ -30,7 +30,7 @@ export function EnquireButton({
       href={whatsappLink(message)}
       target="_blank"
       rel="noopener noreferrer"
-      className={`btn btn-whatsapp ${className}`}
+      className={`btn btn-whatsapp inline-flex items-center justify-center ${className}`}
     >
       <WhatsappIcon className="h-4 w-4" />
       {label}
