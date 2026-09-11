@@ -26,6 +26,7 @@ const FOOTER_NAV = [
       { href: "/shop", label: "Shop" },
       { href: "/custom-jewellery", label: "Custom Jewellery" },
       { href: "/wholesale", label: "Wholesale" },
+      { href: "/blog", label: "Blog" },
     ],
   },
   {
