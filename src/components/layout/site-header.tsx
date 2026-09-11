@@ -19,6 +19,7 @@ import { useCart } from "@/lib/cart";
 import { useHydrated } from "@/lib/use-hydrated";
 import { whatsappLink } from "@/lib/whatsapp";
 import { isActivePath, isChromeless, PRIMARY_NAV } from "@/components/layout/chrome";
+import { TrustMarquee } from "@/components/layout/trust-marquee";
 
 function CountBadge({ count }: { count: number }) {
   if (count <= 0) return null;
@@ -283,6 +284,7 @@ export function SiteHeader() {
           </div>
         </div>
       ) : null}
+      <TrustMarquee />
     </header>
   );
 }

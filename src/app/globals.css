@@ -95,6 +95,63 @@ body {
     }
   }
 
+  /* Trust marquee -------------------------------------------------------- */
+  .marquee-track {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #0b0b0b;
+    border-top: 1px solid color-mix(in srgb, var(--color-gold) 12%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 12%, transparent);
+  }
+
+  .marquee-content {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: marquee-scroll 48s linear infinite;
+  }
+
+  .marquee-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    padding-inline: 1.75rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-champagne);
+    white-space: nowrap;
+  }
+
+  .marquee-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: var(--color-gold);
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-content {
+      animation: none;
+    }
+  }
+
   /* Editorial eyebrow / labels ---------------------------------------- */
   .eyebrow {
     font-size: 0.7rem;
