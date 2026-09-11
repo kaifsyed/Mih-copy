@@ -66,8 +66,8 @@ const TRUST_PILLARS = [
   {
     Icon: HeartIcon,
     eyebrow: "Beautiful stories",
-    metric: "50K+",
-    title: "50K+ Beautiful Stories",
+    metric: "10K+",
+    title: "10K+ Beautiful Stories",
     text: "Chosen for moments that deserve to shine.",
   },
   {
