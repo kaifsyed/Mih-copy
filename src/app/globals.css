@@ -391,6 +391,40 @@ body {
     overflow: hidden;
   }
 
+  /* Prevent horizontal scroll on small viewports: cap every full-width
+     media element and any fixed-width panel so they never exceed the
+     viewport width. */
+  @media (max-width: 640px) {
+    img, video, iframe, svg, .marquee-track {
+      max-width: 100%;
+    }
+    /* Let tables scroll horizontally rather than push the page width. */
+    table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Touch target minimum — every clickable control must be at least 44px. */
+  @media (hover: none) and (pointer: coarse) {
+    button,
+    a,
+    [role="button"],
+    input[type="submit"],
+    input[type="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    /* Icons inside buttons stay clickable even when the visual glyph is
+       smaller than the touch target. */
+    .inline-flex.items-center.justify-center {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
   /* Accordion animations ------------------------------------------------- */
   @keyframes accordion-down {
     from {

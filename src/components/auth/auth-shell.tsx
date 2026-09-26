@@ -17,11 +17,11 @@ export const authAppearance = {
   },
   variables: {
     colorPrimary: "#0a0a0a",
-    colorText: "#17171a",
-    colorTextSecondary: "#6b6b6b",
-    colorBackground: "transparent",
+    colorText: "#0a0a0a",
+    colorTextSecondary: "#4a4a4a",
+    colorBackground: "#ffffff",
     colorInputBackground: "#ffffff",
-    colorInputText: "#17171a",
+    colorInputText: "#0a0a0a",
     colorDanger: "#b3261e",
     borderRadius: "2px",
     fontFamily: "var(--font-montserrat), sans-serif",
@@ -38,6 +38,15 @@ export const authAppearance = {
     footerActionLink: "!text-metallic hover:!text-gold !font-semibold",
     formFieldLabel: "!text-noir !font-semibold",
     formFieldInput: "!py-3 !bg-white !border-black/15 !text-noir",
+    // Ensure all text inside the Clerk widget is dark on the ivory surface.
+    main: "!text-noir",
+    subtitle: "!text-noir",
+    personalSection: "!text-noir",
+    dividerText: "!text-muted",
+    dividerLine: "!bg-outline/30",
+    formFieldInputShowPassword: "!text-noir",
+    alertText: "!text-noir",
+    otpCodeCodeInput: "!text-noir",
   },
 } as const;
 
@@ -85,26 +94,26 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
       </div>
 
       {/* Right — form panel */}
-      <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12 sm:px-10">
+      <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-12 md:px-10">
         <div className="w-full max-w-[440px]">
-          {/* Mobile-only logo (the left panel carries it on md+), centered with
-              transparent background so it reads cleanly on the ivory panel. */}
-          <div className="mb-8 flex justify-center md:hidden">
+          {/* Mobile-only logo — rendered inline with transparent background on
+              the ivory panel so no dark box appears behind it. */}
+          <div className="mb-6 flex justify-center md:hidden">
             <Logo href="/" imgClassName="h-12 w-auto" />
           </div>
 
-          <h1 className="text-center font-serif text-3xl text-noir sm:text-4xl">
+          <h1 className="text-center font-serif text-3xl font-semibold text-noir sm:text-4xl">
             {heading}
           </h1>
           <span
             aria-hidden
-            className="mt-4 flex items-center gap-3 text-gold"
+            className="mt-5 flex items-center gap-3 text-gold"
           >
             <span className="h-px flex-1 bg-gold/40" />
             <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
             <span className="h-px flex-1 bg-gold/40" />
           </span>
-          <p className="mt-4 text-center text-sm leading-relaxed text-noir">
+          <p className="mt-4 text-center text-sm leading-relaxed text-noir/80">
             {subheading}
           </p>
 

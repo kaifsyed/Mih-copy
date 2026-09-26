@@ -192,6 +192,16 @@ export function MailIcon(p: IconProps) {
   );
 }
 
+export function HomeIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M3 11l9-7 9 7" />
+      <path d="M5 10v10h14V10" />
+      <path d="M9 21v-6h6v6" />
+    </svg>
+  );
+}
+
 export function PhoneIcon(p: IconProps) {
   return (
     <svg {...base} {...p}>

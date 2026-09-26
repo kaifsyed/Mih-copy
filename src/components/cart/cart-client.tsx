@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
 import { useHydrated } from "@/lib/use-hydrated";
+import { useToast } from "@/components/ui/toast";
 import { formatPrice, isEnquiryOnly } from "@/lib/pricing";
 import { gemstoneGradient } from "@/lib/gemstone";
 import { whatsappLink, cartEnquiryMessage } from "@/lib/whatsapp";
@@ -20,6 +21,7 @@ import {
 export default function CartClient() {
   const { items, count, setQty, remove, clear } = useCart();
   const hydrated = useHydrated();
+  const toast = useToast();
 
   if (!hydrated) {
     // Avoid hydration mismatch while localStorage is read on the client.
@@ -100,7 +102,10 @@ export default function CartClient() {
 
                 <button
                   type="button"
-                  onClick={() => remove(item.slug)}
+                  onClick={() => {
+                    remove(item.slug);
+                    toast(`${item.name ?? "Item"} removed from enquiry cart`, "info");
+                  }}
                   aria-label={`Remove ${item.name ?? "item"} from enquiry cart`}
                   className="shrink-0 text-muted transition-colors hover:text-danger"
                 >

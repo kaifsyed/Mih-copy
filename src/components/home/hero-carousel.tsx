@@ -121,6 +121,19 @@ export function HeroCarousel() {
     const t = e.touches[0];
     touchStart.current = { x: t.clientX, y: t.clientY };
   }
+  function onTouchMove(e: React.TouchEvent) {
+    // Only track while we have an active start — lets vertical scroll pass
+    // through untouched when the user isn't swiping horizontally.
+    if (!touchStart.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - touchStart.current.x;
+    const dy = t.clientY - touchStart.current.y;
+    // If vertical movement dominates, abandon the swipe gesture entirely so
+    // the browser can scroll the page normally.
+    if (Math.abs(dy) > Math.abs(dx)) {
+      touchStart.current = null;
+    }
+  }
   function onTouchEnd(e: React.TouchEvent) {
     const start = touchStart.current;
     touchStart.current = null;
@@ -143,6 +156,7 @@ export function HeroCarousel() {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
       onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
       {/* Fixed min-heights + centred content with generous padding guarantee

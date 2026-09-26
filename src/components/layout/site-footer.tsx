@@ -26,7 +26,6 @@ const FOOTER_NAV = [
       { href: "/shop", label: "Shop" },
       { href: "/custom-jewellery", label: "Custom Jewellery" },
       { href: "/wholesale", label: "Wholesale" },
-      { href: "/blog", label: "Blog" },
     ],
   },
   {
@@ -50,7 +49,7 @@ export function SiteFooter() {
   const pathname = usePathname();
   if (isChromeless(pathname)) return null;
 
-  const year = 2026;
+  const year = new Date().getFullYear();
 
   return (
     <footer className="mt-auto border-t border-gold/12 bg-noir-deep">

@@ -2,6 +2,7 @@
 
 import { useWishlist, type WishlistItem } from "@/lib/wishlist";
 import { useHydrated } from "@/lib/use-hydrated";
+import { useToast } from "@/components/ui/toast";
 import { HeartIcon } from "@/components/ui/icons";
 
 type WishlistButtonProps = {
@@ -17,15 +18,28 @@ export default function WishlistButton({
   variant = "button",
 }: WishlistButtonProps) {
   const { isInWishlist, toggle } = useWishlist();
-  // Avoid a hydration mismatch: localStorage-derived state only after mount.
   const hydrated = useHydrated();
+  const toast = useToast();
   const active = hydrated && isInWishlist(product.slug);
+
+  const handleToggle = (e: React.MouseEvent | React.TouchEvent) => {
+    // Stop propagation so the click never leaks to a parent product-card link.
+    e.stopPropagation();
+    const wasActive = active;
+    toggle(product);
+    if (wasActive) {
+      toast(`${product.name ?? "Item"} removed from wishlist`, "info");
+    } else {
+      toast(`${product.name ?? "Item"} added to wishlist`, "success");
+    }
+  };
 
   if (variant === "icon") {
     return (
       <button
         type="button"
-        onClick={() => toggle(product)}
+        data-wishlist-button
+        onClick={handleToggle}
         aria-label={active ? "Remove from wishlist" : "Add to wishlist"}
         aria-pressed={active}
         className={`inline-flex h-10 w-10 items-center justify-center border backdrop-blur-sm transition ${
@@ -42,7 +56,8 @@ export default function WishlistButton({
   return (
     <button
       type="button"
-      onClick={() => toggle(product)}
+      data-wishlist-button
+      onClick={handleToggle}
       aria-pressed={active}
       className={`btn ${active ? "btn-gold" : "btn-ghost"} ${className}`}
     >

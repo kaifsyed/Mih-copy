@@ -3,6 +3,7 @@
 import { useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { whatsappLink, enquiryWhatsappMessage } from "@/lib/whatsapp";
+import { useToast } from "@/components/ui/toast";
 import type { EnquiryFormConfig, EnquiryField } from "./enquiry-fields";
 import {
   CheckIcon,
@@ -37,6 +38,7 @@ export default function EnquiryForm({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
+  const toast = useToast();
 
   const setValue = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -111,12 +113,22 @@ export default function EnquiryForm({
           data?.error ??
             "We couldn't send your enquiry. Please try again or use WhatsApp.",
         );
+        toast(
+          data?.error ??
+            "We couldn't send your enquiry. Please try again or use WhatsApp.",
+          "error",
+        );
         return;
       }
       setReference(data.reference);
+      toast("Enquiry received — we'll be in touch shortly", "success");
     } catch {
       setError(
         "Something went wrong sending your enquiry. Please try again or use WhatsApp.",
+      );
+      toast(
+        "Something went wrong sending your enquiry. Please try again or use WhatsApp.",
+        "error",
       );
     } finally {
       setSubmitting(false);

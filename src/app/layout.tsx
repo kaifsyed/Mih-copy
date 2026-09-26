@@ -7,6 +7,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { FloatingWhatsapp } from "@/components/layout/floating-whatsapp";
 import { SITE_URL } from "@/lib/site";
 import { OrganizationJsonLd } from "@/components/seo/organization-jsonld";
+import { WebsiteJsonLd } from "@/components/seo/website-jsonld";
+import { ToastProvider } from "@/components/ui/toast";
 
 // Playfair Display — editorial serif headlines. Montserrat — UI/body.
 // Repository audit confirmed no `font-bold` / `font-extrabold` usage;
@@ -45,12 +47,14 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-64.png", sizes: "64x64", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon-32.png",
+    shortcut: "/favicon.ico",
   },
   openGraph: {
     type: "website",
@@ -93,22 +97,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <ClerkProvider>
-          {/* Keyboard/screen-reader skip link — first focusable element. */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-noir"
-          >
-            Skip to content
-          </a>
-          {/* SiteHeader/SiteFooter hide themselves on chromeless routes (admin,
-              auth, and the self-contained homepage) — see chrome.ts. */}
-          <SiteHeader />
-          <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
-            {children}
-          </div>
-          <SiteFooter />
-          <FloatingWhatsapp />
-          <OrganizationJsonLd />
+          <ToastProvider>
+            {/* Keyboard/screen-reader skip link — first focusable element. */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-noir"
+            >
+              Skip to content
+            </a>
+            {/* SiteHeader/SiteFooter hide themselves on chromeless routes (admin,
+                auth, and the self-contained homepage) — see chrome.ts. */}
+            <SiteHeader />
+            <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+              {children}
+            </div>
+            <SiteFooter />
+            <FloatingWhatsapp />
+            <OrganizationJsonLd />
+            <WebsiteJsonLd />
+          </ToastProvider>
         </ClerkProvider>
       </body>
     </html>

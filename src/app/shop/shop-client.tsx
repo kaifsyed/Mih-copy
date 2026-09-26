@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Product } from "@/lib/products";
+import type { Product, ProductColor } from "@/lib/products";
 import { PRODUCT_CATEGORIES, JEWELLERY_SUBCATEGORIES } from "@/lib/products";
 import { sortPriceValue } from "@/lib/pricing";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -57,6 +57,8 @@ export default function ShopClient({
   );
   // Secondary filter, only meaningful when category === "Jewellery".
   const [subcategory, setSubcategory] = useState<string>("All");
+  // Gemstone colour — only meaningful for the Gemstones category.
+  const [gemColor, setGemColor] = useState<ProductColor | null>(null);
   const [availability, setAvailability] = useState<Availability>("All");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -85,6 +87,14 @@ export default function ShopClient({
         category === "Jewellery" &&
         subcategory !== "All" &&
         p.subcategory !== subcategory
+      ) {
+        return false;
+      }
+      // Gemstone colour filter — only applies to non-jewellery rows.
+      if (
+        category !== "Jewellery" &&
+        gemColor &&
+        p.color !== gemColor
       ) {
         return false;
       }
@@ -125,12 +135,12 @@ export default function ShopClient({
       );
 
     return list;
-  }, [products, query, category, subcategory, availability, priceMin, priceMax, sort]);
+  }, [products, query, category, subcategory, gemColor, availability, priceMin, priceMax, sort]);
 
   // Reset pagination whenever the result set changes. Comparing the previous
   // value in state (the React "adjust state during render" pattern) avoids a
   // setState-in-effect while staying compatible with the React Compiler.
-  const filterSig = `${query}|${category}|${subcategory}|${availability}|${priceMin}|${priceMax}|${sort}`;
+  const filterSig = `${query}|${category}|${subcategory}|${gemColor}|${availability}|${priceMin}|${priceMax}|${sort}`;
   const [prevSig, setPrevSig] = useState(filterSig);
   if (prevSig !== filterSig) {
     setPrevSig(filterSig);
@@ -142,6 +152,7 @@ export default function ShopClient({
     query.trim() !== "" ||
     category !== "All" ||
     subcategory !== "All" ||
+    gemColor !== null ||
     availability !== "All" ||
     priceMin.trim() !== "" ||
     priceMax.trim() !== "";
@@ -150,16 +161,18 @@ export default function ShopClient({
     setQuery("");
     setCategory("All");
     setSubcategory("All");
+    setGemColor(null);
     setAvailability("All");
     setPriceMin("");
     setPriceMax("");
   };
 
-  // Selecting a primary category resets the Jewellery sub-type so a stale
-  // "Rings" selection can't silently hide products after switching category.
+  // Selecting a primary category resets the secondary filters so a stale
+  // selection can't silently hide products after switching category.
   const selectCategory = (next: string) => {
     setCategory(next);
     setSubcategory("All");
+    setGemColor(null);
   };
 
   return (
@@ -257,6 +270,49 @@ export default function ShopClient({
                       </button>
                     );
                   })}
+                </div>
+              </fieldset>
+            ) : null}
+
+            {/* Gemstone attributes — colour filter derived from the live
+                catalogue so it only exposes values that actually exist. */}
+            {category !== "Jewellery" ? (
+              <fieldset>
+                <legend className="field-label">Stone colour</legend>
+                <div className="flex flex-col gap-2">
+                  {(["blue", "red", "green"] as const)
+                    .filter((color) =>
+                      products.some(
+                        (p) =>
+                          p.category !== "Jewellery" &&
+                          p.color === color &&
+                          (category === "All" || p.category === category),
+                      ),
+                    )
+                    .map((color) => {
+                      const active = gemColor === color;
+                      return (
+                        <label
+                          key={color}
+                          className="flex cursor-pointer items-center gap-3 text-sm text-muted"
+                        >
+                          <input
+                            type="radio"
+                            name="gem-color"
+                            checked={active}
+                            onChange={() => setGemColor(active ? null : color)}
+                            className="h-3.5 w-3.5 accent-gold"
+                          />
+                          <span
+                            className={
+                              active ? "text-ivory" : undefined
+                            }
+                          >
+                            {color.charAt(0).toUpperCase() + color.slice(1)}
+                          </span>
+                        </label>
+                      );
+                    })}
                 </div>
               </fieldset>
             ) : null}

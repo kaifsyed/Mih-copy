@@ -53,7 +53,10 @@ export function ProductCard({
         />
       </div>
 
-      <Link href={href} className="flex flex-1 flex-col focus:outline-none">
+      <Link
+        href={href}
+        className="flex flex-1 flex-col focus:outline-none"
+      >
         <div className="relative aspect-square overflow-hidden">
           {product.image_url ? (
             <Image

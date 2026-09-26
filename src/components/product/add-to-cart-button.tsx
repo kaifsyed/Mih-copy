@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { useCart } from "@/lib/cart";
 import { useHydrated } from "@/lib/use-hydrated";
+import { useToast } from "@/components/ui/toast";
 import { BagIcon, CheckIcon } from "@/components/ui/icons";
 
 type AddToCartButtonProps = {
@@ -24,6 +25,7 @@ export default function AddToCartButton({
 }: AddToCartButtonProps) {
   const { isInCart, add } = useCart();
   const hydrated = useHydrated();
+  const toast = useToast();
 
   const inCart = hydrated && isInCart(product.slug);
 
@@ -36,24 +38,33 @@ export default function AddToCartButton({
     );
   }
 
+  const shortName = (product.name ?? "Item").split(" ").slice(0, 4).join(" ");
+
   return (
     <button
       type="button"
-      onClick={() =>
-        add({
-          slug: product.slug,
-          name: product.name,
-          category: product.category,
-          carat: product.carat,
-          status: product.status,
-          color: product.color,
-          image_url: product.image_url,
-          pricing_type: product.pricing_type,
-          price: product.price,
-          price_min: product.price_min,
-          price_max: product.price_max,
-        }, quantity)
-      }
+      onClick={() => {
+        add(
+          {
+            slug: product.slug,
+            name: product.name,
+            category: product.category,
+            carat: product.carat,
+            status: product.status,
+            color: product.color,
+            image_url: product.image_url,
+            pricing_type: product.pricing_type,
+            price: product.price,
+            price_min: product.price_min,
+            price_max: product.price_max,
+          },
+          quantity,
+        );
+        toast(
+          `${shortName} added to enquiry cart`,
+          "success",
+        );
+      }}
       className={`btn btn-gold inline-flex items-center justify-center ${className}`}
     >
       <BagIcon className="h-4 w-4" />
