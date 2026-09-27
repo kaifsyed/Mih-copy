@@ -74,7 +74,21 @@ export type Enquiry = {
   product_name: string | null;
   user_id: string | null;
   created_at: string;
+  // Spam lifecycle (added by migration 0006). All nullable / defaulted so
+  // existing rows are untouched and no enquiry is spam by default.
+  is_spam: boolean;
+  spam_marked_at: string | null;
+  spam_delete_at: string | null;
 };
+
+/**
+ * How long spam is retained before permanent deletion, measured from the moment
+ * an admin marks the enquiry as spam (spam_marked_at), NOT from created_at.
+ */
+export const SPAM_RETENTION_DAYS = 30;
+
+/** One day in milliseconds — used for countdown math on the admin surface. */
+export const MS_PER_DAY = 86_400_000;
 
 /** The raw shape accepted from the client (all optional / untrusted). */
 export type EnquiryInput = {
@@ -218,3 +232,57 @@ export function generateReference(): string {
   const c2 = REF_ALPHABET[rand[2] % REF_ALPHABET.length];
   return `MG-${num}-${c1}${c2}`;
 }
+
+// ---------------------------------------------------------------------------
+// Spam lifecycle helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Computes the permanent-deletion timestamp for an enquiry marked as spam
+ * right now. The 30-day retention period starts at the moment of marking,
+ * never from the enquiry's creation date.
+ *
+ * Returns an ISO-8601 string suitable for storing in `spam_delete_at`.
+ */
+export function computeSpamDeleteAt(now: Date = new Date()): string {
+  return new Date(now.getTime() + SPAM_RETENTION_DAYS * MS_PER_DAY).toISOString();
+}
+
+/**
+ * True when a spam enquiry has passed its scheduled deletion time. Used by the
+ * admin surface (countdown / "due" indicator) and by the cron sweep query.
+ */
+export function isSpamDueForDeletion(
+  spamDeleteAt: string | null | undefined,
+  now: Date = new Date(),
+): boolean {
+  if (!spamDeleteAt) return false;
+  const ts = new Date(spamDeleteAt).getTime();
+  return Number.isFinite(ts) && ts <= now.getTime();
+}
+
+/**
+ * Remaining time until a spam enquiry is permanently deleted.
+ * Returns null when there is no scheduled deletion (not spam, or restored).
+ *
+ * The result is rounded down to whole days for display; callers that need
+ * sub-day precision (e.g. "< 48h" emphasis) can compare against MS_PER_DAY
+ * themselves.
+ */
+export function daysUntilDeletion(
+  spamDeleteAt: string | null | undefined,
+  now: Date = new Date(),
+): number | null {
+  if (!spamDeleteAt) return null;
+  const ts = new Date(spamDeleteAt).getTime();
+  if (!Number.isFinite(ts)) return null;
+  const diff = ts - now.getTime();
+  if (diff <= 0) return 0;
+  return Math.floor(diff / MS_PER_DAY);
+}
+
+/** Human label for the spam lifecycle state. */
+export const SPAM_LABELS = {
+  marked: "Marked as spam",
+  restored: "Restored",
+} as const;

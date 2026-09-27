@@ -5,15 +5,19 @@ import {
   ENQUIRY_STATUSES,
   ENQUIRY_STATUS_LABELS,
   ENQUIRY_TYPE_LABELS,
+  SPAM_RETENTION_DAYS,
+  computeSpamDeleteAt,
+  daysUntilDeletion,
+  isSpamDueForDeletion,
   type Enquiry,
   type EnquiryStatus,
 } from "@/lib/enquiries";
 import { formatDateTime } from "@/lib/format";
 import { whatsappTo } from "@/lib/whatsapp";
 import { StatusBadge } from "@/components/admin/status-badge";
-import { WhatsappIcon, MailIcon, PhoneIcon } from "@/components/ui/icons";
+import { WhatsappIcon, MailIcon, PhoneIcon, TrashIcon } from "@/components/ui/icons";
 
-type Filter = "all" | EnquiryStatus;
+type Filter = "all" | EnquiryStatus | "spam";
 
 function firstName(name: string) {
   const trimmed = name.trim();
@@ -44,15 +48,20 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
       read: 0,
       responded: 0,
       archived: 0,
+      spam: 0,
     };
-    for (const item of items) base[item.status] += 1;
+    for (const item of items) {
+      if (item.is_spam) base.spam += 1;
+      else base[item.status] += 1;
+    }
     return base;
   }, [items]);
 
-  const visible = useMemo(
-    () => (filter === "all" ? items : items.filter((i) => i.status === filter)),
-    [items, filter],
-  );
+  const visible = useMemo(() => {
+    if (filter === "all") return items;
+    if (filter === "spam") return items.filter((i) => i.is_spam);
+    return items.filter((i) => !i.is_spam && i.status === filter);
+  }, [items, filter]);
 
   async function updateStatus(id: string, status: EnquiryStatus) {
     const previous = items;
@@ -81,7 +90,50 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
     }
   }
 
-  const FILTERS: Filter[] = ["all", ...ENQUIRY_STATUSES];
+  async function updateSpam(id: string, spam: boolean) {
+    const previous = items;
+    setError("");
+    setSavingId(id);
+    // Optimistic update.
+    setItems((current) =>
+      current.map((i) => {
+        if (i.id !== id) return i;
+        if (spam) {
+          return {
+            ...i,
+            is_spam: true,
+            spam_marked_at: new Date().toISOString(),
+            spam_delete_at: computeSpamDeleteAt(),
+          };
+        }
+        return {
+          ...i,
+          is_spam: false,
+          spam_marked_at: null,
+          spam_delete_at: null,
+        };
+      }),
+    );
+
+    try {
+      const response = await fetch(`/api/admin/enquiries/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spam }),
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result.error || "Could not update spam status.");
+      }
+    } catch (err) {
+      setItems(previous); // revert
+      setError(err instanceof Error ? err.message : "Could not update spam status.");
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  const FILTERS: Filter[] = ["all", ...ENQUIRY_STATUSES, "spam"];
 
   return (
     <div className="mt-10">
@@ -89,7 +141,12 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
       <div className="flex flex-wrap gap-2">
         {FILTERS.map((key) => {
           const on = filter === key;
-          const label = key === "all" ? "All" : ENQUIRY_STATUS_LABELS[key];
+          const label =
+            key === "all"
+              ? "All"
+              : key === "spam"
+                ? "Spam"
+                : ENQUIRY_STATUS_LABELS[key];
           return (
             <button
               key={key}
@@ -108,6 +165,18 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
         })}
       </div>
 
+      {filter === "spam" && counts.spam > 0 ? (
+        <div className="mt-6 border border-gold/20 bg-gold/5 px-5 py-4 text-sm text-muted">
+          <p className="text-ivory">
+            Spam is retained for{" "}
+            <span className="font-mono text-gold">{SPAM_RETENTION_DAYS} days</span>{" "}
+            after marking, then permanently deleted by a scheduled server-side
+            job. Use <span className="text-ivory">Restore</span> to bring an
+            enquiry back into the active list at any time.
+          </p>
+        </div>
+      ) : null}
+
       {error ? (
         <div className="mt-6 border border-danger/40 bg-danger/10 px-5 py-4 text-sm text-danger">
           {error}
@@ -121,7 +190,9 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
           <p className="mt-2 text-sm text-muted">
             {filter === "all"
               ? "New enquiries from the website will appear here."
-              : "Nothing matches this filter."}
+              : filter === "spam"
+                ? "No spam enquiries yet."
+                : "Nothing matches this filter."}
           </p>
         </div>
       ) : (
@@ -147,6 +218,11 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
                         {ENQUIRY_TYPE_LABELS[enq.type] ?? enq.type}
                       </span>
                       <StatusBadge status={enq.status} />
+                      {enq.is_spam ? (
+                        <span className="text-[0.62rem] uppercase tracking-[0.14em] text-gold">
+                          Spam
+                        </span>
+                      ) : null}
                     </div>
                     <h3 className="mt-3 font-serif text-2xl text-ivory">
                       {enq.name}
@@ -154,25 +230,63 @@ export function EnquiriesManager({ enquiries }: { enquiries: Enquiry[] }) {
                     <p className="mt-1 text-xs text-outline">
                       {formatDateTime(enq.created_at)}
                     </p>
+                    {enq.is_spam && enq.spam_marked_at ? (
+                      <p className="mt-2 text-xs text-outline">
+                        Marked spam {formatDateTime(enq.spam_marked_at)}
+                        {enq.spam_delete_at
+                          ? isSpamDueForDeletion(enq.spam_delete_at)
+                            ? ` · due for deletion`
+                            : ` · ${daysUntilDeletion(enq.spam_delete_at)} day${
+                                daysUntilDeletion(enq.spam_delete_at) === 1
+                                  ? ""
+                                  : "s"
+                              } left`
+                          : null}
+                      </p>
+                    ) : null}
                   </div>
 
-                  <label className="shrink-0">
-                    <span className="sr-only">Update status</span>
-                    <select
-                      value={enq.status}
-                      disabled={savingId === enq.id}
-                      onChange={(e) =>
-                        updateStatus(enq.id, e.target.value as EnquiryStatus)
-                      }
-                      className="input-luxe py-2 text-sm disabled:opacity-50"
-                    >
-                      {ENQUIRY_STATUSES.map((s) => (
-                        <option key={s} value={s}>
-                          {ENQUIRY_STATUS_LABELS[s]}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                  <div className="shrink-0">
+                    {enq.is_spam ? (
+                      <button
+                        type="button"
+                        disabled={savingId === enq.id}
+                        onClick={() => updateSpam(enq.id, false)}
+                        className="btn btn-ghost btn-sm disabled:opacity-50"
+                      >
+                        Restore
+                      </button>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <label className="shrink-0">
+                          <span className="sr-only">Update status</span>
+                          <select
+                            value={enq.status}
+                            disabled={savingId === enq.id}
+                            onChange={(e) =>
+                              updateStatus(enq.id, e.target.value as EnquiryStatus)
+                            }
+                            className="input-luxe py-2 text-sm disabled:opacity-50"
+                          >
+                            {ENQUIRY_STATUSES.map((s) => (
+                              <option key={s} value={s}>
+                                {ENQUIRY_STATUS_LABELS[s]}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <button
+                          type="button"
+                          disabled={savingId === enq.id}
+                          onClick={() => updateSpam(enq.id, true)}
+                          className="btn btn-ghost btn-sm disabled:opacity-50"
+                        >
+                          <TrashIcon className="h-4 w-4" />
+                          Mark as spam
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Contact + meta */}
