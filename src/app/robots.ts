@@ -11,8 +11,10 @@ export default function robots(): MetadataRoute.Robots {
         "/admin",
         "/account",
         "/api/",
+        "/cart",
         "/sign-in",
         "/sign-up",
+        "/wishlist",
         // Filter / search / sort variants of the shop listing consolidate to
         // the canonical /shop URL via metadata, so don't waste crawl budget
         // on them.

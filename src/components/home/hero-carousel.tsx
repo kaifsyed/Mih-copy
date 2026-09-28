@@ -253,7 +253,7 @@ export function HeroCarousel() {
         <div
           role="tablist"
           aria-label="Choose a slide to display"
-          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5"
+          className="hero-dots absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5"
         >
           {SLIDES.map((slide, i) => (
             <button
@@ -263,7 +263,7 @@ export function HeroCarousel() {
               aria-selected={i === index}
               aria-label={`Show slide ${i + 1}: ${slide.eyebrow}`}
               onClick={() => setIndex(i)}
-              className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-gold" : "w-2 bg-ivory/40 hover:bg-ivory/70"}`}
+              className={`hero-dot h-2 rounded-full transition-all ${i === index ? "w-8 bg-gold" : "w-2 bg-ivory/40 hover:bg-ivory/70"}`}
             />
           ))}
         </div>

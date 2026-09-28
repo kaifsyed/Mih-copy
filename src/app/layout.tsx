@@ -30,6 +30,14 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Explicit absolute canonical for the homepage (and any route that does
+  // not declare its own). Child routes that set their own alternates.canonical
+  // (shop, shop/[slug], blog/[slug]) replace this value during metadata merge,
+  // so they are unaffected. SITE_URL is production-aware and never hardcodes
+  // the preview domain.
+  alternates: {
+    canonical: SITE_URL,
+  },
   title: {
     default: "MIH GEMS — Natural Gemstones & Fine Jewellery",
     template: "%s · MIH GEMS",
@@ -53,9 +61,22 @@ export const metadata: Metadata = {
       { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon-64.png", sizes: "64x64", type: "image/png" },
     ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/favicon-180.png", sizes: "180x180", type: "image/png" }],
+    other: [
+      {
+        url: "/favicon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
     shortcut: "/favicon.ico",
   },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     siteName: "MIH GEMS",

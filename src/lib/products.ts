@@ -172,6 +172,22 @@ function normalizeProduct(row: unknown): Product | null {
 }
 
 /**
+ * Whether a product row carries a genuine, non-empty description. Used by the
+ * storefront to decide between rendering the description and showing a
+ * "Description pending" notice instead of falling back to a repetitive
+ * template string.
+ */
+/**
+ * Whether a product row carries a genuine, non-empty description. Used by the
+ * storefront to decide between rendering the description and showing a
+ * "Description pending" notice instead of falling back to a repetitive
+ * template string.
+ */
+export function hasDescription(product: Pick<Product, "description">): boolean {
+  return Boolean(product.description && product.description.trim().length > 0);
+}
+
+/**
  * Normalizes an unknown array of rows (e.g. a JSON response from the admin API)
  * into `Product`s, dropping any row that cannot be identified. Exported so the
  * admin screens coerce rows through exactly the same rules as the storefront.

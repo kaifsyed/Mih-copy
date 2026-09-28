@@ -38,10 +38,9 @@ export default function BlogPageClient() {
       <div className="container-luxe section-gap">
         <header className="max-w-3xl">
           <p className="eyebrow">The MIH GEMS Journal</p>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
-            Discover gemstone stories, jewellery guides, styling inspiration and
-            everything worth knowing before you choose something that shines.
-          </h1>
+<h1 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
+          Gemstone Guides &amp; Journal
+        </h1>
         </header>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
@@ -71,8 +70,7 @@ export default function BlogPageClient() {
       <header className="max-w-3xl">
         <p className="eyebrow">The MIH GEMS Journal</p>
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ivory lg:text-5xl">
-          Discover gemstone stories, jewellery guides, styling inspiration and
-          everything worth knowing before you choose something that shines.
+          Gemstone Guides &amp; Journal
         </h1>
       </header>
 

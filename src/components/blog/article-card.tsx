@@ -17,7 +17,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         <Link href={`/blog/${article.slug}`} className="relative aspect-[16/10] overflow-hidden group">
             <Image
               src={article.featuredImage}
-              alt=""
+              alt={`Cover image for "${article.title}"`}
               fill
               priority={priority}
               quality={85}

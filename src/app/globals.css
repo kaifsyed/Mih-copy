@@ -377,6 +377,62 @@ body {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Hero carousel pagination — mobile compaction
+   ---------------------------------------------------------------------------
+   The desktop dots are intentionally left untouched: they keep their existing
+   8px/32px diameters, 24px gap, bottom-6 offset and active-capsule styling,
+   all driven by the Tailwind classes in the JSX. This block only applies at
+   <= 767px, where the four dots were oversized and crowded the hero.
+
+   Touch-target design (requirement 8): the visible dot is an 8px ::before
+   child, while the button itself is the 24px hit area. The button carries no
+   background and no border, so the padding is invisible — it never renders as
+   a ring or a visible square around the dot. box-sizing: content-box keeps
+   the 8px dot at its declared size regardless of padding. The 8px gap between
+   buttons is set on the wrapper, so padding does not widen it.
+   ------------------------------------------------------------------------ */
+.hero-dot {
+  box-sizing: content-box;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.hero-dot:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .hero-dots {
+    bottom: 1.5rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .hero-dot {
+    background: none !important;
+    border: none !important;
+    padding: 0.5rem !important;
+  }
+
+  .hero-dot::before {
+    content: "";
+    display: block;
+    width: 0.5rem !important;
+    height: 0.5rem !important;
+    border-radius: 9999px !important;
+    background-color: var(--color-muted) !important;
+  }
+
+  .hero-dot[aria-selected="true"]::before {
+    background-color: var(--color-gold) !important;
+  }
+
+  .hero-dot:hover::before {
+    background-color: var(--color-silver) !important;
+  }
+}
+
 @layer utilities {
   .clamp-2 {
     display: -webkit-box;

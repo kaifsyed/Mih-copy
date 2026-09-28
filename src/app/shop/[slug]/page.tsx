@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
+import { hasDescription } from "@/lib/products";
 import { gemstoneGradient } from "@/lib/gemstone";
 import { PriceTag } from "@/components/product/price-tag";
 import { StatusChip } from "@/components/product/status-chip";
@@ -52,7 +53,9 @@ export async function generateMetadata({
 
   const description =
     product.description?.trim() ||
-    `${product.name} — a natural ${product.category.toLowerCase()} from MIH GEMS. Enquire for availability, certification and pricing.`;
+    `${product.name} — a natural ${product.category.toLowerCase()} from MIH GEMS${
+      product.detail ? `, a ${product.detail}` : ""
+    }. Enquire for availability, certification and pricing.`;
 
   return {
     title: product.name,
@@ -183,7 +186,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {/* Description */}
-              {toBullets(product.description).length > 0 ? (
+              {hasDescription(product) ? (
                 <div className="border-t border-outline/12 pt-6">
                   <h4 className="text-xs uppercase tracking-[0.18em] text-muted mb-3">
                     Description
@@ -194,7 +197,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     ))}
                   </ul>
                 </div>
-              ) : null}
+              ) : (
+                <div className="border-t border-outline/12 pt-6">
+                  <h4 className="text-xs uppercase tracking-[0.18em] text-muted mb-3">
+                    Description
+                  </h4>
+                  <p className="max-w-xl text-sm leading-relaxed text-outline">
+                    A full description for this piece is being prepared. Enquire
+                    and we&rsquo;ll confirm every detail — gemstone
+                    characteristics, certification and pricing — with you
+                    personally.
+                  </p>
+                </div>
+              )}
             </div>
           </Accordion>
 

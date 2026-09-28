@@ -80,7 +80,6 @@ function ArticleJsonLd({ article }: { article: Awaited<ReturnType<typeof getArti
     description: article.excerpt,
     image: imageUrl,
     datePublished: article.date,
-    dateModified: article.date,
     author: {
       "@type": "Organization",
       name: "MIH GEMS",
@@ -102,6 +101,35 @@ function ArticleJsonLd({ article }: { article: Awaited<ReturnType<typeof getArti
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: `${SITE_URL}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Journal",
+          item: `${SITE_URL}/blog`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: article.category,
+          item: `${SITE_URL}/blog`,
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: article.title,
+          item: url,
+        },
+      ],
     },
   };
 

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Gemstone Stories & Buying Guides",
   description:
     "Explore MIH GEMS' journal — gemstone buying guides, care tips, styling inspiration and stories about natural coloured gemstones and fine jewellery.",
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
   openGraph: {
     title: "The MIH GEMS Journal — Gemstone Stories & Guides",
     description:

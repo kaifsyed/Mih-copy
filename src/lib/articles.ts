@@ -137,7 +137,7 @@ const articlesData: Article[] = [
       <h2>The Cutter's Art</h2>
       <p>Every natural crystal presents different constraints — inclusions, colour zoning, shape. A skilled cutter works with these, not against them. The best cuts honour the material while maximising beauty. At MIH GEMS, we select stones where the cutting quality respects the gemstone's natural character.</p>
 
-      <p><em>Explore our <a href="/shop" className="text-gold underline">current selection</a> to see a variety of cuts in person, or <a href="/contact" className="text-gold underline">ask us about a specific shape</a> you have in mind.</em></p>
+      <p><em>Explore our <a href="/shop" className="text-gold underline">current selection</a> to see a variety of cuts in person — cabochons, faceted stones and mixed cuts — or <a href="/contact" className="text-gold underline">ask us about a specific shape</a> you have in mind.</em></p>
     `,
   },
   {

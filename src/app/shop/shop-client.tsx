@@ -181,7 +181,7 @@ export default function ShopClient({
         as="h1"
         align="left"
         eyebrow="MIH GEMS Collection"
-        title="Our Collection of Timeless Treasures"
+        title="Natural Gemstones & Fine Jewellery"
         description="Discover a curated collection of natural gemstones, fine silver jewellery, yellow gold creations and meaningful malas, thoughtfully selected for beauty, character and individuality. Explore pieces crafted to celebrate every style, story and occasion."
       />
 

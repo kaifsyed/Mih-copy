@@ -61,7 +61,12 @@ export function ProductCard({
           {product.image_url ? (
             <Image
               src={product.image_url}
-              alt={product.name ?? "Product photograph"}
+              alt={
+                product.name ??
+                (product.detail
+                  ? `${product.detail} gemstone`
+                  : "MIH GEMS product photograph")
+              }
               fill
               priority={priority}
               quality={85}

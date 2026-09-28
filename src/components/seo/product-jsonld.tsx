@@ -16,7 +16,9 @@ export function ProductJsonLd({ product }: { product: Product }) {
   const image = product.image_url ?? undefined;
   const description =
     product.description?.trim() ||
-    `${product.name} — ${product.category.toLowerCase()} from MIH GEMS. Enquire for availability, certification and pricing.`;
+    `${product.name} — a natural ${product.category.toLowerCase()}${
+      product.detail ? `, ${product.detail}` : ""
+    } from MIH GEMS. Enquire for availability, certification and pricing.`;
 
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -30,6 +32,40 @@ export function ProductJsonLd({ product }: { product: Product }) {
       name: "MIH GEMS",
     },
   };
+
+  // Material / gemstone type — the `detail` field is the free-text gemstone
+  // identity (e.g. "Natural Zambian Emerald"). Only emit it when the row
+  // actually carries a value; never fabricate a gemstone type.
+  if (product.detail) {
+    data.material = product.detail;
+  }
+
+  // Colour — only the three values the data model supports (blue/red/green).
+  // Emitted as a plain string so it pairs naturally with `material`.
+  if (product.color) {
+    data.color = product.color.charAt(0).toUpperCase() + product.color.slice(1);
+  }
+
+  // Category — the customer-facing classification (Gemstones / Jewellery).
+  // When a sub-type is present (Rings, Bracelets, Necklaces, Earrings) it is
+  // added as a second-level category so the hierarchy is preserved.
+  if (product.category) {
+    data.category = product.subcategory
+      ? `${product.category} · ${product.subcategory}`
+      : product.category;
+  }
+
+  // Carat / size — a real measurement when the row carries one. Gemstones may
+  // store a carat; jewellery never does (the data model forces null), so this
+  // is safe to emit conditionally.
+  if (product.carat) {
+    data.weight = {
+      "@type": "QuantitativeValue",
+      value: product.carat,
+      unitCode: "CT",
+      unitText: "carat",
+    };
+  }
 
   if (hasNumericPrice(product)) {
     const lowPrice = sortPriceValue(product) ?? 0;
