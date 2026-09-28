@@ -3,10 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import hero1 from "../../../public/images/hero-1-1600.webp";
+import hero2 from "../../../public/images/hero-2-1600.webp";
+import hero3 from "../../../public/images/hero-3-1600.webp";
+import hero4 from "../../../public/images/hero-4-1600.webp";
 import { whatsappLink } from "@/lib/whatsapp";
 import { ChevronRightIcon, WhatsappIcon } from "@/components/ui/icons";
 
 type Cta = { label: string; href: string; whatsapp?: boolean };
+
+type SlideImage = typeof hero1;
 
 type Slide = {
   key: string;
@@ -14,14 +20,14 @@ type Slide = {
   title: string;
   accent: string;
   copy: string;
-  image: string;
+  image: SlideImage;
   primary: Cta;
   secondary?: Cta;
 };
 
 const INTERVAL = 5000;
 
-// Slides pair the supplied MIH GEMS photography (public/hero-*.png) with copy.
+// Slides pair the supplied MIH GEMS photography with copy.
 // Each image has its subject on the right, so the legibility scrim + text sit
 // on the left. No fabricated prices, product data or business claims.
 const SLIDES: Slide[] = [
@@ -31,7 +37,7 @@ const SLIDES: Slide[] = [
     title: "Discover the beauty of",
     accent: "genuine gems.",
     copy: "Natural, hand-selected coloured gemstones and fine jewellery, chosen for colour, character and craftsmanship, and offered by personal enquiry.",
-    image: "/hero-1.png",
+    image: hero1,
     primary: { label: "Shop Collection", href: "/shop" },
     secondary: { label: "Custom Jewellery", href: "/custom-jewellery" },
   },
@@ -41,7 +47,7 @@ const SLIDES: Slide[] = [
     title: "Find the stone that is",
     accent: "truly yours.",
     copy: "From sapphires to emeralds, explore natural gemstones and personal birthstones. Enquire for availability, certification and pricing.",
-    image: "/hero-2.png",
+    image: hero2,
     primary: { label: "Explore Gemstones", href: "/shop" },
     secondary: { label: "Enquire on WhatsApp", href: whatsappLink(), whatsapp: true },
   },
@@ -51,7 +57,7 @@ const SLIDES: Slide[] = [
     title: "Start with a stone.",
     accent: "Finish with something yours.",
     copy: "Have a gemstone already, or a particular design in mind? We'll help shape it into a bespoke piece that feels personal.",
-    image: "/hero-3.png",
+    image: hero3,
     primary: { label: "Discuss a Custom Piece", href: "/custom-jewellery" },
     secondary: { label: "View the Collection", href: "/shop" },
   },
@@ -61,7 +67,7 @@ const SLIDES: Slide[] = [
     title: "Sourcing gemstones",
     accent: "at scale.",
     copy: "For retailers and jewellers — enquire about wholesale gemstone sourcing tailored to your requirements.",
-    image: "/hero-4.png",
+    image: hero4,
     primary: { label: "Wholesale Enquiries", href: "/wholesale" },
     secondary: { label: "About MIH GEMS", href: "/about" },
   },
@@ -96,6 +102,10 @@ const SWIPE_THRESHOLD = 40;
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  // True once the initial (index 0) slide image has finished loading. Neighbour
+  // slides are not mounted until then, so the first paint only ever pays for
+  // one image instead of three ~20 MB PNGs competing on the critical path.
+  const [firstLoaded, setFirstLoaded] = useState(false);
   const count = SLIDES.length;
 
   const next = () => setIndex((i) => (i + 1) % count);
@@ -174,7 +184,11 @@ export function HeroCarousel() {
           // onto a transparent layer.
           const prevIndex = (index - 1 + count) % count;
           const nextIndex = (index + 1) % count;
-          const mountImage = active || i === prevIndex || i === nextIndex;
+          // The initial slide always mounts so the first paint has an LCP
+          // candidate. Its neighbours mount only after the first image has
+          // loaded, which keeps the critical path to a single request and
+          // still lets the immediate neighbours be ready for the next swipe.
+          const mountImage = active || (i === 0 ? true : firstLoaded && (i === prevIndex || i === nextIndex));
           return (
             <div
               key={slide.key}
@@ -182,6 +196,7 @@ export function HeroCarousel() {
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${count}`}
               aria-hidden={!active}
+              inert={!active}
               className={`absolute inset-0 transition-opacity duration-[900ms] ease-out motion-reduce:transition-none ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
             >
               {/* Tonal placeholder — sits behind the photo so slides without a
@@ -191,18 +206,23 @@ export function HeroCarousel() {
                 aria-hidden
                 className="absolute inset-0 bg-gradient-to-br from-noir-deep via-noir to-charcoal-high"
               />
-              {mountImage ? (
-                <Image
-                  src={slide.image}
-                  alt=""
-                  fill
-                  priority={i === 0}
-                  loading={i === 0 ? undefined : "lazy"}
-                  quality={85}
-                  sizes="100vw"
-                  className="object-cover object-right"
-                />
-              ) : null}
+{mountImage ? (
+                  <Image
+                    src={slide.image}
+                    alt=""
+                    fill
+                    priority={i === 0}
+                    loading={i === 0 ? undefined : "lazy"}
+                    quality={85}
+                    sizes="100vw"
+                    className="object-cover object-right"
+                    onLoad={() => {
+                      // Only the first slide's load gates the neighbours; a
+                      // later slide loading does not reset the flag.
+                      if (i === 0) setFirstLoaded(true);
+                    }}
+                  />
+                ) : null}
               {/* Legibility scrims — darken the left where copy sits */}
               <div className="absolute inset-0 bg-gradient-to-r from-noir-deep via-noir-deep/85 to-noir-deep/20" />
               <div className="absolute inset-0 bg-gradient-to-t from-noir-deep/85 via-transparent to-noir-deep/40" />
