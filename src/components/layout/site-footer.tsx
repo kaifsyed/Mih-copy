@@ -56,7 +56,7 @@ export function SiteFooter() {
       <div className="container-luxe grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div className="flex flex-col gap-5">
-          <Logo href={null} imgClassName="h-12 w-auto" priority />
+          <Logo href={null} imgClassName="h-12 w-auto" />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
             A private atelier for natural gemstones and bespoke fine jewellery.
             Every piece is offered by personal enquiry, hand-selected, certified
@@ -92,10 +92,16 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Navigation groups — Explore · Information · My Account */}
+        {/* Navigation groups — Explore · Information · My Account. Each group
+            is a labelled <nav>, so the visible title is decorative rather
+            than a document heading. Using a heading element here made the
+            outline jump from the page's <h2> sections straight to <h4>,
+            which is the "heading elements are not in sequentially-descending
+            order" accessibility failure. A <p> carries the identical eyebrow
+            styling with no change to the visual design. */}
         {FOOTER_NAV.map((group) => (
           <nav key={group.title} aria-label={group.title} className="flex flex-col gap-4">
-            <h4 className="eyebrow">{group.title}</h4>
+            <p className="eyebrow">{group.title}</p>
             <ul className="flex flex-col gap-3">
               {group.links.map((item) => (
                 <li key={item.href}>
@@ -114,7 +120,7 @@ export function SiteFooter() {
 
         {/* Google Preferred Sources */}
         <div className="flex flex-col gap-4">
-          <h4 className="eyebrow">Prefer MIH GEMS on Google</h4>
+          <p className="eyebrow">Prefer MIH GEMS on Google</p>
           <p className="text-sm leading-relaxed text-muted">
             Add MIH GEMS as a preferred source to make it easier to find our
             latest content in Google.
@@ -132,12 +138,19 @@ export function SiteFooter() {
               © {year} MIH GEMS. All rights reserved.
             </p>
             <p className="text-xs tracking-wide text-muted">
-              Developed By {" "}
+              Developed By{" "}
+              {/* This inline credit is gold against muted body text, so colour
+                  was the only thing distinguishing it from the surrounding
+                  copy — the "links rely on colour to be distinguishable"
+                  accessibility failure. An underline (kept subtle and
+                  offset so the luxury type treatment survives) gives it a
+                  non-colour cue, and the existing hover/focus colours still
+                  apply on top. */}
               <a
                 href="https://www.instagram.com/kaifsyed/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gold transition-colors hover:text-champagne"
+                className="text-gold underline decoration-gold/45 underline-offset-[3px] transition-colors hover:text-champagne hover:decoration-champagne focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-noir-deep"
               >
                 Kaif Syed
               </a>

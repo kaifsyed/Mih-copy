@@ -4,7 +4,7 @@ import Link from "next/link";
 type LogoProps = {
   className?: string;
   imgClassName?: string;
-  priority?: boolean;
+  preload?: boolean;
   /** Pass null to render the mark without wrapping it in a link. */
   href?: "/" | null;
 };
@@ -31,11 +31,19 @@ type LogoProps = {
  * tiny. Removing the inline width lets the responsive `h-*` classes control
  * the size at each breakpoint while the intrinsic props keep the layout
  * shift-free.
+ *
+ * `sizes` matters here. The lockup is 1821:864 (≈2.11:1), so the mark renders
+ * far narrower than it is tall: the header mark is at most ~135 CSS px wide
+ * (h-16) and the footer mark ~101 px (h-12). A `sizes` of 200/320 px made the
+ * browser pick a 256w candidate for a 76 px box — several times more pixels
+ * than are ever painted. The values below describe the real rendered widths
+ * per breakpoint so the optimizer serves the smallest adequate candidate
+ * without changing the mark's size, aspect ratio or crispness.
  */
 export function Logo({
   className = "",
   imgClassName = "h-12 w-auto md:h-16",
-  priority = false,
+  preload = false,
   href = "/",
 }: LogoProps) {
   const img = (
@@ -44,9 +52,10 @@ export function Logo({
       alt="MIH GEMS — Gems & Jewellery"
       width={1821}
       height={864}
-      priority={priority}
+      loading={preload ? "eager" : "lazy"}
+      fetchPriority={preload ? "high" : undefined}
       quality={90}
-      sizes="(max-width: 768px) 200px, 320px"
+      sizes="(max-width: 360px) 68px, (max-width: 430px) 76px, (max-width: 640px) 88px, (max-width: 768px) 102px, 136px"
       className={`w-auto object-contain ${imgClassName}`}
     />
   );

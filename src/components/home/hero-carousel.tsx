@@ -106,6 +106,14 @@ export function HeroCarousel() {
   // slides are not mounted until then, so the first paint only ever pays for
   // one image instead of three ~20 MB PNGs competing on the critical path.
   const [firstLoaded, setFirstLoaded] = useState(false);
+  // Neighbour images are additionally held back until the browser is idle (or
+  // the visitor interacts). This matters because every slide is `absolute
+  // inset-0` inside the same viewport-sized box: `loading="lazy"` cannot defer
+  // them, because from the browser's point of view they are already on screen.
+  // Mounting only the active slide until idle keeps the critical path to the
+  // single LCP image, while the tonal placeholder keeps every slide looking
+  // correct in the meantime.
+  const [neighboursReady, setNeighboursReady] = useState(false);
   const count = SLIDES.length;
 
   const next = () => setIndex((i) => (i + 1) % count);
@@ -121,6 +129,35 @@ export function HeroCarousel() {
     );
     return () => window.clearInterval(id);
   }, [paused, count]);
+
+  // Mount the neighbour images once the browser has nothing better to do. The
+  // LCP hero has already been requested by then, so these downloads no longer
+  // compete with it, and swiping to an adjacent slide stays instant. Any early
+  // interaction (tap, key, wheel, touch) releases them immediately so the
+  // carousel never feels slow to a real visitor.
+  useEffect(() => {
+    if (neighboursReady) return;
+
+    const release = () => setNeighboursReady(true);
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(release, { timeout: 4000 })
+      : window.setTimeout(release, 2500);
+
+    window.addEventListener("pointerdown", release, { once: true, passive: true });
+    window.addEventListener("keydown", release, { once: true });
+    window.addEventListener("touchstart", release, { once: true, passive: true });
+
+    return () => {
+      if (window.cancelIdleCallback && typeof idle === "number") {
+        window.cancelIdleCallback(idle);
+      } else {
+        window.clearTimeout(idle as number);
+      }
+      window.removeEventListener("pointerdown", release);
+      window.removeEventListener("keydown", release);
+      window.removeEventListener("touchstart", release);
+    };
+  }, [neighboursReady]);
 
   // Touch swipe: track the start point and act on release. Only a
   // predominantly-horizontal drag past the threshold changes slides, so
@@ -175,20 +212,27 @@ export function HeroCarousel() {
       <div className="relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[44rem]">
         {SLIDES.map((slide, i) => {
           const active = i === index;
-          // Render the photography only for the active slide and its immediate
-          // neighbours so the optimizer isn't asked to transcode all four
-          // ~2 MB PNGs up front. The slide slot itself stays in the DOM at the
-          // same coordinates, so opacity transitions and the legibility scrims
-          // remain visually continuous. A tonal placeholder covers any slide
-          // whose image has not yet been mounted, so transitions never flash
-          // onto a transparent layer.
+          // Render the photography only for the active slide and, once the
+          // browser is idle, for its immediate neighbours — so the optimizer
+          // isn't asked to transcode all four ~2 MB PNGs up front. The slide
+          // slot itself stays in the DOM at the same coordinates, so opacity
+          // transitions and the legibility scrims remain visually continuous. A
+          // tonal placeholder covers any slide whose image has not yet been
+          // mounted, so transitions never flash onto a transparent layer.
           const prevIndex = (index - 1 + count) % count;
           const nextIndex = (index + 1) % count;
-          // The initial slide always mounts so the first paint has an LCP
-          // candidate. Its neighbours mount only after the first image has
-          // loaded, which keeps the critical path to a single request and
-          // still lets the immediate neighbours be ready for the next swipe.
-          const mountImage = active || (i === 0 ? true : firstLoaded && (i === prevIndex || i === nextIndex));
+          // Slide 0 is the LCP candidate: it is always mounted, marked eager and
+          // given `fetchPriority="high"`. Next 16 forwards that fetch priority
+          // onto the emitted `<link rel="preload" as="image">`, which is what
+          // the LCP audit asks for (the old `priority` prop is deprecated and
+          // emitted a preload with no fetchpriority). Every other slide is
+          // plain `loading="lazy"`, so only the initial hero competes for
+          // bandwidth on the critical path.
+          const mountImage =
+            active ||
+            (i === 0) ||
+            (firstLoaded && neighboursReady && (i === prevIndex || i === nextIndex));
+          const isInitial = i === 0;
           return (
             <div
               key={slide.key}
@@ -211,8 +255,8 @@ export function HeroCarousel() {
                     src={slide.image}
                     alt=""
                     fill
-                    priority={i === 0}
-                    loading={i === 0 ? undefined : "lazy"}
+                    loading={isInitial ? "eager" : "lazy"}
+                    fetchPriority={isInitial ? "high" : "low"}
                     quality={85}
                     sizes="100vw"
                     className="object-cover object-right"

@@ -76,7 +76,8 @@ export function ProductCard({
                   : "MIH GEMS product photograph")
               }
               fill
-              priority={priority}
+              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : undefined}
               quality={85}
               sizes={sizes}
               className="object-contain p-2.5 transition-transform duration-700 ease-out group-hover:scale-105 sm:object-cover sm:p-0"

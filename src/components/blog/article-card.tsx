@@ -19,7 +19,8 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
               src={article.featuredImage}
               alt={`Cover image for "${article.title}"`}
               fill
-              priority={priority}
+              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : undefined}
               quality={85}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -61,11 +62,19 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
             </span>
           </div>
         </div>
+        {/* The visible CTA keeps the existing short "Read More" label so the
+            card design is unchanged, but the link's accessible name is built
+            from the article title so screen readers and link audits get a
+            destination-specific description instead of a generic one. The
+            title is not repeated visually — it already appears as the card
+            heading directly above. */}
         <Link
           href={`/blog/${article.slug}`}
+          aria-label={`Read the full article: ${article.title}`}
           className="mt-4 group inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-gold transition-colors hover:text-champagne"
         >
           Read More
+          <span className="sr-only"> — {article.title}</span>
           <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>

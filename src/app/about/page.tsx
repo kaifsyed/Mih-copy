@@ -108,7 +108,8 @@ export default function AboutPage() {
               src="/about-our-story.webp"
               alt="Natural coloured gemstones and fine jewellery arranged on a jeweller's workbench"
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               quality={85}
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"

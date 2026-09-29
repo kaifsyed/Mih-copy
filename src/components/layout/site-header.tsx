@@ -155,7 +155,7 @@ export function SiteHeader() {
               the original in-flow, left-aligned position, so tablet and desktop
               are untouched. */}
           <Logo
-            priority
+            preload
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:static sm:translate-x-0 sm:translate-y-0"
             imgClassName="h-auto max-h-8 max-w-[calc(100vw-13rem)] min-[360px]:max-h-9 min-[360px]:max-w-[calc(100vw-15.25rem)] min-[430px]:max-h-10 min-[430px]:max-w-[calc(100vw-17.5rem)] sm:h-12 sm:max-h-none sm:max-w-none md:h-16"
           />
@@ -214,24 +214,36 @@ export function SiteHeader() {
             <CountBadge count={cartBadge} />
           </Link>
 
-          <Show when="signed-in">
-            <Link
-              href="/account"
-              aria-label="Account"
-              className="inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
-            >
-              <UserIcon className="h-5 w-5" />
-            </Link>
-          </Show>
-          <Show when="signed-out">
-            <Link
-              href="/sign-in"
-              aria-label="Sign in"
-              className="inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
-            >
-              <UserIcon className="h-5 w-5" />
-            </Link>
-          </Show>
+          {/* Account control.
+
+              Both branches render the same icon at the same width, and exactly
+              one of them is ever shown. The wrapper therefore reserves that one
+              slot's width unconditionally, so the right zone is already at its
+              final width during SSR and the bar does not jump sideways once
+              Clerk resolves the session. The wrapper is sized with the same
+              responsive scale as the links inside it (24/28/32/40px), which is
+              also the width the centred logo's max-width is calculated against
+              — so reserving it cannot cause a logo collision at any width. */}
+          <span className="inline-flex h-10 w-6 shrink-0 items-center justify-center min-[360px]:w-7 min-[430px]:w-8 sm:w-10">
+            <Show when="signed-in">
+              <Link
+                href="/account"
+                aria-label="Account"
+                className="inline-flex h-10 w-full items-center justify-center text-ivory transition-colors hover:text-gold"
+              >
+                <UserIcon className="h-5 w-5" />
+              </Link>
+            </Show>
+            <Show when="signed-out">
+              <Link
+                href="/sign-in"
+                aria-label="Sign in"
+                className="inline-flex h-10 w-full items-center justify-center text-ivory transition-colors hover:text-gold"
+              >
+                <UserIcon className="h-5 w-5" />
+              </Link>
+            </Show>
+          </span>
         </div>
       </div>
 

@@ -66,7 +66,8 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
           src="/hero-2.png"
           alt=""
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           quality={85}
           sizes="(max-width: 1024px) 40vw, 50vw"
           className="object-cover object-center"
@@ -74,7 +75,7 @@ export function AuthShell({ heading, subheading, children }: AuthShellProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-noir-deep via-noir-deep/70 to-noir-deep/40" />
 
         <div className="relative">
-          <Logo href="/" imgClassName="h-14 w-auto lg:h-16" priority />
+          <Logo href="/" imgClassName="h-14 w-auto lg:h-16" preload />
         </div>
 
         <div className="relative max-w-md">

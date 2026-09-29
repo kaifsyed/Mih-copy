@@ -147,7 +147,8 @@ export function ZoomableImage({ src, alt, priority = false }: ZoomableImageProps
             src={src}
             alt={alt}
             fill
-            priority={priority}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : undefined}
             quality={85}
             sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 50vw"
             className="object-cover transition-transform duration-300"
