@@ -55,7 +55,7 @@ export function ProductCardSkeleton() {
   return (
     <div className="card-luxe animate-pulse">
       <div className="aspect-square bg-charcoal-3/60" />
-      <div className="flex flex-col gap-3 p-5">
+      <div className="flex flex-col gap-2 p-3 sm:gap-3 sm:p-5">
         <div className="h-2.5 w-20 bg-charcoal-3/60" />
         <div className="h-4 w-3/4 bg-charcoal-3/60" />
         <div className="h-4 w-1/3 bg-charcoal-3/60" />
@@ -66,7 +66,7 @@ export function ProductCardSkeleton() {
 
 export function ProductGridSkeleton({ count = 6 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
       {Array.from({ length: count }).map((_, i) => (
         <ProductCardSkeleton key={i} />
       ))}

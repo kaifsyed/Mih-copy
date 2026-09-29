@@ -430,13 +430,13 @@ export default function ShopClient({
 
           {shown.length > 0 ? (
             <>
-              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
                 {shown.map((product, i) => (
                   <ProductCard
                     key={product.id}
                     product={product}
                     priority={i < 3}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ))}
               </div>

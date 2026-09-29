@@ -51,11 +51,22 @@ export default function CartClient() {
   const whatsappHref = whatsappLink(cartEnquiryMessage(enquiryLines));
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-      {/* Line items */}
-      <ul className="flex flex-col divide-y divide-outline/15 border border-outline/20">
+    <div className="grid min-w-0 gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start">
+      {/* Line items.
+
+          `min-w-0` is load-bearing on mobile. This <ul> is a grid item of the
+          wrapper above, and grid items default to `min-width: auto`, which
+          refuses to shrink below the content's min-content width. The product
+          name link uses `truncate` (white-space: nowrap), so its min-content
+          width is the FULL untruncated title. Without `min-w-0` the row could
+          never shrink, the whole <ul> grew past the viewport, and the page
+          scrolled horizontally — making the entire Cart (and the shared navbar
+          above it) render wider than the screen. `min-w-0` lets the flex
+          children below it truncate as intended, so each row stays exactly the
+          full width of the mobile viewport. */}
+      <ul className="flex min-w-0 flex-col divide-y divide-outline/15 border border-outline/20">
         {items.map((item) => (
-          <li key={item.slug} className="flex gap-4 p-4 sm:gap-6 sm:p-6">
+          <li key={item.slug} className="flex min-w-0 gap-4 p-4 sm:gap-6 sm:p-6">
             <Link
               href={`/shop/${item.slug}`}
               className="relative h-24 w-24 shrink-0 overflow-hidden border border-outline/20 sm:h-28 sm:w-28"
@@ -113,9 +124,13 @@ export default function CartClient() {
                 </button>
               </div>
 
-              <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+              {/* Quantity + price row. The stepper is `shrink-0` so it never
+                  squashes, and the price is allowed to shrink and wrap, so
+                  long labels such as "Enquire for Price" cannot push the row
+                  (and the page) wider than the viewport at 320px. */}
+              <div className="mt-auto flex min-w-0 flex-wrap items-end justify-between gap-x-3 gap-y-2 pt-4">
                 {/* Quantity stepper */}
-                <div className="inline-flex items-center border border-outline/30">
+                <div className="inline-flex shrink-0 items-center border border-outline/30">
                   <button
                     type="button"
                     onClick={() => setQty(item.slug, item.qty - 1)}
@@ -137,7 +152,11 @@ export default function CartClient() {
                   </button>
                 </div>
 
-                <PriceTag product={item} size="sm" />
+                <PriceTag
+                  product={item}
+                  size="sm"
+                  className="min-w-0 break-words"
+                />
               </div>
             </div>
           </li>

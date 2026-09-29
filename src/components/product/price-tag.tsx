@@ -2,13 +2,16 @@ import { formatPrice, hasNumericPrice, type Priceable } from "@/lib/pricing";
 
 type PriceTagProps = {
   product: Priceable | null | undefined;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "card" | "lg";
   className?: string;
 };
 
 const sizeClasses: Record<NonNullable<PriceTagProps["size"]>, string> = {
   sm: "text-sm",
   md: "text-base",
+  // Product cards: one size smaller on mobile (two-column grid) so the price
+  // fits a half-width column, matching the current desktop size from `sm` up.
+  card: "text-sm sm:text-base",
   lg: "text-2xl md:text-3xl",
 };
 

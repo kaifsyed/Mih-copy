@@ -160,9 +160,9 @@ export default async function Home() {
               <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {featured.map((item, i) => (
-              <ProductCard key={item.id} product={item} priority={i === 0} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+              <ProductCard key={item.id} product={item} priority={i === 0} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw" />
             ))}
           </div>
         </section>

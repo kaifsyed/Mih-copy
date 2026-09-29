@@ -100,19 +100,65 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Main bar */}
-      <div className="container-luxe flex items-center justify-between gap-4 py-4">
-        {/* Left: mobile menu + logo */}
-        <div className="flex items-center gap-2 sm:gap-3">
+      {/* Main bar. `relative` is the positioning context that lets the mobile
+          logo be pinned to the true horizontal centre of the bar below `sm`,
+          independently of how wide the left and right control groups are. */}
+      <div className="container-luxe relative flex items-center justify-between gap-4 py-4">
+        {/* LEFT ZONE: mobile menu + search */}
+        <div className="flex items-center gap-1 min-[360px]:gap-1.5 min-[430px]:gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
-            className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10 lg:hidden"
+            className="inline-flex h-9 w-7 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-8 min-[430px]:w-9 sm:h-10 sm:w-10 lg:hidden"
           >
             <MenuIcon className="h-6 w-6" />
           </button>
-          <Logo priority imgClassName="h-8 w-auto sm:h-12 md:h-16" />
+
+          <button
+            type="button"
+            onClick={() => setSearchOpen((v) => !v)}
+            aria-label="Search"
+            aria-expanded={searchOpen}
+            className="inline-flex h-9 w-7 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-8 min-[430px]:w-9 sm:h-10 sm:w-10 lg:hidden"
+          >
+            <SearchIcon className="h-5 w-5" />
+          </button>
+
+          {/* CENTER ZONE. Below `sm` the logo is taken out of flow and centred
+              on the bar itself, so it sits at the exact horizontal centre of
+              the viewport regardless of how wide the left and right control
+              groups are.
+
+              Collision safety. Because the logo is centred, its HALF-width must
+              never exceed the distance from the centre to the nearest control.
+              Each zone is a fixed width per band, so the logo is capped at
+              `max-width: 100vw - 2 x (20px container inset + widest zone +
+              10px clearance)`, evaluated at the NARROWEST viewport in the band
+              — exactly where that zone's width first applies and a collision
+              would otherwise start. The caps below are the exact zone widths
+              used in this bar:
+
+                LEFT  (menu + search)          RIGHT (wishlist/cart/account)
+                <360    28+4+28  =  60px        3 x 24             =  72px
+                360-429 32+6+32  =  70px        3 x 28 + 2 x 2    =  88px
+                430-639 36+8+36  =  80px        3 x 32 + 2 x 4    = 104px
+
+              `h-auto w-auto` with a paired `max-h` means whichever cap binds
+              first simply scales the mark down proportionally: it is never
+              stretched, cropped or distorted, and it provably cannot reach an
+              icon at any width. Count badges are irrelevant to the constraint
+              because they overhang to the RIGHT of their own icon, away from
+              the logo.
+
+              From `sm` up every constraint is released and the logo returns to
+              the original in-flow, left-aligned position, so tablet and desktop
+              are untouched. */}
+          <Logo
+            priority
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:static sm:translate-x-0 sm:translate-y-0"
+            imgClassName="h-auto max-h-8 max-w-[calc(100vw-13rem)] min-[360px]:max-h-9 min-[360px]:max-w-[calc(100vw-15.25rem)] min-[430px]:max-h-10 min-[430px]:max-w-[calc(100vw-17.5rem)] sm:h-12 sm:max-h-none sm:max-w-none md:h-16"
+          />
         </div>
 
         {/* Center: primary nav */}
@@ -129,14 +175,23 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* Right: actions */}
-        <div className="flex items-center gap-1 sm:gap-2">
+        {/* RIGHT ZONE: wishlist, cart, account. The icon widths and gaps here
+            are the "reserved space" the centred logo's max-width is calculated
+            against (see the comment on the logo above): 3 x 24px below 360px,
+            3 x 28px + 2 x 2px gaps from 360px, and 3 x 32px + 2 x 4px gaps
+            from 430px. Heights stay generous so every control remains easy to
+            tap, and no control is removed at any width. */}
+        <div className="flex items-center gap-0 min-[360px]:gap-0.5 min-[430px]:gap-1 sm:gap-2">
+          {/* Desktop/tablet search. Below `lg` the search control lives in the
+              left zone (see above), so this copy is hidden there to avoid a
+              duplicate. From `lg` up the left-zone copy is hidden instead and
+              the navbar is exactly as it was originally. */}
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
             aria-label="Search"
             aria-expanded={searchOpen}
-            className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
+            className="hidden h-10 w-10 items-center justify-center text-ivory transition-colors hover:text-gold lg:inline-flex"
           >
             <SearchIcon className="h-5 w-5" />
           </button>
@@ -144,7 +199,7 @@ export function SiteHeader() {
           <Link
             href="/wishlist"
             aria-label={`Wishlist${wishlistCount ? ` (${wishlistCount})` : ""}`}
-            className="relative inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
+            className="relative inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
           >
             <HeartIcon className="h-5 w-5" />
             <CountBadge count={wishlistCount} />
@@ -153,7 +208,7 @@ export function SiteHeader() {
           <Link
             href="/cart"
             aria-label={`Enquiry cart${cartBadge ? ` (${cartBadge})` : ""}`}
-            className="relative inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
+            className="relative inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
           >
             <BagIcon className="h-5 w-5" />
             <CountBadge count={cartBadge} />
@@ -163,7 +218,7 @@ export function SiteHeader() {
             <Link
               href="/account"
               aria-label="Account"
-              className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
+              className="inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
             >
               <UserIcon className="h-5 w-5" />
             </Link>
@@ -172,7 +227,7 @@ export function SiteHeader() {
             <Link
               href="/sign-in"
               aria-label="Sign in"
-              className="inline-flex h-10 w-9 items-center justify-center text-ivory transition-colors hover:text-gold sm:w-10"
+              className="inline-flex h-10 w-6 items-center justify-center text-ivory transition-colors hover:text-gold min-[360px]:w-7 min-[430px]:w-8 sm:w-10"
             >
               <UserIcon className="h-5 w-5" />
             </Link>
