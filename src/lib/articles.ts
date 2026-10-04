@@ -9,6 +9,60 @@ export type Article = {
   content: string;
 };
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const MONTHS_LONG = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/**
+ * Formats an article date for display, deterministically.
+ *
+ * `date` is a bare calendar day ("2026-05-20"), not an instant in time. Passing
+ * it to `new Date()` produces UTC midnight, but `toLocaleDateString` without an
+ * explicit `timeZone` formats in the *runtime's* local zone — so the server
+ * (Vercel, UTC) rendered "20 May 2026" while a visitor in any negative-offset
+ * zone (America/Los_Angeles, for example) rendered "19 May 2026". Those two
+ * strings are the server HTML and the first client render, which is exactly the
+ * text hydration mismatch behind "Minified React error #418".
+ *
+ * Formatting straight from the ISO parts avoids constructing a Date at all, so
+ * the result is identical in every timezone and on every runtime regardless of
+ * ICU locale data. The rendered text is unchanged from the intended "en-GB"
+ * style: "20 May 2026" (or "20 May 2026" with `long` for the article page,
+ * which spells the month out: "15 January 2026").
+ */
+export function formatArticleDate(date: string, long = false): string {
+  const [year, month, day] = date.split("-");
+  const monthName = (long ? MONTHS_LONG : MONTHS)[Number(month) - 1];
+  if (!year || !monthName || !day) return date;
+  return `${Number(day)} ${monthName} ${year}`;
+}
+
 const articlesData: Article[] = [
   {
     slug: "how-to-choose-the-right-gemstone-for-you",

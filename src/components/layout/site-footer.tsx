@@ -45,11 +45,25 @@ const FOOTER_NAV = [
   },
 ] as const;
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  /**
+   * Rendered copyright year, resolved on the server by the root layout.
+   *
+   * Passed in rather than read from `new Date()` here because this is a client
+   * component: a local-time year would be computed twice — once on the server
+   * and once during hydration — and would disagree near New Year for any
+   * visitor whose timezone is ahead of or behind the server's.
+   *
+   * Optional so the fallback stays safe for any other caller.
+   */
+  year?: number;
+};
+
+export function SiteFooter({ year }: SiteFooterProps) {
   const pathname = usePathname();
   if (isChromeless(pathname)) return null;
 
-  const year = new Date().getFullYear();
+  const currentYear = year ?? new Date().getUTCFullYear();
 
   return (
     <footer className="mt-auto border-t border-gold/12 bg-noir-deep">
@@ -135,7 +149,7 @@ export function SiteFooter() {
         <div className="container-luxe flex flex-col items-center justify-between gap-3 py-6 text-center sm:flex-row sm:text-left">
           <div className="flex flex-col gap-3">
             <p className="text-xs tracking-wide text-muted">
-              © {year} MIH GEMS. All rights reserved.
+              © {currentYear} MIH GEMS. All rights reserved.
             </p>
             <p className="text-xs tracking-wide text-muted">
               Developed By{" "}

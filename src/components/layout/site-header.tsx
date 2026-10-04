@@ -235,8 +235,24 @@ export function SiteHeader() {
               </Link>
             </Show>
             <Show when="signed-out">
+              {/* `prefetch={false}` stops Next's viewport prefetching from
+                  requesting `/sign-in?_rsc=` on every page load, which is two
+                  speculative round-trips (a small RSC payload plus its
+                  route-prefetch request) that the homepage never uses.
+
+                  Note: this is a small win, not the main lever. Measured
+                  after the change, Clerk's UI bundle (~242 KB: ui-common,
+                  vendors_ui, framework_ui) still loads on the homepage — it is
+                  pulled in by the ClerkProvider in the root layout, not by this
+                  link — so disabling prefetch alone does not remove it.
+
+                  Authentication is untouched: ClerkProvider still initialises
+                  normally, the session is still read, and /sign-in still
+                  renders fully when it is opened. Only the speculative
+                  pre-download is skipped. */}
               <Link
                 href="/sign-in"
+                prefetch={false}
                 aria-label="Sign in"
                 className="inline-flex h-10 w-full items-center justify-center text-ivory transition-colors hover:text-gold"
               >

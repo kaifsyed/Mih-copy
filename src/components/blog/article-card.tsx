@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/lib/articles";
+import { formatArticleDate } from "@/lib/articles";
 import { ArrowRightIcon } from "@/components/ui/icons";
 
 type ArticleCardProps = {
@@ -51,11 +52,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           </p>
           <div className="flex items-center justify-between gap-4 pt-2 border-t border-outline/10">
             <time dateTime={article.date} className="text-[0.68rem] uppercase tracking-[0.14em] text-muted">
-              {new Date(article.date).toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
+              {formatArticleDate(article.date)}
             </time>
             <span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted">
               {article.readingTime}

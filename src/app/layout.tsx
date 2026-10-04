@@ -111,6 +111,15 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // Resolved here, on the server, and handed to the footer as a plain number.
+  // The footer is a client component, so calling `new Date().getFullYear()`
+  // inside it would evaluate once in the server's timezone and again in the
+  // visitor's. Around New Year those two disagree for anyone east or west of
+  // the server, which is a hydration mismatch (React error #418) and a visible
+  // year flip. A prop cannot disagree with itself. UTC is used so the value is
+  // also independent of the server's own locale.
+  const year = new Date().getUTCFullYear();
+
   return (
     <html
       lang="en"
@@ -132,7 +141,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
               {children}
             </div>
-            <SiteFooter />
+            <SiteFooter year={year} />
             <FloatingWhatsapp />
             <OrganizationJsonLd />
             <WebsiteJsonLd />

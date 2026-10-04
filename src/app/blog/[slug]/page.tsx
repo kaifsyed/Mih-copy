@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticleBySlug, getArticles } from "@/lib/articles";
+import { getArticleBySlug, getArticles, formatArticleDate } from "@/lib/articles";
 import { ArticleShareButton } from "@/components/blog/article-share-button";
 import { ArticleCard } from "@/components/blog/article-card";
 import { ArrowRightIcon } from "@/components/ui/icons";
@@ -175,11 +175,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </h1>
         <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted">
           <time dateTime={article.date}>
-            {new Date(article.date).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
+            {formatArticleDate(article.date, true)}
           </time>
           <span aria-hidden="true">·</span>
           <span>{article.readingTime}</span>
