@@ -8,6 +8,7 @@ import {
   ArrowRightIcon,
   InstagramIcon,
   FacebookIcon,
+  MapPinIcon,
 } from "@/components/ui/icons";
 import { whatsappLink } from "@/lib/whatsapp";
 import { SOCIAL_LINKS } from "@/lib/site";
@@ -18,6 +19,8 @@ const SOCIAL_ICONS = {
   instagram: InstagramIcon,
   facebook: FacebookIcon,
 } as const;
+
+const GOOGLE_MAPS_URL = "https://www.google.com/maps?q=13.4871175,77.4582173";
 
 const FOOTER_NAV = [
   {
@@ -67,7 +70,7 @@ export function SiteFooter({ year }: SiteFooterProps) {
 
   return (
     <footer className="mt-auto border-t border-gold/12 bg-noir-deep">
-      <div className="container-luxe grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="container-luxe grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.6fr_0.8fr_0.8fr_0.8fr_0.9fr] xl:grid-cols-[1.8fr_1fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div className="flex flex-col gap-5">
           <Logo href={null} imgClassName="h-12 w-auto" />
@@ -132,9 +135,25 @@ export function SiteFooter({ year }: SiteFooterProps) {
           </nav>
         ))}
 
-        {/* Google Preferred Sources */}
+        {/* Google Preferred Sources / Visit Us */}
         <div className="flex flex-col gap-4">
-          <p className="eyebrow">Prefer MIH GEMS on Google</p>
+          <p className="eyebrow">Visit Us</p>
+          <p className="text-sm leading-relaxed text-muted">
+            Find us on Google Maps.
+          </p>
+          <div className="pt-1">
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost btn-sm self-start"
+            >
+              <MapPinIcon className="h-4 w-4" />
+              Google Maps
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <p className="eyebrow mt-4">Prefer MIH GEMS on Google</p>
           <p className="text-sm leading-relaxed text-muted">
             Add MIH GEMS as a preferred source to make it easier to find our
             latest content in Google.

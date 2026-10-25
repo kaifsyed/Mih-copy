@@ -219,6 +219,25 @@ export function ShieldIcon(p: IconProps) {
   );
 }
 
+export function MapPinIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+export function ExternalLinkIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  );
+}
+
 export function SparkleIcon(p: IconProps) {
   return (
     <svg {...base} {...p}>

@@ -14,6 +14,8 @@ import {
   DiamondIcon,
   InstagramIcon,
   FacebookIcon,
+  MapPinIcon,
+  ExternalLinkIcon,
 } from "@/components/ui/icons";
 import { SOCIAL_LINKS } from "@/lib/site";
 
@@ -27,6 +29,8 @@ export const metadata: Metadata = {
   description:
     "Get in touch with MIH GEMS about gemstones, custom jewellery, appointments or wholesale. Send an enquiry or reach us on WhatsApp.",
 };
+
+const GOOGLE_MAPS_URL = "https://www.google.com/maps?q=13.4871175,77.4582173";
 
 const GENERAL_WHATSAPP =
   "Hi MIH GEMS, I'd like to get in touch about your gemstones and jewellery.";
@@ -164,6 +168,29 @@ export default function ContactPage() {
                   {CONTACT.hours}
                 </p>
               ) : null}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-gold btn-sm"
+                >
+                  <MapPinIcon className="h-4 w-4" />
+                  View on Google Maps
+                  <ExternalLinkIcon className="h-4 w-4" />
+                </a>
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-gold"
+                >
+                  <span className="text-[0.62rem] uppercase tracking-[0.18em]">
+                    Get Directions
+                  </span>
+                  <ArrowRightIcon className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+                </a>
+              </div>
             </div>
           ) : null}
         </aside>
@@ -173,6 +200,33 @@ export default function ContactPage() {
           <EnquiryForm config={CONTACT_FORM} />
         </div>
       </div>
+
+      {/* Our Location */}
+      <section className="mt-20 border-t border-outline/15 pt-16">
+        <div className="mb-10 text-center">
+          <p className="eyebrow">Our Location</p>
+          <h2 className="mt-4 font-serif text-3xl text-ivory sm:text-4xl">
+            Find us
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+            Visit MIH GEMS to explore our curated collection of natural gemstones and fine jewellery.
+          </p>
+        </div>
+        <div className="card-luxe overflow-hidden">
+          <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.788643396277!2d77.4582173!3d13.4871175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb1c5a94aeae7f3%3A0xe802f0e15bbc1752!2sMIH%20GEMS!5e0!3m2!1sen!2sin!4v1792930304963!5m2!1sen!2sin"
+              title="MIH GEMS business location on Google Maps"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full border-0"
+              width="100%"
+              height="100%"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Cross-links */}
       <div className="mt-20 grid grid-cols-1 gap-6 border-t border-outline/15 pt-16 sm:grid-cols-2">
