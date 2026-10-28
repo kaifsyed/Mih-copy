@@ -57,14 +57,28 @@ export function ProductJsonLd({ product }: { product: Product }) {
 
   // Carat / size — a real measurement when the row carries one. Gemstones may
   // store a carat; jewellery never does (the data model forces null), so this
-  // is safe to emit conditionally.
+  // is safe to emit conditionally. Only emit a numeric weight when there is a
+  // single, unambiguous carat value (no ranges). Strip unit suffixes like
+  // "ct" to ensure the schema value is numeric as required by Google.
   if (product.carat) {
-    data.weight = {
-      "@type": "QuantitativeValue",
-      value: product.carat,
-      unitCode: "CT",
-      unitText: "carat",
-    };
+    const caratStr = String(product.carat).trim();
+    // Skip ranges (e.g. "2-10ct") - do not guess a single value
+    if (!/-/.test(caratStr) && !/to/i.test(caratStr)) {
+      // Extract the first numeric token (int or float)
+      const match = caratStr.match(/([0-9]+(?:\.[0-9]+)?)/);
+      if (match) {
+        const num = parseFloat(match[1]);
+        if (!Number.isNaN(num) && Number.isFinite(num)) {
+          data.weight = {
+            "@type": "QuantitativeValue",
+            value: num,
+            unitCode: "CT",
+            unitText: "carat",
+          };
+        }
+      }
+    }
+    // If range/ambiguous/malformed, omit weight entirely
   }
 
   if (hasNumericPrice(product)) {
