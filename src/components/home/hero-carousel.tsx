@@ -277,10 +277,17 @@ export function HeroCarousel() {
                   className={`max-w-xl transition-all duration-700 motion-reduce:transition-none ${active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
                 >
                   <p className="eyebrow">{slide.eyebrow}</p>
-                  <h1 className="mt-5 font-serif text-4xl leading-[1.08] text-ivory sm:text-5xl lg:text-6xl">
-                    {slide.title}
-                    <span className="block text-gold">{slide.accent}</span>
-                  </h1>
+                  {active ? (
+                    <h1 className="mt-5 font-serif text-4xl leading-[1.08] text-ivory sm:text-5xl lg:text-6xl">
+                      {slide.title}
+                      <span className="block text-gold">{slide.accent}</span>
+                    </h1>
+                  ) : (
+                    <h2 className="mt-5 font-serif text-4xl leading-[1.08] text-ivory sm:text-5xl lg:text-6xl">
+                      {slide.title}
+                      <span className="block text-gold">{slide.accent}</span>
+                    </h2>
+                  )}
                   <p className="mt-6 max-w-lg text-sm leading-relaxed text-ivory/80 sm:text-base">
                     {slide.copy}
                   </p>

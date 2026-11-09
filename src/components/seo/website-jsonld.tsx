@@ -20,7 +20,7 @@ export function WebsiteJsonLd() {
     "@type": "WebSite",
     name: "MIH GEMS",
     url: SITE_URL,
-    alternateName: "MIH Gems",
+    alternateName: "MIHGEMS",
     description:
       "MIH GEMS is a private atelier for natural, hand-selected coloured gemstones and bespoke sterling silver jewellery — certified on request and offered by personal WhatsApp enquiry.",
     inLanguage: "en-IN",

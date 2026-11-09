@@ -88,6 +88,29 @@ const TRUST_PILLARS = [
 
 const FEATURED_LIMIT = 4;
 
+const FAQ_ITEMS = [
+  {
+    q: "Are your gemstones natural?",
+    a: "Yes. Every stone we offer is natural and hand-selected. We never deal in synthetic or imitation gemstones, and certification is available on request.",
+  },
+  {
+    q: "Do you offer custom or bespoke jewellery?",
+    a: "Absolutely. Start with a stone you already own or a design you have in mind — we will guide you from first sketch to finished piece.",
+  },
+  {
+    q: "How do I buy a piece?",
+    a: "Send an enquiry on the piece you are interested in, by form or WhatsApp. We confirm availability, certification and pricing with you personally before anything is arranged.",
+  },
+  {
+    q: "Do you offer wholesale?",
+    a: "Yes. We supply natural gemstones and sterling silver jewellery to jewellers, designers and retailers. Tell us about your business and we will be in touch.",
+  },
+  {
+    q: "Do you ship internationally?",
+    a: "We ship worldwide using insured, trackable couriers. Delivery method, timeline and any charges are confirmed with you at the time of purchase.",
+  },
+];
+
 /**
  * A curated, mixed featured selection: interleave Gemstones and Jewellery so
  * both categories surface when both exist, then top up with anything remaining
@@ -277,6 +300,46 @@ export default async function Home() {
               className="object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      {/* FAQ — quick answers to the questions visitors ask most */}
+      <section className="container-luxe section-gap border-t border-outline/12">
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
+            <p className="eyebrow">Quick answers</p>
+            <h2 className="mt-3 font-serif text-4xl text-ivory lg:text-5xl">
+              Common questions
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
+              Straight answers to the questions we hear most often. If yours
+              is not here, we are happy to help directly.
+            </p>
+          </div>
+          <div className="mt-12 flex flex-col divide-y divide-outline/15">
+            {FAQ_ITEMS.map((faq) => (
+              <details key={faq.q} className="group py-6 first:pt-0 last:pb-0">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-ivory">
+                  <span className="font-serif text-lg leading-snug group-hover:text-gold">
+                    {faq.q}
+                  </span>
+                  <span className="shrink-0 text-gold transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+          <p className="mt-10 text-center text-sm text-muted">
+            More detailed answers live on our{" "}
+            <Link href="/policies#faq" className="text-gold hover:underline">
+              Policies & FAQ
+            </Link>{" "}
+            page.
+          </p>
         </div>
       </section>
 

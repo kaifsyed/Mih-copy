@@ -1,0 +1,91 @@
+# llms.txt — MIH GEMS
+# Generated: 2026-11-09
+# Purpose: A structured, human-readable index of the MIH GEMS website for AI
+# assistants and language models. This file supplements (never replaces) the
+# HTML content it points to. All URLs are canonical: https://mihgems.in
+
+> MIH GEMS is a private atelier for natural, hand-selected coloured gemstones
+> and bespoke sterling silver jewellery. Established 1998, part of the MIH
+> GROUP, third-generation family business. Natural gemstones, birthstones,
+> precious and semi-precious stones, moissanite jewellery, silver rings,
+> customised jewellery. Wholesale and retail. Worldwide shipping.
+> enquiry-based sales — no online checkout. Contact: mihgems@gmail.com
+> Instagram: @mih_gems_
+
+## Homepage
+
+- https://mihgems.in/ — MIH GEMS homepage: natural coloured gemstones, fine
+  jewellery, custom commissions, wholesale, and the MIH GEMS Journal.
+
+## Shop
+
+- https://mihgems.in/shop — Browse the full catalogue of natural gemstones and
+  fine jewellery. Filter by category, availability and price. Enquiry-based.
+
+## Product Categories
+
+- https://mihgems.in/shop — Gemstones (blue sapphire, ruby, emerald, and more)
+- https://mihgems.in/shop — Jewellery (rings, bracelets, necklaces, earrings)
+  in sterling silver and fine metals
+
+## Custom Jewellery
+
+- https://mihgems.in/custom-jewellery — Commission a bespoke piece. Consultation,
+  design and approval, then handcrafted creation.
+
+## Wholesale
+
+- https://mihgems.in/wholesale — Wholesale gemstone sourcing for jewellers,
+  designers and retailers.
+
+## About
+
+- https://mihgems.in/about — MIH GEMS story: established 1998, third-generation
+  family business, part of the MIH GROUP.
+
+## Contact
+
+- https://mihgems.in/contact — Enquiry form, WhatsApp, email
+  (mihgems@gmail.com), and business location.
+
+## Policies
+
+- https://mihgems.in/policies — Enquiries & ordering, shipping & delivery,
+  returns & care, authenticity & certification, privacy, and FAQs.
+
+## Blog (The MIH GEMS Journal)
+
+- https://mihgems.in/blog — Gemstone buying guides, care tips, styling
+  inspiration, and educational articles.
+
+### Key Articles
+
+- https://mihgems.in/blog/how-to-choose-the-right-gemstone-for-you — How to
+  choose the right gemstone for you: colour, clarity, origin and meaning.
+- https://mihgems.in/blog/natural-vs-lab-grown-gemstones-what-you-should-know —
+  Natural vs lab-grown gemstones: origin, value, disclosure and durability.
+- https://mihgems.in/blog/how-to-care-for-your-gemstone-jewellery — How to care
+  for your gemstone jewellery: cleaning, storage and daily wear.
+- https://mihgems.in/blog/beginners-guide-to-understanding-gemstone-cuts — A
+  beginner's guide to understanding gemstone cuts: faceted, cabochon, mixed.
+- https://mihgems.in/blog/how-to-choose-jewellery-for-a-meaningful-gift — How to
+  choose jewellery for a meaningful gift.
+- https://mihgems.in/blog/gemstone-buying-guide-what-to-look-for-before-you-buy
+  — Gemstone buying guide: the four Cs, treatments, certification and seller
+  transparency.
+
+## Business Facts
+
+- Business name: MIH GEMS – GEMS & JEWELLERY
+- Domain: https://mihgems.in
+- Email: mihgems@gmail.com
+- Instagram: @mih_gems_ (https://www.instagram.com/mih_gems_/)
+- Established: 1998
+- Part of: MIH GROUP
+- Product focus: Natural coloured gemstones, precious and semi-precious
+  gemstones, birthstone gemstones, moissanite jewellery, silver rings,
+  customised jewellery
+- Sales model: Enquiry-based (personal consultation, no online checkout)
+- Shipping: Worldwide
+- Certification: Independent laboratory certification available on request
+- Wholesale: Available for jewellers, designers and retailers

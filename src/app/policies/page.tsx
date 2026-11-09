@@ -3,7 +3,9 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import PoliciesTabs, {
   type PolicySection,
+  type PolicyFaq,
 } from "@/components/policies/policies-tabs";
+import { FaqJsonLd } from "@/components/seo/faq-jsonld";
 
 export const metadata: Metadata = {
   title: "Policies & FAQ",
@@ -134,6 +136,8 @@ const SECTIONS: PolicySection[] = [
 ];
 
 export default function PoliciesPage() {
+  const faqs = SECTIONS.find((s) => s.id === "faq")?.faqs ?? [];
+
   return (
     <div className="container-luxe section-gap">
       <SectionHeading
@@ -143,6 +147,7 @@ export default function PoliciesPage() {
         description="Everything you need to know about enquiring, ordering, delivery, authenticity and privacy at MIH GEMS."
       />
       <PoliciesTabs sections={SECTIONS} />
+      <FaqJsonLd questions={faqs} />
 
       <p className="mt-12 text-center text-sm text-muted">
         Still have a question?{" "}

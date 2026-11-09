@@ -40,6 +40,14 @@ const FOOTER_NAV = [
     ],
   },
   {
+    title: "Legal",
+    links: [
+      { href: "/policies#privacy", label: "Privacy" },
+      { href: "/policies#authenticity", label: "Authenticity" },
+      { href: "/policies#returns", label: "Returns & Care" },
+    ],
+  },
+  {
     title: "My Account",
     links: [
       { href: "/account", label: "My Account" },
